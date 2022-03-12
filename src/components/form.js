@@ -10,16 +10,14 @@ import {
   transliterateLatinToCyril,
 } from "../transliterate";
 
-const Grid = styled.div`
-  display: grid;
-  grid-gap: 4px;
+const Flex = styled.div`
+  display: flex;
+  flex-direction: row;
   @media (min-width: 768px) {
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 40px 1fr;
     margin: 12px;
   }
   @media (max-width: 768px) {
-    grid-template-rows: 1fr 40px 1fr;
+    flex-direction: column;
   }
 `;
 
@@ -35,6 +33,8 @@ const SwitchButtonWrapper = styled.div`
 
 const Transliteration = styled.span`
   color: grey;
+  max-width: 100%;
+  word-break: break-all;
   @media (min-width: 768px) {
     padding: 8px;
   }
@@ -50,6 +50,12 @@ const Label = styled.label`
 const TranslationFieldContainer = styled.div`
   display: flex;
   flex-direction: column;
+  @media (min-width: 768px) {
+    width: calc(50% - 20px);
+  }
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
 
 const debouncedTranslate = debounce(translate, 500);
@@ -93,7 +99,7 @@ const Form = () => {
   }, [source, languages]);
 
   return (
-    <Grid>
+    <Flex>
       <TranslationFieldContainer>
         <Label htmlFor="destination">{languages.source.name}</Label>
         <TextField
@@ -130,7 +136,7 @@ const Form = () => {
           {languages.target.transliterate(translation)}
         </Transliteration>
       </TranslationFieldContainer>
-    </Grid>
+    </Flex>
   );
 };
 
