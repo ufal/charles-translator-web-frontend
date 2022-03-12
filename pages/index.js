@@ -1,8 +1,8 @@
 import { TextField, IconButton } from "@mui/material";
 import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
-import { useEffect } from 'react';
-import {translate} from "../api"
+import { useEffect } from "react";
+import { translate } from "../api";
 import { SwapVert } from "@mui/icons-material";
 
 const Container = styled.div`
@@ -52,41 +52,41 @@ const fieldStyleOverride = {
 };
 
 const Index = () => {
-    useEffect(() => {
-        translate({
-            text: "Як тут працює громадський транспорт?",
-            fromLanguage: 'uk',
-            toLanguage: 'cs'
-        }).then(response => console.log(response.data))
-    })
-    return
-    (<Container>
-            <CssBaseline/>
-            <Header/>
-            <Grid>
-                <TextField
-                    id="source"
-                    label="Outlined"
-                    variant="outlined"
-                    multiline
-                    sx={fieldStyleOverride}
-                />
-                <SwitchButtonWrapper>
-                    <IconButton aria-label="switch languages">
-                        <SwapVert/>
-                    </IconButton>
-                </SwitchButtonWrapper>
+  useEffect(() => {
+    translate({
+      text: "Як тут працює громадський транспорт?",
+      fromLanguage: "uk",
+      toLanguage: "cs",
+    }).then((response) => console.log(response.data));
+  });
 
-                <TextField
-                    id="destination"
-                    label="Outlined"
-                    variant="outlined"
-                    multiline
-                    sx={fieldStyleOverride}
-                />
-            </Grid>
-        </Container>
-    );
+  return (
+    <Container>
+      <CssBaseline />
+      <Header />
+      <Grid>
+        <TextField
+          id="source"
+          label="Outlined"
+          variant="outlined"
+          multiline
+          sx={fieldStyleOverride}
+        />
 
-}
+        <SwitchButtonWrapper>
+          <IconButton aria-label="switch languages">
+            <SwapVert />
+          </IconButton>
+        </SwitchButtonWrapper>
+        <TextField
+          id="destination"
+          label="Outlined"
+          variant="outlined"
+          multiline
+          sx={fieldStyleOverride}
+        />
+      </Grid>
+    </Container>
+  );
+};
 export default Index;
