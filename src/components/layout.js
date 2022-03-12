@@ -37,7 +37,14 @@ function Layout({ children }) {
     <>
       <CssBaseline />
       <Container>
-        <AppBar position="static" sx={{ bgcolor: "#0057b7" }} elevation={0}>
+        <AppBar
+          position="static"
+          sx={{
+            bgcolor: "#0057b7",
+            "& .MuiToolbar-root": { padding: "4px 12px" },
+          }}
+          elevation={0}
+        >
           <Toolbar sx={{ padding: 2 }}>
             <Link href="/">
               <a>
