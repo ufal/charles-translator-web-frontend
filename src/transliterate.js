@@ -99,7 +99,15 @@ export function transliterateCyrilToLatin(text) {
   const output = [];
   for (var i = 0; i < text.length; i++) {
     if (text.charAt(i) in cyrilToLatinTable) {
-      output.push(cyrilToLatinTable[text.charAt(i)]);
+      var candidate = cyrilToLatinTable[text.charAt(i)];
+      if (
+        candidate.length > 1 &&
+        i < text.length - 1 &&
+        text.charAt(i + 1) == text.charAt(i + 1).toLowerCase()
+      ) {
+        candidate = candidate.charAt(0) + candidate.substring(1).toLowerCase();
+      }
+      output.push(candidate);
     } else {
       output.push(text.charAt(i));
     }
@@ -215,8 +223,13 @@ const latinToCyrilSingleTable = {
 export function transliterateLatinToCyril(text) {
   const output = [];
   for (var i = 0; i < text.length; i++) {
-    if (text.substring(i, i + 2) in latinToCyrilDoubleTable) {
-      output.push(latinToCyrilDoubleTable[text.substring(i, i + 2)]);
+    var bigram = text.substring(i, i + 2);
+    if (bigram.charAt(0) == bigram.charAt(0).toUpperCase()) {
+      bigram = bigram.toUpperCase();
+    }
+
+    if (bigram in latinToCyrilDoubleTable) {
+      output.push(latinToCyrilDoubleTable[bigram]);
       i++;
     } else if (text.charAt(i) in latinToCyrilSingleTable) {
       output.push(latinToCyrilSingleTable[text.charAt(i)]);
