@@ -5,10 +5,11 @@ import { useEffect } from "react";
 import { translate } from "../api";
 import { SwapVert } from "@mui/icons-material";
 
+const headerHeight = "40px";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -16,10 +17,12 @@ const Container = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  height: calc(100% - 52px);
+  height: calc(100% - ${headerHeight});
+  grid-gap: 4px;
   @media (min-width: 1200px) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 40px 1fr;
+    margin: 12px;
   }
   @media (max-width: 1200px) {
     grid-template-rows: 1fr 40px 1fr;
@@ -28,7 +31,7 @@ const Grid = styled.div`
 
 const Header = styled.div`
   width: 100%;
-  height: 40px;
+  height: ${headerHeight};
   background: cornflowerblue;
   @media (min-width: 1200px) {
     grid-column: span 3;
@@ -46,7 +49,7 @@ const SwitchButtonWrapper = styled.div`
 `;
 
 const fieldStyleOverride = {
-  "& .MuiOutlinedInput-root": {
+  "& .MuiInputBase-root": {
     height: "100%",
   },
 };
@@ -68,7 +71,7 @@ const Index = () => {
         <TextField
           id="source"
           label="Outlined"
-          variant="outlined"
+          variant="filled"
           multiline
           sx={fieldStyleOverride}
         />
@@ -78,10 +81,11 @@ const Index = () => {
             <SwapVert />
           </IconButton>
         </SwitchButtonWrapper>
+
         <TextField
           id="destination"
           label="Outlined"
-          variant="outlined"
+          variant="filled"
           multiline
           sx={fieldStyleOverride}
         />
