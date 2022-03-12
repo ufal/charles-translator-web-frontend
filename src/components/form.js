@@ -11,6 +11,7 @@ import {
 } from "../transliterate";
 import { TranslationHistory } from "./TranslationHistory";
 import { blue } from "@mui/material/colors";
+import { useRouter } from "next/router";
 
 const Flex = styled.div`
   display: flex;
