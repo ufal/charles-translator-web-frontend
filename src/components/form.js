@@ -88,9 +88,7 @@ const Form = () => {
 
   function handleChangeSource(text) {
     setSource(text);
-    debouncedSave(languages.source, text).then(() =>
-      console.log(getHistory(languages.source))
-    );
+    debouncedSave(languages.source, text);
     debouncedTranslate({
       text,
       fromLanguage: languages.source.id,
@@ -144,11 +142,7 @@ const Form = () => {
         </TranslationFieldContainer>
       </Flex>
       <TranslationHistory
-        history={[
-          "fdsfds j sdkfhj dskjf dks fdskjh fkhjsd dgkdsjhf kjshfk sdghj  xckjvxc kvb xcjkbv hxcb",
-          " fgfdsgfg",
-          "fsdgfd",
-        ]}
+        getHistory={() => getHistory(languages.source)}
         onSelect={setSource}
       />
     </>
