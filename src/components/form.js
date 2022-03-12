@@ -155,7 +155,7 @@ const Form = () => {
               backgroundColor: blue[50],
               borderRadius: 1,
               height: "100%",
-              minHeight: "150px",
+              minHeight: "157px",
               marginBottom: "20px",
             }}
           >
