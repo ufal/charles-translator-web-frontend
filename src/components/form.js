@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
 import React, { useCallback, useState } from "react";
 import debounce from "debounce-promise";
-import { getHistory, saveHistory } from "../../history";
+import { getHistory, saveHistory } from "../history";
 import { translate } from "../api";
 import {
   transliterateCyrilToLatin,
@@ -113,7 +113,7 @@ const Form = () => {
       <Flex>
         <TranslationFieldContainer>
           <LabelContainer>
-            <Label htmlFor="destination">{languages.source.name}</Label>
+            <Label for="destination">{languages.source.name}</Label>
             <TranslationHistory
               getHistory={() => getHistory(languages.source)}
               onSelect={setSource}

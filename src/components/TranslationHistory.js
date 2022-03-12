@@ -13,7 +13,6 @@ import styled from "styled-components";
 const Container = styled.div`
   margin-left: auto;
 `;
-import { getHistory } from "../history";
 
 export function TranslationHistory({ getHistory, onSelect }) {
   const [history, setHistory] = useState(getHistory());
