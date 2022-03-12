@@ -40,7 +40,7 @@ function Layout({ children }) {
         <AppBar
           position="static"
           sx={{
-            bgcolor: "#0057b7",
+            bgcolor: blue,
             "& .MuiToolbar-root": { padding: "4px 12px" },
           }}
           elevation={0}

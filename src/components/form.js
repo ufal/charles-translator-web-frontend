@@ -10,6 +10,7 @@ import {
   transliterateLatinToCyril,
 } from "../transliterate";
 import { TranslationHistory } from "./TranslationHistory";
+import { blue } from "@mui/material/colors";
 
 const Flex = styled.div`
   display: flex;
@@ -149,7 +150,14 @@ const Form = () => {
             variant="filled"
             multiline
             minRows={6}
-            sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
+            sx={{
+              "& .MuiInputBase-root": {
+                paddingTop: "8px",
+                "@media (max-width: 768px)": {
+                  bgcolor: blue[50],
+                },
+              },
+            }}
           />
           <Transliteration>
             {languages.target.transliterate(translation)}
