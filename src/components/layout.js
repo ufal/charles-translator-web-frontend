@@ -1,7 +1,7 @@
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
-import React, { Fragment } from "react";
-import { Typography, AppBar, Toolbar, IconButton, Box } from "@mui/material";
+import { Typography, AppBar, Toolbar, IconButton, Drawer } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Container = styled.div`
@@ -13,6 +13,12 @@ const Container = styled.div`
 `;
 
 function Layout({ children }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <Fragment>
       <CssBaseline />
@@ -33,11 +39,19 @@ function Layout({ children }) {
               edge="start"
               aria-label="menu"
               sx={{ mr: 1, color: "white" }}
+              onClick={() => toggleMenu()}
             >
               <MenuIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
+        <Drawer
+          open={menuOpen}
+          anchor="right"
+          onClose={() => setMenuOpen(false)}
+        >
+          banlfbfdalsf
+        </Drawer>
         {children}
         <footer>
           <Typography
