@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
 import React, { useCallback, useState } from "react";
 import debounce from "debounce-promise";
+import { setAuthor, translate } from "../api";
 import { getHistory, saveHistory } from "../history";
 import { translate } from "../api";
 import {
@@ -10,6 +11,7 @@ import {
   transliterateLatinToCyril,
 } from "../transliterate";
 import { TranslationHistory } from "./TranslationHistory";
+import { useRouter } from "next/router";
 
 const Flex = styled.div`
   display: flex;
@@ -108,6 +110,12 @@ const Form = () => {
     handleChangeSource(translation);
   }, [source, languages]);
 
+  const { query } = useRouter();
+
+  if (query.author != null) {
+    setAuthor(query.author);
+  }
+
   return (
     <>
       <Flex>
@@ -128,9 +136,6 @@ const Form = () => {
             minRows={6}
             sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
           />
-          <Transliteration>
-            {languages.source.transliterate(source)}
-          </Transliteration>
         </TranslationFieldContainer>
 
         <SwitchButtonWrapper>
