@@ -8,6 +8,10 @@ const headers = {
 };
 
 export function translate({ text, fromLanguage, toLanguage }) {
+  if (text === "") {
+    return Promise.resolve("");
+  }
+
   const data = new FormData();
   data.append("input_text", text);
 
