@@ -1,4 +1,4 @@
-import { TextField, IconButton } from "@mui/material";
+import { TextField, IconButton, Box } from "@mui/material";
 import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
 import React, { useCallback, useState } from "react";
@@ -12,6 +12,7 @@ import {
 import { TranslationHistory } from "./TranslationHistory";
 import { blue } from "@mui/material/colors";
 import { useRouter } from "next/router";
+import { grey } from "@mui/material/colors";
 
 const Flex = styled.div`
   display: flex;
@@ -35,16 +36,10 @@ const SwitchButtonWrapper = styled.div`
   }
 `;
 
-const Transliteration = styled.span`
+const Transliteration = styled.p`
   color: grey;
-  max-width: 100%;
   word-break: break-all;
-  @media (min-width: 769px) {
-    padding: 8px 0;
-  }
-  @media (max-width: 768px) {
-    padding: 0 8px;
-  }
+  margin-bottom: 0;
 `;
 
 const LabelContainer = styled.div`
@@ -143,11 +138,11 @@ const Form = () => {
             <SwapVert />
           </IconButton>
         </SwitchButtonWrapper>
-
         <TranslationFieldContainer>
           <LabelContainer>
             <Label for="destination">{languages.target.name}</Label>
           </LabelContainer>
+<<<<<<< HEAD
           <TextField
             value={translation}
             id="destination"
@@ -166,6 +161,14 @@ const Form = () => {
           <Transliteration>
             {languages.target.transliterate(translation)}
           </Transliteration>
+=======
+          <Box padding={2} sx={{ backgroundColor: grey[200], borderRadius: 1 }}>
+            <Box>{translation}</Box>
+            <Transliteration>
+              {languages.target.transliterate(translation)}
+            </Transliteration>
+          </Box>
+>>>>>>> 8ac36b0 (translation style)
         </TranslationFieldContainer>
       </Flex>
     </>
