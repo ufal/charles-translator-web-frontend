@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
-import Form from "../components/form";
-import { headerHeight } from "../variables";
-import React from "react";
+import React, { Fragment } from "react";
+import { Typography, AppBar, Toolbar, IconButton, Box } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Container = styled.div`
   display: flex;
@@ -12,24 +12,48 @@ const Container = styled.div`
   position: absolute;
 `;
 
-const Header = styled.div`
-  width: 100%;
-  height: ${headerHeight};
-  background: cornflowerblue;
-  @media (min-width: 1200px) {
-    grid-column: span 3;
-  }
-`;
-
 function Layout({ children }) {
   return (
-    <>
+    <Fragment>
       <CssBaseline />
       <Container>
-        <Header />
+        <AppBar position="static" sx={{ bgcolor: "#0057b7" }} elevation={0}>
+          <Toolbar sx={{ padding: 1 }}>
+            <img src="/static/img/lepsi-logo.svg" style={{ width: "88px" }} />
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, ml: 1 }}
+              color="white"
+            >
+              🇺🇦🇨🇿 translator
+            </Typography>
+            <IconButton
+              size="small"
+              edge="start"
+              aria-label="menu"
+              sx={{ mr: 1, color: "white" }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
         {children}
+        <footer>
+          <Typography
+            variant="body2"
+            gutterBottom
+            color="gray"
+            sx={{ margin: 2 }}
+          >
+            THE LINDAT/CLARIAH-CZ PROJECT (LM2018101; formerly LM2010013,
+            LM2015071) IS FULLY SUPPORTED BY THE MINISTRY OF EDUCATION, SPORTS
+            AND YOUTH OF THE CZECH REPUBLIC UNDER THE PROGRAMME LM OF "LARGE
+            INFRASTRUCTURES
+          </Typography>
+        </footer>
       </Container>
-    </>
+    </Fragment>
   );
 }
 
