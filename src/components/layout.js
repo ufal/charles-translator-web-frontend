@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
-import React, { Fragment } from "react";
 import { Typography, AppBar, Toolbar, IconButton, Drawer } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { blue } from "@mui/material/colors";

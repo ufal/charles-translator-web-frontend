@@ -1,8 +1,7 @@
 import { TextField, IconButton } from "@mui/material";
 import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
-import React, { useCallback } from "react";
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import debounce from "debounce-promise";
 import { translate } from "../../api";
 import { getHistory, saveHistory } from "../../history";
@@ -11,7 +10,6 @@ import {
   transliterateLatinToCyril,
 } from "../transliterate";
 
-co
 const Grid = styled.div`
   display: grid;
   grid-gap: 4px;
@@ -116,7 +114,9 @@ const Form = () => {
           minRows={6}
           sx={{ "& MuiInputBase-root": { paddingTop: "8px" } }}
         />
-        <Transliteration>{languages.source.transliterate(source)}</Transliteration>
+        <Transliteration>
+          {languages.source.transliterate(source)}
+        </Transliteration>
       </TranslationFieldContainer>
 
       <SwitchButtonWrapper>
@@ -130,7 +130,6 @@ const Form = () => {
         <TextField
           value={translation}
           id="destination"
-          // label="Outlined"
           variant="filled"
           multiline
           minRows={6}
