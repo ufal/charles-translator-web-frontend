@@ -26,8 +26,6 @@ const Flex = styled.div`
 `;
 
 const SwitchButtonWrapper = styled.div`
-  width: 40px;
-  height: 40px;
   align-self: center;
   justify-self: center;
   @media (min-width: 769px) {
@@ -136,8 +134,12 @@ const Form = () => {
 
         <SwitchButtonWrapper>
           <Tooltip title="Swap languages">
-            <IconButton aria-label="switch languages" onClick={flipLanguages}>
-              <SwapVert />
+            <IconButton
+              aria-label="switch languages"
+              onClick={flipLanguages}
+              size="large"
+            >
+              <SwapVert fontSize="large" color="primary" />
             </IconButton>
           </Tooltip>
         </SwitchButtonWrapper>
