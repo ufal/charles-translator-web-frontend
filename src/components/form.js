@@ -1,4 +1,4 @@
-import { TextField, IconButton } from "@mui/material";
+import { TextField, IconButton, Tooltip } from "@mui/material";
 import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
 import React, { useCallback, useState } from "react";
@@ -33,6 +33,7 @@ const SwitchButtonWrapper = styled.div`
   @media (min-width: 769px) {
     transform: rotate(90deg);
   }
+  margin: 4px;
 `;
 
 const Transliteration = styled.span`
@@ -139,9 +140,11 @@ const Form = () => {
         </TranslationFieldContainer>
 
         <SwitchButtonWrapper>
-          <IconButton aria-label="switch languages" onClick={flipLanguages}>
-            <SwapVert />
-          </IconButton>
+          <Tooltip title="Swap languages">
+            <IconButton aria-label="switch languages" onClick={flipLanguages}>
+              <SwapVert />
+            </IconButton>
+          </Tooltip>
         </SwitchButtonWrapper>
 
         <TranslationFieldContainer>

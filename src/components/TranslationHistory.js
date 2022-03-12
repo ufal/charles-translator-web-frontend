@@ -5,6 +5,7 @@ import {
   ListSubheader,
   ListItemButton,
   ListItemText,
+  Tooltip,
 } from "@mui/material";
 import React, { useState } from "react";
 import { History as HistoryIcon } from "@mui/icons-material";
@@ -35,14 +36,16 @@ export function TranslationHistory({ getHistory, onSelect }) {
   return (
     <>
       <Container>
-        <IconButton
-          aria-label="history"
-          size="large"
-          onClick={open}
-          sx={{ padding: 0 }}
-        >
-          <HistoryIcon fontSize="inherit" />
-        </IconButton>
+        <Tooltip title="History">
+          <IconButton
+            aria-label="history"
+            size="large"
+            onClick={open}
+            sx={{ padding: 0 }}
+          >
+            <HistoryIcon fontSize="inherit" />
+          </IconButton>
+        </Tooltip>
       </Container>
       <Drawer
         open={historyOpen}

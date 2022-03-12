@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Typography, AppBar, Toolbar, IconButton } from "@mui/material";
+import {
+  Typography,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import { Info as InfoIcon } from "@mui/icons-material";
 import { blue } from "@mui/material/colors";
 import Link from "next/link";
@@ -71,15 +77,17 @@ function Layout({ children }) {
               </HomeLink>
             </Link>
             <Link href="/settings">
-              <IconButton
-                size="small"
-                edge="start"
-                aria-label="menu"
-                sx={{ mr: 1, color: "white" }}
-                onClick={() => toggleMenu()}
-              >
-                <InfoIcon />
-              </IconButton>
+              <Tooltip title="About us">
+                <IconButton
+                  size="small"
+                  edge="start"
+                  aria-label="menu"
+                  sx={{ mr: 1, color: "white" }}
+                  onClick={() => toggleMenu()}
+                >
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
             </Link>
           </Toolbar>
         </AppBar>
