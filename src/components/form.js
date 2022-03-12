@@ -136,7 +136,11 @@ const Form = () => {
 
         <SwitchButtonWrapper>
           <Tooltip title="Swap languages">
-            <IconButton aria-label="switch languages" onClick={flipLanguages}>
+            <IconButton
+              aria-label="switch languages"
+              onClick={flipLanguages}
+              sx={{ padding: 0.5 }}
+            >
               <SwapVert />
             </IconButton>
           </Tooltip>
@@ -147,7 +151,13 @@ const Form = () => {
           </LabelContainer>
           <Box
             padding={2}
-            sx={{ backgroundColor: blue[50], borderRadius: 1, height: "100%" }}
+            sx={{
+              backgroundColor: blue[50],
+              borderRadius: 1,
+              height: "100%",
+              minHeight: "150px",
+              marginBottom: "20px",
+            }}
           >
             <Box>
               <strong>{translation}</strong>
