@@ -9,6 +9,7 @@ import {
   transliterateCyrilToLatin,
   transliterateLatinToCyril,
 } from "../transliterate";
+import { TranslationHistory } from "./TranslationHistory";
 
 const Flex = styled.div`
   display: flex;
@@ -103,44 +104,54 @@ const Form = () => {
   }, [source, languages]);
 
   return (
-    <Flex>
-      <TranslationFieldContainer>
-        <Label htmlFor="destination">{languages.source.name}</Label>
-        <TextField
-          value={source}
-          onChange={(e) => handleChangeSource(e.target.value)}
-          id="source"
-          variant="filled"
-          multiline
-          minRows={6}
-          sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
-        />
-        <Transliteration>
-          {languages.source.transliterate(source)}
-        </Transliteration>
-      </TranslationFieldContainer>
+    <>
+      <Flex>
+        <TranslationFieldContainer>
+          <Label htmlFor="destination">{languages.source.name}</Label>
+          <TextField
+            value={source}
+            onChange={(e) => handleChangeSource(e.target.value)}
+            id="source"
+            variant="filled"
+            multiline
+            minRows={6}
+            sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
+          />
+          <Transliteration>
+            {languages.source.transliterate(source)}
+          </Transliteration>
+        </TranslationFieldContainer>
 
-      <SwitchButtonWrapper>
-        <IconButton aria-label="switch languages" onClick={flipLanguages}>
-          <SwapVert />
-        </IconButton>
-      </SwitchButtonWrapper>
+        <SwitchButtonWrapper>
+          <IconButton aria-label="switch languages" onClick={flipLanguages}>
+            <SwapVert />
+          </IconButton>
+        </SwitchButtonWrapper>
 
-      <TranslationFieldContainer>
-        <Label for="destination">{languages.target.name}</Label>
-        <TextField
-          value={translation}
-          id="destination"
-          variant="filled"
-          multiline
-          minRows={6}
-          sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
-        />
-        <Transliteration>
-          {languages.target.transliterate(translation)}
-        </Transliteration>
-      </TranslationFieldContainer>
-    </Flex>
+        <TranslationFieldContainer>
+          <Label for="destination">{languages.target.name}</Label>
+          <TextField
+            value={translation}
+            id="destination"
+            variant="filled"
+            multiline
+            minRows={6}
+            sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
+          />
+          <Transliteration>
+            {languages.target.transliterate(translation)}
+          </Transliteration>
+        </TranslationFieldContainer>
+      </Flex>
+      <TranslationHistory
+        history={[
+          "fdsfds j sdkfhj dskjf dks fdskjh fkhjsd dgkdsjhf kjshfk sdghj  xckjvxc kvb xcjkbv hxcb",
+          " fgfdsgfg",
+          "fsdgfd",
+        ]}
+        onSelect={setSource}
+      />
+    </>
   );
 };
 

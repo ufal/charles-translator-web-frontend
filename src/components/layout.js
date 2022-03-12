@@ -52,7 +52,7 @@ function Layout({ children }) {
       <CssBaseline />
       <Container>
         <AppBar position="static" sx={{ bgcolor: "#0057b7" }} elevation={0}>
-          <Toolbar sx={{ padding: 1 }}>
+          <Toolbar sx={{ padding: 2 }}>
             <img src="/static/img/lindat-logo.svg" style={{ width: "88px" }} />
             <Typography
               variant="h6"
