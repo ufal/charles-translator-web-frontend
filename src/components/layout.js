@@ -1,24 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
-import {
-  Typography,
-  AppBar,
-  Toolbar,
-  IconButton,
-  Drawer,
-  Box,
-  List,
-  Divider,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
-import {
-  Menu as MenuIcon,
-  Mail as MailIcon,
-  MoveToInbox as InboxIcon,
-} from "@mui/icons-material";
+import { Typography, AppBar, Toolbar, IconButton } from "@mui/material";
+import { Info as InfoIcon } from "@mui/icons-material";
 import { blue } from "@mui/material/colors";
 
 const Container = styled.div`
@@ -33,6 +17,7 @@ const Footer = styled.footer`
   margin: auto 0 0;
   padding: 8px;
   font-size: 0.7rem;
+  text-align: center;
   background-color: ${blue[100]};
   color: ${blue[900]};
   @media (max-width: 768px) {
@@ -62,55 +47,19 @@ function Layout({ children }) {
             >
               🇺🇦🇨🇿 translator
             </Typography>
-            <IconButton
-              size="small"
-              edge="start"
-              aria-label="menu"
-              sx={{ mr: 1, color: "white" }}
-              onClick={() => toggleMenu()}
-            >
-              <MenuIcon />
-            </IconButton>
+            <a href="/settings">
+              <IconButton
+                size="small"
+                edge="start"
+                aria-label="menu"
+                sx={{ mr: 1, color: "white" }}
+                onClick={() => toggleMenu()}
+              >
+                <InfoIcon />
+              </IconButton>
+            </a>
           </Toolbar>
         </AppBar>
-        <Drawer
-          open={menuOpen}
-          anchor="right"
-          onClose={() => setMenuOpen(false)}
-        >
-          <Box
-            sx={{
-              width: 250,
-            }}
-            role="presentation"
-            onClick={() => setMenuOpen(false)}
-            onKeyDown={() => setMenuOpen(false)}
-          >
-            <List>
-              {["Inbox", "Starred", "Send email", "Drafts"].map(
-                (text, index) => (
-                  <ListItem button key={text}>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItem>
-                )
-              )}
-            </List>
-            <Divider />
-            <List>
-              {["All mail", "Trash", "Spam"].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </Drawer>
         {children}
         <Footer>
           THE LINDAT/CLARIAH-CZ PROJECT (LM2018101; formerly LM2010013,
