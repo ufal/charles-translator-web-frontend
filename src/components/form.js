@@ -1,4 +1,4 @@
-import { TextField, IconButton } from "@mui/material";
+import { TextField, IconButton, Box } from "@mui/material";
 import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
 import React, { useCallback, useEffect } from "react";
@@ -11,7 +11,6 @@ import {
   transliterateCyrilToLatin,
   transliterateLatinToCyril,
 } from "../transliterate";
-import { Box } from "@mui/system";
 
 const Grid = styled.div`
   display: grid;
