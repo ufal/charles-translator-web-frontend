@@ -1,6 +1,10 @@
 const maxHistory = 100;
 
 export function getHistory(language) {
+  if (typeof window === "undefined") {
+    return [];
+  }
+
   const historyJson = localStorage.getItem(`history-${language}`);
 
   if (historyJson == null) {
