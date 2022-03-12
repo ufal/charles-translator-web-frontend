@@ -1,4 +1,4 @@
-import { TextField, IconButton, Tooltip } from "@mui/material";
+import { TextField, IconButton, Tooltip, Box } from "@mui/material";
 import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
 import React, { useCallback, useState } from "react";
@@ -12,6 +12,7 @@ import {
 import { TranslationHistory } from "./TranslationHistory";
 import { blue } from "@mui/material/colors";
 import { useRouter } from "next/router";
+import { grey } from "@mui/material/colors";
 
 const Flex = styled.div`
   display: flex;
@@ -36,16 +37,10 @@ const SwitchButtonWrapper = styled.div`
   margin: 4px;
 `;
 
-const Transliteration = styled.span`
+const Transliteration = styled.p`
   color: grey;
-  max-width: 100%;
   word-break: break-all;
-  @media (min-width: 769px) {
-    padding: 8px 0;
-  }
-  @media (max-width: 768px) {
-    padding: 0 8px;
-  }
+  margin-bottom: 0;
 `;
 
 const LabelContainer = styled.div`
@@ -146,29 +141,16 @@ const Form = () => {
             </IconButton>
           </Tooltip>
         </SwitchButtonWrapper>
-
         <TranslationFieldContainer>
           <LabelContainer>
             <Label for="destination">{languages.target.name}</Label>
           </LabelContainer>
-          <TextField
-            value={translation}
-            id="destination"
-            variant="filled"
-            multiline
-            minRows={6}
-            sx={{
-              "& .MuiInputBase-root": {
-                paddingTop: "8px",
-                "@media (max-width: 768px)": {
-                  bgcolor: blue[50],
-                },
-              },
-            }}
-          />
-          <Transliteration>
-            {languages.target.transliterate(translation)}
-          </Transliteration>
+          <Box padding={2} sx={{ backgroundColor: blue[50], borderRadius: 1 }}>
+            <Box>{translation}</Box>
+            <Transliteration>
+              {languages.target.transliterate(translation)}
+            </Transliteration>
+          </Box>
         </TranslationFieldContainer>
       </Flex>
     </>
