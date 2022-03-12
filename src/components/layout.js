@@ -14,7 +14,8 @@ const Container = styled.div`
 `;
 
 const Footer = styled.footer`
-  margin: auto 8px 8px;
+  margin: auto 0 0;
+  padding: 8px;
   font-size: 0.7rem;
   background-color: ${blue[100]};
   color: ${blue[900]};

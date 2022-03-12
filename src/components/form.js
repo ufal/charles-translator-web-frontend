@@ -52,15 +52,6 @@ const TranslationFieldContainer = styled.div`
   flex-direction: column;
 `;
 
-const fieldStyleOverride = {
-  "& .MuiInputBase-root": {
-    height: "100%",
-  },
-  "&": {
-    flexGrow: 1,
-  },
-};
-
 const debouncedTranslate = debounce(translate, 500);
 const debouncedSave = debounce(saveHistory, 10000);
 
@@ -112,7 +103,7 @@ const Form = () => {
           variant="filled"
           multiline
           minRows={6}
-          sx={{ "& MuiInputBase-root": { paddingTop: "8px" } }}
+          sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
         />
         <Transliteration>
           {languages.source.transliterate(source)}
@@ -133,7 +124,7 @@ const Form = () => {
           variant="filled"
           multiline
           minRows={6}
-          sx={{ "& MuiInputBase-root": { paddingTop: "8px" } }}
+          sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
         />
         <Transliteration>
           {languages.target.transliterate(translation)}
