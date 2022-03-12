@@ -91,17 +91,19 @@ function Layout({ children }) {
               </HomeLink>
             </Link>
             <Link href="/settings">
-              <Tooltip title="About us">
-                <IconButton
-                  size="small"
-                  edge="start"
-                  aria-label="menu"
-                  sx={{ mr: 1, color: "white" }}
-                  onClick={() => toggleMenu()}
-                >
-                  <InfoIcon />
-                </IconButton>
-              </Tooltip>
+              <a>
+                <Tooltip title="About us">
+                  <IconButton
+                    size="small"
+                    edge="start"
+                    aria-label="menu"
+                    sx={{ mr: 1, color: "white" }}
+                    onClick={() => toggleMenu()}
+                  >
+                    <InfoIcon />
+                  </IconButton>
+                </Tooltip>
+              </a>
             </Link>
           </Toolbar>
         </AppBar>
