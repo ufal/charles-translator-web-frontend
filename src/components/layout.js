@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Typography, AppBar, Toolbar, IconButton } from "@mui/material";
+import {
+  Typography,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import { Info as InfoIcon } from "@mui/icons-material";
 import { blue } from "@mui/material/colors";
+import Link from "next/link";
 
 const Container = styled.div`
   display: flex;
@@ -16,6 +23,13 @@ const Container = styled.div`
 const FlagsContainer = styled.div`
   display: flex;
   align-items: center;
+`;
+const HomeLink = styled.a`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: auto;
+  cursor: pointer;
 `;
 
 const Footer = styled.footer`
@@ -41,38 +55,54 @@ function Layout({ children }) {
     <>
       <CssBaseline />
       <Container>
-        <AppBar position="static" sx={{ bgcolor: "#0057b7" }} elevation={0}>
+        <AppBar
+          position="static"
+          sx={{
+            bgcolor: blue,
+            "& .MuiToolbar-root": { padding: "4px 0 4px 12px" },
+          }}
+          elevation={0}
+        >
           <Toolbar sx={{ padding: 2 }}>
-            <img src="/static/img/lindat-logo.svg" style={{ width: "88px" }} />
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, ml: 1 }}
-              color="white"
-            >
-              <FlagsContainer>
+            <Link href="/">
+              <HomeLink>
                 <img
-                  src="/static/img/ukraine.png"
-                  style={{ width: "30px", marginRight: "10px" }}
+                  src="/static/img/lindat-logo.svg"
+                  style={{ width: "88px" }}
                 />
-                <img
-                  src="/static/img/czech-republic.png"
-                  style={{ width: "30px", marginRight: "10px" }}
-                />
-                <p>Translator</p>
-              </FlagsContainer>
-            </Typography>
-            <a href="/settings">
-              <IconButton
-                size="small"
-                edge="start"
-                aria-label="menu"
-                sx={{ mr: 1, color: "white" }}
-                onClick={() => toggleMenu()}
-              >
-                <InfoIcon />
-              </IconButton>
-            </a>
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{ flexGrow: 1, ml: 1 }}
+                  color="white"
+                >
+                  <FlagsContainer>
+                    <img
+                      src="/static/img/ukraine.png"
+                      style={{ width: "30px", marginRight: "10px" }}
+                    />
+                    <img
+                      src="/static/img/czech-republic.png"
+                      style={{ width: "30px", marginRight: "10px" }}
+                    />
+                    <p>Translator</p>
+                  </FlagsContainer>
+                </Typography>
+              </HomeLink>
+            </Link>
+            <Link href="/settings">
+              <Tooltip title="About us">
+                <IconButton
+                  size="small"
+                  edge="start"
+                  aria-label="menu"
+                  sx={{ mr: 1, color: "white" }}
+                  onClick={() => toggleMenu()}
+                >
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Link>
           </Toolbar>
         </AppBar>
         {children}

@@ -6,13 +6,27 @@ const headers = {
   accept: "application/json",
   "Content-Type": "application/x-www-form-urlencoded",
 };
-const dataAppend = (data) => {
-  data.append("input_text", text);
-  data.append("logInput", localStorage.getItem("collectDataConsentValue"));
-};
+
+function getConsent() {
+  return localStorage.getItem("collectDataConsentValue") === "true"
+    ? "true"
+    : "false";
+}
+
+export function setAuthor(author) {
+  return localStorage.setItem("author", author);
+}
+
+function getAuthor() {
+  return localStorage.getItem("author");
+}
+
 export function translate({ text, fromLanguage, toLanguage }) {
   const data = new FormData();
-  dataAppend(data);
+  data.append("input_text", text);
+  data.append("logInput", getConsent());
+  data.append("author", getAuthor());
+
   return axios({
     method: "POST",
     url: `${baseApiUrl}/?src=${encodeURIComponent(
@@ -20,5 +34,5 @@ export function translate({ text, fromLanguage, toLanguage }) {
     )}&tgt=${encodeURIComponent(toLanguage)}`,
     data,
     headers,
-  });
+  }).then((response) => response.data.join(" "));
 }

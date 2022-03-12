@@ -1,20 +1,22 @@
-import { TextField, IconButton } from "@mui/material";
+import { TextField, IconButton, Tooltip, Box } from "@mui/material";
 import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
 import React, { useCallback, useState } from "react";
 import debounce from "debounce-promise";
-import { translate } from "../api";
+import { setAuthor, translate } from "../api";
 import { getHistory, saveHistory } from "../history";
 import {
   transliterateCyrilToLatin,
   transliterateLatinToCyril,
 } from "../transliterate";
 import { TranslationHistory } from "./TranslationHistory";
+import { blue } from "@mui/material/colors";
+import { useRouter } from "next/router";
 
 const Flex = styled.div`
   display: flex;
   flex-direction: row;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     margin: 12px;
   }
   @media (max-width: 768px) {
@@ -28,34 +30,37 @@ const SwitchButtonWrapper = styled.div`
   height: 40px;
   align-self: center;
   justify-self: center;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     transform: rotate(90deg);
   }
+  margin: 4px;
 `;
 
-const Transliteration = styled.span`
+const Transliteration = styled.p`
   color: grey;
-  max-width: 100%;
   word-break: break-all;
-  @media (min-width: 768px) {
-    padding: 8px 0;
-  }
+  margin-bottom: 0;
+`;
+
+const LabelContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 38px;
+  align-items: center;
+  flex-shrink: 0;
   @media (max-width: 768px) {
     padding: 0 8px;
   }
 `;
 
 const Label = styled.label`
-  font-size: 0.85rem;
-  @media (max-width: 768px) {
-    padding-left: 8px;
-  }
+  font-size: 0.9rem;
 `;
 
 const TranslationFieldContainer = styled.div`
   display: flex;
   flex-direction: column;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     width: calc(50% - 20px);
   }
   @media (max-width: 768px) {
@@ -101,11 +106,23 @@ const Form = () => {
     handleChangeSource(translation);
   }, [source, languages]);
 
+  const { query } = useRouter();
+
+  if (query.author != null) {
+    setAuthor(query.author);
+  }
+
   return (
     <>
       <Flex>
         <TranslationFieldContainer>
-          <Label htmlFor="destination">{languages.source.name}</Label>
+          <LabelContainer>
+            <Label for="destination">{languages.source.name}</Label>
+            <TranslationHistory
+              getHistory={() => getHistory(languages.source)}
+              onSelect={setSource}
+            />
+          </LabelContainer>
           <TextField
             value={source}
             onChange={(e) => handleChangeSource(e.target.value)}
@@ -115,36 +132,32 @@ const Form = () => {
             minRows={6}
             sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
           />
-          <Transliteration>
-            {languages.source.transliterate(source)}
-          </Transliteration>
         </TranslationFieldContainer>
 
         <SwitchButtonWrapper>
-          <IconButton aria-label="switch languages" onClick={flipLanguages}>
-            <SwapVert />
-          </IconButton>
+          <Tooltip title="Swap languages">
+            <IconButton aria-label="switch languages" onClick={flipLanguages}>
+              <SwapVert />
+            </IconButton>
+          </Tooltip>
         </SwitchButtonWrapper>
-
         <TranslationFieldContainer>
-          <Label for="destination">{languages.target.name}</Label>
-          <TextField
-            value={translation}
-            id="destination"
-            variant="filled"
-            multiline
-            minRows={6}
-            sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
-          />
-          <Transliteration>
-            {languages.target.transliterate(translation)}
-          </Transliteration>
+          <LabelContainer>
+            <Label for="destination">{languages.target.name}</Label>
+          </LabelContainer>
+          <Box
+            padding={2}
+            sx={{ backgroundColor: blue[50], borderRadius: 1, height: "100%" }}
+          >
+            <Box>
+              <strong>{translation}</strong>
+            </Box>
+            <Transliteration>
+              {languages.target.transliterate(translation)}
+            </Transliteration>
+          </Box>
         </TranslationFieldContainer>
       </Flex>
-      <TranslationHistory
-        getHistory={() => getHistory(languages.source)}
-        onSelect={setSource}
-      />
     </>
   );
 };

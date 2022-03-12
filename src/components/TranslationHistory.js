@@ -1,15 +1,19 @@
 import {
   IconButton,
   Drawer,
-  Box,
   List,
   ListSubheader,
   ListItemButton,
   ListItemText,
+  Tooltip,
 } from "@mui/material";
 import React, { useState } from "react";
 import { History as HistoryIcon } from "@mui/icons-material";
-import { getHistory } from "../history";
+import styled from "styled-components";
+
+const Container = styled.div`
+  margin-left: auto;
+`;
 
 export function TranslationHistory({ getHistory, onSelect }) {
   const [history, setHistory] = useState(getHistory());
@@ -31,13 +35,18 @@ export function TranslationHistory({ getHistory, onSelect }) {
 
   return (
     <>
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        <IconButton aria-label="history" size="large" onClick={open}>
-          <HistoryIcon fontSize="inherit" />
-        </IconButton>
-      </Box>
+      <Container>
+        <Tooltip title="History">
+          <IconButton
+            aria-label="history"
+            size="large"
+            onClick={open}
+            sx={{ padding: 0 }}
+          >
+            <HistoryIcon fontSize="inherit" />
+          </IconButton>
+        </Tooltip>
+      </Container>
       <Drawer
         open={historyOpen}
         anchor="bottom"
