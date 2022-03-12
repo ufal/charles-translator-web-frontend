@@ -1,17 +1,27 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
+import React, { Fragment } from "react";
 import { Typography, AppBar, Toolbar, IconButton, Drawer } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { blue } from "@mui/material/colors";
-import { Box } from "@mui/system";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   position: absolute;
+`;
+
+const Footer = styled.footer`
+  margin: auto 8px 8px;
+  font-size: 0.7rem;
+  background-color: ${blue[100]};
+  color: ${blue[900]};
+  @media (max-width: 768px) {
+    font-size: 0.55rem;
+  }
 `;
 
 function Layout({ children }) {
@@ -55,19 +65,12 @@ function Layout({ children }) {
           banlfbfdalsf
         </Drawer>
         {children}
-        <Box
-          padding={2}
-          sx={{
-            backgroundColor: blue[100],
-            color: blue[900],
-            fontSize: "smaller",
-          }}
-        >
+        <Footer>
           THE LINDAT/CLARIAH-CZ PROJECT (LM2018101; formerly LM2010013,
           LM2015071) IS FULLY SUPPORTED BY THE MINISTRY OF EDUCATION, SPORTS AND
           YOUTH OF THE CZECH REPUBLIC UNDER THE PROGRAMME LM OF "LARGE
           INFRASTRUCTURES
-        </Box>
+        </Footer>
       </Container>
     </>
   );

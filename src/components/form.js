@@ -1,7 +1,7 @@
-import { TextField, IconButton, Box } from "@mui/material";
+import { TextField, IconButton } from "@mui/material";
 import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { useState } from "react";
 import debounce from "debounce-promise";
 import { translate } from "../../api";
@@ -11,11 +11,9 @@ import {
   transliterateLatinToCyril,
 } from "../transliterate";
 
-const headerHeight = "50px";
-
+co
 const Grid = styled.div`
   display: grid;
-  height: calc(100% - ${headerHeight});
   grid-gap: 4px;
   @media (min-width: 768px) {
     grid-template-rows: 1fr;
@@ -35,6 +33,20 @@ const SwitchButtonWrapper = styled.div`
   @media (min-width: 768px) {
     transform: rotate(90deg);
   }
+`;
+
+const Transliteration = styled.span`
+  color: grey;
+  @media (min-width: 768px) {
+    padding: 8px;
+  }
+  @media (max-width: 768px) {
+    padding: 0 8px;
+  }
+`;
+
+const Label = styled.label`
+  font-size: 0.85rem;
 `;
 
 const TranslationFieldContainer = styled.div`
@@ -94,18 +106,17 @@ const Form = () => {
   return (
     <Grid>
       <TranslationFieldContainer>
+        <Label htmlFor="destination">{languages.source.name}</Label>
         <TextField
           value={source}
           onChange={(e) => handleChangeSource(e.target.value)}
           id="source"
-          label={languages.source.name}
           variant="filled"
           multiline
-          sx={fieldStyleOverride}
+          minRows={6}
+          sx={{ "& MuiInputBase-root": { paddingTop: "8px" } }}
         />
-        <Box mt={2} color="gray">
-          {languages.source.transliterate(source)}
-        </Box>
+        <Transliteration>{languages.source.transliterate(source)}</Transliteration>
       </TranslationFieldContainer>
 
       <SwitchButtonWrapper>
@@ -115,17 +126,19 @@ const Form = () => {
       </SwitchButtonWrapper>
 
       <TranslationFieldContainer>
+        <Label for="destination">{languages.target.name}</Label>
         <TextField
           value={translation}
           id="destination"
-          label={languages.target.name}
+          // label="Outlined"
           variant="filled"
           multiline
-          sx={fieldStyleOverride}
+          minRows={6}
+          sx={{ "& MuiInputBase-root": { paddingTop: "8px" } }}
         />
-        <Box mt={2} color="gray">
+        <Transliteration>
           {languages.target.transliterate(translation)}
-        </Box>
+        </Transliteration>
       </TranslationFieldContainer>
     </Grid>
   );
