@@ -81,25 +81,13 @@ const Form = () => {
       text,
       fromLanguage: languages.source.name,
       toLanguage: languages.target.name,
-    }).then((response) => {
-      setTranslation(response.data.join(" "));
-    });
+    }).then(setTranslation);
   }
 
   const flipLanguages = useCallback(() => {
     setLanguages((state) => ({ source: state.target, target: state.source }));
     handleChangeSource(translation);
   }, [source, languages]);
-
-  useEffect(() => {
-    debouncedTranslate({
-      text: source,
-      fromLanguage: languages.source.name,
-      toLanguage: languages.target.name,
-    }).then((response) => {
-      setTranslation(response.data.join(" "));
-    });
-  }, [source]);
 
   return (
     <Grid>
