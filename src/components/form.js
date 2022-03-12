@@ -12,7 +12,6 @@ import {
 import { TranslationHistory } from "./TranslationHistory";
 import { blue } from "@mui/material/colors";
 import { useRouter } from "next/router";
-import { grey } from "@mui/material/colors";
 
 const Flex = styled.div`
   display: flex;
