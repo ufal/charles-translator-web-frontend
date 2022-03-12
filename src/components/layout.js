@@ -19,7 +19,7 @@ function Layout({ children }) {
       <Container>
         <AppBar position="static" sx={{ bgcolor: "#0057b7" }} elevation={0}>
           <Toolbar sx={{ padding: 1 }}>
-            <img src="/static/img/lepsi-logo.svg" style={{ width: "88px" }} />
+            <img src="/static/img/lindat-logo.svg" style={{ width: "88px" }} />
             <Typography
               variant="h6"
               component="div"
