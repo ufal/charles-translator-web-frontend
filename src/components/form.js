@@ -54,21 +54,36 @@ const fieldStyleOverride = {
 const debouncedTranslate = debounce(translate, 500);
 const debouncedSave = debounce(saveHistory, 10000);
 
+const languageUk = {
+  name: "uk",
+  transliterate: transliterateCyrilToLatin,
+};
+
+const languageCs = {
+  name: "cs",
+  transliterate: transliterateLatinToCyril,
+};
+
 const Form = () => {
   const [source, setSource] = useState("Як тут працює громадський транспорт?");
   const [translation, setTranslation] = useState("");
-  const [languages, setLanguages] = useState({ source: "uk", target: "cs" });
+  const [languages, setLanguages] = useState({
+    source: languageUk,
+    target: languageCs,
+  });
 
   function handleChangeSource(text) {
     setSource(text);
     debouncedSave(languages.source, text).then(() =>
       console.log(getHistory(languages.source))
     );
-    debouncedTranslate({ text, fromLanguage: "uk", toLanguage: "cs" }).then(
-      (response) => {
-        setTranslation(response.data.join(" "));
-      }
-    );
+    debouncedTranslate({
+      text,
+      fromLanguage: languages.source.name,
+      toLanguage: languages.target.name,
+    }).then((response) => {
+      setTranslation(response.data.join(" "));
+    });
   }
 
   const flipLanguages = useCallback(() => {
@@ -79,8 +94,8 @@ const Form = () => {
   useEffect(() => {
     debouncedTranslate({
       text: source,
-      fromLanguage: languages.source,
-      toLanguage: languages.target,
+      fromLanguage: languages.source.name,
+      toLanguage: languages.target.name,
     }).then((response) => {
       setTranslation(response.data.join(" "));
     });
@@ -99,7 +114,7 @@ const Form = () => {
           sx={fieldStyleOverride}
         />
         <Box mt={2} color="gray">
-          {transliterateCyrilToLatin(source)}
+          {languages.source.transliterate(source)}
         </Box>
       </TranslationFieldContainer>
 
@@ -119,7 +134,7 @@ const Form = () => {
           sx={fieldStyleOverride}
         />
         <Box mt={2} color="gray">
-          {transliterateLatinToCyril(translation)}
+          {languages.target.transliterate(translation)}
         </Box>
       </TranslationFieldContainer>
     </Grid>
