@@ -45,11 +45,18 @@ const Transliteration = styled.span`
   }
 `;
 
+const LabelContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  align-items: center;
+  @media (max-width: 768px) {
+    padding: 0 8px;
+  }
+`;
+
 const Label = styled.label`
   font-size: 0.85rem;
-  @media (max-width: 768px) {
-    padding-left: 8px;
-  }
 `;
 
 const TranslationFieldContainer = styled.div`
@@ -105,7 +112,13 @@ const Form = () => {
     <>
       <Flex>
         <TranslationFieldContainer>
-          <Label htmlFor="destination">{languages.source.name}</Label>
+          <LabelContainer>
+            <Label htmlFor="destination">{languages.source.name}</Label>
+            <TranslationHistory
+                getHistory={() => getHistory(languages.source)}
+              onSelect={setSource}
+            />
+          </LabelContainer>
           <TextField
             value={source}
             onChange={(e) => handleChangeSource(e.target.value)}
@@ -127,7 +140,9 @@ const Form = () => {
         </SwitchButtonWrapper>
 
         <TranslationFieldContainer>
-          <Label for="destination">{languages.target.name}</Label>
+          <LabelContainer>
+            <Label for="destination">{languages.target.name}</Label>
+          </LabelContainer>
           <TextField
             value={translation}
             id="destination"
@@ -141,10 +156,6 @@ const Form = () => {
           </Transliteration>
         </TranslationFieldContainer>
       </Flex>
-      <TranslationHistory
-        getHistory={() => getHistory(languages.source)}
-        onSelect={setSource}
-      />
     </>
   );
 };

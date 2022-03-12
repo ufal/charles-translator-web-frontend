@@ -9,6 +9,11 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { History as HistoryIcon } from "@mui/icons-material";
+import styled from "styled-components";
+
+const Container = styled.div`
+  margin-left: auto;
+`;
 import { getHistory } from "../history";
 
 export function TranslationHistory({ getHistory, onSelect }) {
@@ -31,13 +36,11 @@ export function TranslationHistory({ getHistory, onSelect }) {
 
   return (
     <>
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        <IconButton aria-label="history" size="large" onClick={open}>
+        <Container>
+        <IconButton aria-label="history" size="large" onClick={open} sx={{ padding: 0 }}>
           <HistoryIcon fontSize="inherit" />
         </IconButton>
-      </Box>
+      </Container>
       <Drawer
         open={historyOpen}
         anchor="bottom"
