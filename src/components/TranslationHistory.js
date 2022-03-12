@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { History as HistoryIcon } from "@mui/icons-material";
-import { getHistory } from "../../history";
+import { getHistory } from "../history";
 
 export function TranslationHistory({ getHistory, onSelect }) {
   const [history, setHistory] = useState(getHistory());

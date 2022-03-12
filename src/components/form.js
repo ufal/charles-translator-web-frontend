@@ -4,7 +4,7 @@ import { SwapVert } from "@mui/icons-material";
 import React, { useCallback, useState } from "react";
 import debounce from "debounce-promise";
 import { translate } from "../api";
-import { getHistory, saveHistory } from "../../history";
+import { getHistory, saveHistory } from "../history";
 import {
   transliterateCyrilToLatin,
   transliterateLatinToCyril,
