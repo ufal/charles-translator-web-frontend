@@ -14,6 +14,14 @@ const Container = styled.div`
   position: absolute;
 `;
 
+const HomeLink = styled.a`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: auto;
+  cursor: pointer;
+`;
+
 const Footer = styled.footer`
   margin: auto 0 0;
   padding: 8px;
@@ -41,13 +49,13 @@ function Layout({ children }) {
           position="static"
           sx={{
             bgcolor: blue,
-            "& .MuiToolbar-root": { padding: "4px 12px" },
+            "& .MuiToolbar-root": { padding: "4px 0 4px 12px" },
           }}
           elevation={0}
         >
           <Toolbar sx={{ padding: 2 }}>
             <Link href="/">
-              <a>
+              <HomeLink>
                 <img
                   src="/static/img/lindat-logo.svg"
                   style={{ width: "88px" }}
@@ -60,7 +68,7 @@ function Layout({ children }) {
                 >
                   🇺🇦🇨🇿 translator
                 </Typography>
-              </a>
+              </HomeLink>
             </Link>
             <Link href="/settings">
               <IconButton

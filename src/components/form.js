@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
 import React, { useCallback, useState } from "react";
 import debounce from "debounce-promise";
+import { setAuthor, translate } from "../api";
 import { getHistory, saveHistory } from "../history";
-import { translate } from "../api";
 import {
   transliterateCyrilToLatin,
   transliterateLatinToCyril,
@@ -15,7 +15,7 @@ import { blue } from "@mui/material/colors";
 const Flex = styled.div`
   display: flex;
   flex-direction: row;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     margin: 12px;
   }
   @media (max-width: 768px) {
@@ -29,7 +29,7 @@ const SwitchButtonWrapper = styled.div`
   height: 40px;
   align-self: center;
   justify-self: center;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     transform: rotate(90deg);
   }
 `;
@@ -38,7 +38,7 @@ const Transliteration = styled.span`
   color: grey;
   max-width: 100%;
   word-break: break-all;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     padding: 8px 0;
   }
   @media (max-width: 768px) {
@@ -49,7 +49,7 @@ const Transliteration = styled.span`
 const LabelContainer = styled.div`
   display: flex;
   flex-direction: row;
-  height: 30px;
+  height: 38px;
   align-items: center;
   @media (max-width: 768px) {
     padding: 0 8px;
@@ -57,13 +57,13 @@ const LabelContainer = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 `;
 
 const TranslationFieldContainer = styled.div`
   display: flex;
   flex-direction: column;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     width: calc(50% - 20px);
   }
   @media (max-width: 768px) {
@@ -109,6 +109,12 @@ const Form = () => {
     handleChangeSource(translation);
   }, [source, languages]);
 
+  const { query } = useRouter();
+
+  if (query.author != null) {
+    setAuthor(query.author);
+  }
+
   return (
     <>
       <Flex>
@@ -129,9 +135,6 @@ const Form = () => {
             minRows={6}
             sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
           />
-          <Transliteration>
-            {languages.source.transliterate(source)}
-          </Transliteration>
         </TranslationFieldContainer>
 
         <SwitchButtonWrapper>
