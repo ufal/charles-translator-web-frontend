@@ -48,7 +48,7 @@ const Form = () => {
 
   function handleChangeSource(text) {
     setSource(text);
-    debouncedSave(language, text).then(() => console.log(getHistory("uk")));
+    debouncedSave(languages.source, text).then(() => console.log(getHistory(languages.source)));
     debouncedTranslate({text, fromLanguage: 'uk', toLanguage: 'cs'}).then(response => {
       setTranslation(response.data.join(" "))
     })
@@ -56,7 +56,7 @@ const Form = () => {
 
   const flipLanguages = useCallback(() => {
     setLanguages((state) => ({ source: state.target, target: state.source }));
-    setSource(translation);
+    handleChangeSource(translation);
   }, [source, languages]);
 
   useEffect(() => {
