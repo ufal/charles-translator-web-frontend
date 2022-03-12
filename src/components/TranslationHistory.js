@@ -1,7 +1,6 @@
 import {
   IconButton,
   Drawer,
-  Box,
   List,
   ListSubheader,
   ListItemButton,
@@ -36,8 +35,13 @@ export function TranslationHistory({ getHistory, onSelect }) {
 
   return (
     <>
-        <Container>
-        <IconButton aria-label="history" size="large" onClick={open} sx={{ padding: 0 }}>
+      <Container>
+        <IconButton
+          aria-label="history"
+          size="large"
+          onClick={open}
+          sx={{ padding: 0 }}
+        >
           <HistoryIcon fontSize="inherit" />
         </IconButton>
       </Container>

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
 import React, { useCallback, useState } from "react";
 import debounce from "debounce-promise";
+import { getHistory, saveHistory } from "../../history";
 import { translate } from "../api";
-import { getHistory, saveHistory } from "../history";
 import {
   transliterateCyrilToLatin,
   transliterateLatinToCyril,
@@ -115,7 +115,7 @@ const Form = () => {
           <LabelContainer>
             <Label htmlFor="destination">{languages.source.name}</Label>
             <TranslationHistory
-                getHistory={() => getHistory(languages.source)}
+              getHistory={() => getHistory(languages.source)}
               onSelect={setSource}
             />
           </LabelContainer>
