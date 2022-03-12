@@ -1,6 +1,8 @@
 import { TextField } from "@mui/material";
 import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
+import { useEffect } from 'react';
+import {translate} from "../api"
 
 const Grid = styled.div`
   display: grid;
@@ -26,8 +28,15 @@ const Header = styled.div`
   }
 `;
 
-const Index = () => (
-  <Grid>
+const Index = () => {
+  useEffect(() => {
+    translate({
+      text: "Як тут працює громадський транспорт?",
+      fromLanguage: 'uk',
+      toLanguage: 'cs'
+    }).then(response => console.log(response.data))
+  })
+  return <Grid>
     <CssBaseline />
     <Header />
     <TextField
@@ -54,7 +63,7 @@ const Index = () => (
         },
       }}
     />
-  </Grid>
-);
+  </Grid>;
+};
 
 export default Index;
