@@ -24,10 +24,10 @@ const Header = styled.div`
 function Layout({ children }) {
   return (
     <>
+      <CssBaseline />
       <Container>
-        <CssBaseline />
         <Header />
-        <Form />
+        {children}
       </Container>
     </>
   );

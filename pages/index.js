@@ -1,5 +1,5 @@
-import Layout from "../src/components/layout";
+import Form from "../src/components/form";
 
-const Index = () => <Layout />;
+const Index = () => <Form />;
 
 export default Index;
