@@ -7,6 +7,11 @@ import { useState } from "react";
 import debounce from "debounce-promise";
 import { translate } from "../../api";
 import { getHistory, saveHistory } from "../../history";
+import {
+  transliterateCyrilToLatin,
+  transliterateLatinToCyril,
+} from "../transliterate";
+import { Box } from "@mui/system";
 
 const Grid = styled.div`
   display: grid;
@@ -32,9 +37,21 @@ const SwitchButtonWrapper = styled.div`
   }
 `;
 
+const TranslationFieldContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TransliterationView = styled.div`
+  flex-grow: 1;
+`;
+
 const fieldStyleOverride = {
   "& .MuiInputBase-root": {
     height: "100%",
+  },
+  "&": {
+    flexGrow: 1,
   },
 };
 
@@ -48,10 +65,14 @@ const Form = () => {
 
   function handleChangeSource(text) {
     setSource(text);
-    debouncedSave(languages.source, text).then(() => console.log(getHistory(languages.source)));
-    debouncedTranslate({text, fromLanguage: 'uk', toLanguage: 'cs'}).then(response => {
-      setTranslation(response.data.join(" "))
-    })
+    debouncedSave(languages.source, text).then(() =>
+      console.log(getHistory(languages.source))
+    );
+    debouncedTranslate({ text, fromLanguage: "uk", toLanguage: "cs" }).then(
+      (response) => {
+        setTranslation(response.data.join(" "));
+      }
+    );
   }
 
   const flipLanguages = useCallback(() => {
@@ -71,15 +92,20 @@ const Form = () => {
 
   return (
     <Grid>
-      <TextField
-        value={source}
-        onChange={(e) => handleChangeSource(e.target.value)}
-        id="source"
-        label="Outlined"
-        variant="filled"
-        multiline
-        sx={fieldStyleOverride}
-      />
+      <TranslationFieldContainer>
+        <TextField
+          value={source}
+          onChange={(e) => handleChangeSource(e.target.value)}
+          id="source"
+          label="Outlined"
+          variant="filled"
+          multiline
+          sx={fieldStyleOverride}
+        />
+        <Box mt={2} color="gray">
+          {transliterateCyrilToLatin(source)}
+        </Box>
+      </TranslationFieldContainer>
 
       <SwitchButtonWrapper>
         <IconButton aria-label="switch languages" onClick={flipLanguages}>
@@ -87,14 +113,19 @@ const Form = () => {
         </IconButton>
       </SwitchButtonWrapper>
 
-      <TextField
-        value={translation}
-        id="destination"
-        label="Outlined"
-        variant="filled"
-        multiline
-        sx={fieldStyleOverride}
-      />
+      <TranslationFieldContainer>
+        <TextField
+          value={translation}
+          id="destination"
+          label="Outlined"
+          variant="filled"
+          multiline
+          sx={fieldStyleOverride}
+        />
+        <Box mt={2} color="gray">
+          {transliterateLatinToCyril(translation)}
+        </Box>
+      </TranslationFieldContainer>
     </Grid>
   );
 };
