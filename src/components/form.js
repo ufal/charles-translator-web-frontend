@@ -1,8 +1,7 @@
-import { TextField, IconButton, Box } from "@mui/material";
+import { TextField, IconButton } from "@mui/material";
 import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
-import React, { useCallback, useEffect } from "react";
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import debounce from "debounce-promise";
 import { translate } from "../../api";
 import { getHistory, saveHistory } from "../../history";
@@ -10,20 +9,17 @@ import {
   transliterateCyrilToLatin,
   transliterateLatinToCyril,
 } from "../transliterate";
+import { TranslationHistory } from "./TranslationHistory";
 
-const headerHeight = "40px";
-
-const Grid = styled.div`
-  display: grid;
-  height: calc(100% - ${headerHeight});
-  grid-gap: 4px;
+const Flex = styled.div`
+  display: flex;
+  flex-direction: row;
   @media (min-width: 768px) {
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 40px 1fr;
     margin: 12px;
   }
   @media (max-width: 768px) {
-    grid-template-rows: 1fr 40px 1fr;
+    flex-direction: column;
+    margin-top: 8px;
   }
 `;
 
@@ -37,30 +33,48 @@ const SwitchButtonWrapper = styled.div`
   }
 `;
 
+const Transliteration = styled.span`
+  color: grey;
+  max-width: 100%;
+  word-break: break-all;
+  @media (min-width: 768px) {
+    padding: 8px 0;
+  }
+  @media (max-width: 768px) {
+    padding: 0 8px;
+  }
+`;
+
+const Label = styled.label`
+  font-size: 0.85rem;
+  @media (max-width: 768px) {
+    padding-left: 8px;
+  }
+`;
+
 const TranslationFieldContainer = styled.div`
   display: flex;
   flex-direction: column;
+  @media (min-width: 768px) {
+    width: calc(50% - 20px);
+  }
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
-
-const fieldStyleOverride = {
-  "& .MuiInputBase-root": {
-    height: "100%",
-  },
-  "&": {
-    flexGrow: 1,
-  },
-};
 
 const debouncedTranslate = debounce(translate, 500);
 const debouncedSave = debounce(saveHistory, 10000);
 
 const languageUk = {
-  name: "uk",
+  id: "uk",
+  name: "Український",
   transliterate: transliterateCyrilToLatin,
 };
 
 const languageCs = {
-  name: "cs",
+  id: "cs",
+  name: "Česky",
   transliterate: transliterateLatinToCyril,
 };
 
@@ -79,11 +93,9 @@ const Form = () => {
     );
     debouncedTranslate({
       text,
-      fromLanguage: languages.source.name,
-      toLanguage: languages.target.name,
-    }).then((response) => {
-      setTranslation(response.data.join(" "));
-    });
+      fromLanguage: languages.source.id,
+      toLanguage: languages.target.id,
+    }).then(setTranslation);
   }
 
   const flipLanguages = useCallback(() => {
@@ -91,53 +103,55 @@ const Form = () => {
     handleChangeSource(translation);
   }, [source, languages]);
 
-  useEffect(() => {
-    debouncedTranslate({
-      text: source,
-      fromLanguage: languages.source.name,
-      toLanguage: languages.target.name,
-    }).then((response) => {
-      setTranslation(response.data.join(" "));
-    });
-  }, [source]);
-
   return (
-    <Grid>
-      <TranslationFieldContainer>
-        <TextField
-          value={source}
-          onChange={(e) => handleChangeSource(e.target.value)}
-          id="source"
-          label="Outlined"
-          variant="filled"
-          multiline
-          sx={fieldStyleOverride}
-        />
-        <Box mt={2} color="gray">
-          {languages.source.transliterate(source)}
-        </Box>
-      </TranslationFieldContainer>
+    <>
+      <Flex>
+        <TranslationFieldContainer>
+          <Label htmlFor="destination">{languages.source.name}</Label>
+          <TextField
+            value={source}
+            onChange={(e) => handleChangeSource(e.target.value)}
+            id="source"
+            variant="filled"
+            multiline
+            minRows={6}
+            sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
+          />
+          <Transliteration>
+            {languages.source.transliterate(source)}
+          </Transliteration>
+        </TranslationFieldContainer>
 
-      <SwitchButtonWrapper>
-        <IconButton aria-label="switch languages" onClick={flipLanguages}>
-          <SwapVert />
-        </IconButton>
-      </SwitchButtonWrapper>
+        <SwitchButtonWrapper>
+          <IconButton aria-label="switch languages" onClick={flipLanguages}>
+            <SwapVert />
+          </IconButton>
+        </SwitchButtonWrapper>
 
-      <TranslationFieldContainer>
-        <TextField
-          value={translation}
-          id="destination"
-          label="Outlined"
-          variant="filled"
-          multiline
-          sx={fieldStyleOverride}
-        />
-        <Box mt={2} color="gray">
-          {languages.target.transliterate(translation)}
-        </Box>
-      </TranslationFieldContainer>
-    </Grid>
+        <TranslationFieldContainer>
+          <Label for="destination">{languages.target.name}</Label>
+          <TextField
+            value={translation}
+            id="destination"
+            variant="filled"
+            multiline
+            minRows={6}
+            sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
+          />
+          <Transliteration>
+            {languages.target.transliterate(translation)}
+          </Transliteration>
+        </TranslationFieldContainer>
+      </Flex>
+      <TranslationHistory
+        history={[
+          "fdsfds j sdkfhj dskjf dks fdskjh fkhjsd dgkdsjhf kjshfk sdghj  xckjvxc kvb xcjkbv hxcb",
+          " fgfdsgfg",
+          "fsdgfd",
+        ]}
+        onSelect={setSource}
+      />
+    </>
   );
 };
 
