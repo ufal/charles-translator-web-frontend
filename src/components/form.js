@@ -47,6 +47,7 @@ const LabelContainer = styled.div`
   flex-direction: row;
   height: 38px;
   align-items: center;
+  flex-shrink: 0;
   @media (max-width: 768px) {
     padding: 0 8px;
   }
@@ -144,8 +145,13 @@ const Form = () => {
           <LabelContainer>
             <Label for="destination">{languages.target.name}</Label>
           </LabelContainer>
-          <Box padding={2} sx={{ backgroundColor: blue[50], borderRadius: 1 }}>
-            <Box>{translation}</Box>
+          <Box
+            padding={2}
+            sx={{ backgroundColor: blue[50], borderRadius: 1, height: "100%" }}
+          >
+            <Box>
+              <strong>{translation}</strong>
+            </Box>
             <Transliteration>
               {languages.target.transliterate(translation)}
             </Transliteration>
