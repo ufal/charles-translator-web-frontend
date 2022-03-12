@@ -49,7 +49,7 @@ const Transliteration = styled.span`
 const LabelContainer = styled.div`
   display: flex;
   flex-direction: row;
-  height: 30px;
+  height: 38px;
   align-items: center;
   @media (max-width: 768px) {
     padding: 0 8px;
@@ -57,7 +57,7 @@ const LabelContainer = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 `;
 
 const TranslationFieldContainer = styled.div`
