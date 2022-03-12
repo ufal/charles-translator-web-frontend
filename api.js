@@ -11,11 +11,6 @@ export function translate({text, fromLanguage, toLanguage}) {
     const data = new FormData();
     data.append('input_text', text);
 
-    // return axios({
-    //     method: 'get',
-    //     url: `${baseApiUrl}`,
-    // });
-
     return axios({
         method: 'POST',
         url: `${baseApiUrl}/?src=${encodeURIComponent(fromLanguage)}&tgt=${encodeURIComponent(toLanguage)}`,

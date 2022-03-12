@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
-import { useEffect } from "react";
-import { translate } from "../api";
 import Form from "./form";
 import { headerHeight } from "./variables";
 
@@ -23,13 +21,6 @@ const Header = styled.div`
 `;
 
 function Index() {
-  useEffect(() => {
-    translate({
-      text: "Як тут працює громадський транспорт?",
-      fromLanguage: "uk",
-      toLanguage: "cs",
-    }).then((response) => console.log(response.data));
-  });
 
   return (
     <Container>

@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
 import React from "react";
 import { headerHeight } from "./variables";
+import { useState } from 'react';
+import debounce from "debounce-promise";
+import { translate } from "../api";
 
 const Grid = styled.div`
   display: grid;
@@ -34,10 +37,24 @@ const fieldStyleOverride = {
   },
 };
 
-function Form() {
+const debouncedTranslate = debounce(translate, 500)
+
+const Form = () => {
+  const [source, setSource] = useState("Як тут працює громадський транспорт?");
+  const [translation, setTranslation] = useState('');
+
+  function handleChangeSource(text) {
+    setSource(text);
+    debouncedTranslate({text, fromLanguage: 'uk', toLanguage: 'cs'}).then(response => {
+      setTranslation(response.data.join(" "))
+    })
+  }
+
   return (
     <Grid>
       <TextField
+        value={source}
+        onChange={(e) => handleChangeSource(e.target.value)}
         id="source"
         label="Outlined"
         variant="filled"
@@ -52,6 +69,7 @@ function Form() {
       </SwitchButtonWrapper>
 
       <TextField
+        value={translation}
         id="destination"
         label="Outlined"
         variant="filled"
