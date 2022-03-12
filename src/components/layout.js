@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Typography, AppBar, Toolbar, IconButton, Drawer } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { blue } from "@mui/material/colors";
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ function Layout({ children }) {
   };
 
   return (
-    <Fragment>
+    <>
       <CssBaseline />
       <Container>
         <AppBar position="static" sx={{ bgcolor: "#0057b7" }} elevation={0}>
@@ -53,21 +54,21 @@ function Layout({ children }) {
           banlfbfdalsf
         </Drawer>
         {children}
-        <footer>
-          <Typography
-            variant="body2"
-            gutterBottom
-            color="gray"
-            sx={{ margin: 2 }}
-          >
-            THE LINDAT/CLARIAH-CZ PROJECT (LM2018101; formerly LM2010013,
-            LM2015071) IS FULLY SUPPORTED BY THE MINISTRY OF EDUCATION, SPORTS
-            AND YOUTH OF THE CZECH REPUBLIC UNDER THE PROGRAMME LM OF "LARGE
-            INFRASTRUCTURES
-          </Typography>
-        </footer>
+        <Box
+          padding={2}
+          sx={{
+            backgroundColor: blue[100],
+            color: blue[900],
+            fontSize: "smaller",
+          }}
+        >
+          THE LINDAT/CLARIAH-CZ PROJECT (LM2018101; formerly LM2010013,
+          LM2015071) IS FULLY SUPPORTED BY THE MINISTRY OF EDUCATION, SPORTS AND
+          YOUTH OF THE CZECH REPUBLIC UNDER THE PROGRAMME LM OF "LARGE
+          INFRASTRUCTURES
+        </Box>
       </Container>
-    </Fragment>
+    </>
   );
 }
 

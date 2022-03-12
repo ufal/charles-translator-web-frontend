@@ -11,7 +11,7 @@ import {
   transliterateLatinToCyril,
 } from "../transliterate";
 
-const headerHeight = "40px";
+const headerHeight = "50px";
 
 const Grid = styled.div`
   display: grid;
@@ -56,7 +56,7 @@ const debouncedSave = debounce(saveHistory, 10000);
 
 const languageUk = {
   id: "uk",
-  name: "український",
+  name: "Український",
   transliterate: transliterateCyrilToLatin,
 };
 
