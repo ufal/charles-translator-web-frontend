@@ -1,8 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Typography, AppBar, Toolbar, IconButton, Drawer } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import {
+  Typography,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Drawer,
+  Box,
+  List,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import {
+  Menu as MenuIcon,
+  Mail as MailIcon,
+  MoveToInbox as InboxIcon,
+} from "@mui/icons-material";
 import { blue } from "@mui/material/colors";
 
 const Container = styled.div`
@@ -62,7 +78,38 @@ function Layout({ children }) {
           anchor="right"
           onClose={() => setMenuOpen(false)}
         >
-          banlfbfdalsf
+          <Box
+            sx={{
+              width: 250,
+            }}
+            role="presentation"
+            onClick={() => setMenuOpen(false)}
+            onKeyDown={() => setMenuOpen(false)}
+          >
+            <List>
+              {["Inbox", "Starred", "Send email", "Drafts"].map(
+                (text, index) => (
+                  <ListItem button key={text}>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItem>
+                )
+              )}
+            </List>
+            <Divider />
+            <List>
+              {["All mail", "Trash", "Spam"].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          </Box>
         </Drawer>
         {children}
         <Footer>
