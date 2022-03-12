@@ -149,7 +149,13 @@ const Form = () => {
           </LabelContainer>
           <Box
             padding={2}
-            sx={{ backgroundColor: blue[50], borderRadius: 1, height: "100%" }}
+            sx={{
+              backgroundColor: blue[50],
+              borderRadius: 1,
+              height: "100%",
+              minHeight: "157px",
+              marginBottom: "20px",
+            }}
           >
             <Box>
               <strong>{translation}</strong>
