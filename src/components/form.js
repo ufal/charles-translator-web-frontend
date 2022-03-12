@@ -6,17 +6,19 @@ import { headerHeight } from "../variables";
 import { useState } from "react";
 import debounce from "debounce-promise";
 import { translate } from "../../api";
+import { translate } from "../api";
+import { getHistory, saveHistory } from "../history";
 
 const Grid = styled.div`
   display: grid;
   height: calc(100% - ${headerHeight});
   grid-gap: 4px;
-  @media (min-width: 1200px) {
+  @media (min-width: 768px) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 40px 1fr;
     margin: 12px;
   }
-  @media (max-width: 1200px) {
+  @media (max-width: 768px) {
     grid-template-rows: 1fr 40px 1fr;
   }
 `;
@@ -26,7 +28,7 @@ const SwitchButtonWrapper = styled.div`
   height: 40px;
   align-self: center;
   justify-self: center;
-  @media (min-width: 1200px) {
+  @media (min-width: 768px) {
     transform: rotate(90deg);
   }
 `;
@@ -38,6 +40,7 @@ const fieldStyleOverride = {
 };
 
 const debouncedTranslate = debounce(translate, 500);
+const debouncedSave = debounce(saveHistory, 10000);
 
 const Form = () => {
   const [source, setSource] = useState("Як тут працює громадський транспорт?");
@@ -46,6 +49,10 @@ const Form = () => {
 
   function handleChangeSource(text) {
     setSource(text);
+    debouncedSave(language, text).then(() => console.log(getHistory("uk")));
+    debouncedTranslate({text, fromLanguage: 'uk', toLanguage: 'cs'}).then(response => {
+      setTranslation(response.data.join(" "))
+    })
   }
 
   const flipLanguages = useCallback(() => {
