@@ -4,6 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Typography, AppBar, Toolbar, IconButton } from "@mui/material";
 import { Info as InfoIcon } from "@mui/icons-material";
 import { blue } from "@mui/material/colors";
+import Link from "next/link";
 
 const Container = styled.div`
   display: flex;
@@ -38,16 +39,23 @@ function Layout({ children }) {
       <Container>
         <AppBar position="static" sx={{ bgcolor: "#0057b7" }} elevation={0}>
           <Toolbar sx={{ padding: 2 }}>
-            <img src="/static/img/lindat-logo.svg" style={{ width: "88px" }} />
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, ml: 1 }}
-              color="white"
-            >
-              🇺🇦🇨🇿 translator
-            </Typography>
-            <a href="/settings">
+            <Link href="/">
+              <a>
+                <img
+                  src="/static/img/lindat-logo.svg"
+                  style={{ width: "88px" }}
+                />
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{ flexGrow: 1, ml: 1 }}
+                  color="white"
+                >
+                  🇺🇦🇨🇿 translator
+                </Typography>
+              </a>
+            </Link>
+            <Link href="/settings">
               <IconButton
                 size="small"
                 edge="start"
@@ -57,7 +65,7 @@ function Layout({ children }) {
               >
                 <InfoIcon />
               </IconButton>
-            </a>
+            </Link>
           </Toolbar>
         </AppBar>
         {children}
