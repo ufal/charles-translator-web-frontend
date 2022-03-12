@@ -13,6 +13,11 @@ const Container = styled.div`
   position: absolute;
 `;
 
+const FlagsContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const Footer = styled.footer`
   margin: auto 0 0;
   padding: 8px;
@@ -45,7 +50,17 @@ function Layout({ children }) {
               sx={{ flexGrow: 1, ml: 1 }}
               color="white"
             >
-              🇺🇦🇨🇿 translator
+              <FlagsContainer>
+                <img
+                  src="/static/img/ukraine.png"
+                  style={{ width: "30px", marginRight: "10px" }}
+                />
+                <img
+                  src="/static/img/czech-republic.png"
+                  style={{ width: "30px", marginRight: "10px" }}
+                />
+                <p>Translator</p>
+              </FlagsContainer>
             </Typography>
             <a href="/settings">
               <IconButton

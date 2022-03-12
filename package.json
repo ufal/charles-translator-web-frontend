@@ -15,6 +15,7 @@
     "@mui/material": "^5.5.0",
     "axios": "^0.26.1",
     "debounce-promise": "^3.1.2",
+    "material-ui-flags": "^1.2.4",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
