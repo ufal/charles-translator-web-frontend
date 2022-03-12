@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 const Flex = styled.div`
   display: flex;
   flex-direction: row;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     margin: 12px;
   }
   @media (max-width: 768px) {
@@ -29,7 +29,7 @@ const SwitchButtonWrapper = styled.div`
   height: 40px;
   align-self: center;
   justify-self: center;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     transform: rotate(90deg);
   }
 `;
@@ -38,7 +38,7 @@ const Transliteration = styled.span`
   color: grey;
   max-width: 100%;
   word-break: break-all;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     padding: 8px 0;
   }
   @media (max-width: 768px) {
@@ -63,7 +63,7 @@ const Label = styled.label`
 const TranslationFieldContainer = styled.div`
   display: flex;
   flex-direction: column;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     width: calc(50% - 20px);
   }
   @media (max-width: 768px) {
