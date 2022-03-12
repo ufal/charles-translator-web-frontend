@@ -2,7 +2,6 @@ import { TextField, IconButton, Box } from "@mui/material";
 import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
 import React, { useCallback, useEffect } from "react";
-import { headerHeight } from "../variables";
 import { useState } from "react";
 import debounce from "debounce-promise";
 import { translate } from "../../api";
