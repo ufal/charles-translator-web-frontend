@@ -55,12 +55,14 @@ const debouncedTranslate = debounce(translate, 500);
 const debouncedSave = debounce(saveHistory, 10000);
 
 const languageUk = {
-  name: "uk",
+  id: "uk",
+  name: "український",
   transliterate: transliterateCyrilToLatin,
 };
 
 const languageCs = {
-  name: "cs",
+  id: "cs",
+  name: "Česky",
   transliterate: transliterateLatinToCyril,
 };
 
@@ -79,8 +81,8 @@ const Form = () => {
     );
     debouncedTranslate({
       text,
-      fromLanguage: languages.source.name,
-      toLanguage: languages.target.name,
+      fromLanguage: languages.source.id,
+      toLanguage: languages.target.id,
     }).then(setTranslation);
   }
 
@@ -96,7 +98,7 @@ const Form = () => {
           value={source}
           onChange={(e) => handleChangeSource(e.target.value)}
           id="source"
-          label="Outlined"
+          label={languages.source.name}
           variant="filled"
           multiline
           sx={fieldStyleOverride}
@@ -116,7 +118,7 @@ const Form = () => {
         <TextField
           value={translation}
           id="destination"
-          label="Outlined"
+          label={languages.target.name}
           variant="filled"
           multiline
           sx={fieldStyleOverride}
