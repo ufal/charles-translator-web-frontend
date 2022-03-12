@@ -18,6 +18,7 @@ const Flex = styled.div`
   }
   @media (max-width: 768px) {
     flex-direction: column;
+    margin-top: 8px;
   }
 `;
 
@@ -36,7 +37,7 @@ const Transliteration = styled.span`
   max-width: 100%;
   word-break: break-all;
   @media (min-width: 768px) {
-    padding: 8px;
+    padding: 8px 0;
   }
   @media (max-width: 768px) {
     padding: 0 8px;
@@ -45,6 +46,9 @@ const Transliteration = styled.span`
 
 const Label = styled.label`
   font-size: 0.85rem;
+  @media (max-width: 768px) {
+    padding-left: 8px;
+  }
 `;
 
 const TranslationFieldContainer = styled.div`
