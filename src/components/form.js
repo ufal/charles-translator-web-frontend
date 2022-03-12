@@ -142,33 +142,12 @@ const Form = () => {
           <LabelContainer>
             <Label for="destination">{languages.target.name}</Label>
           </LabelContainer>
-<<<<<<< HEAD
-          <TextField
-            value={translation}
-            id="destination"
-            variant="filled"
-            multiline
-            minRows={6}
-            sx={{
-              "& .MuiInputBase-root": {
-                paddingTop: "8px",
-                "@media (max-width: 768px)": {
-                  bgcolor: blue[50],
-                },
-              },
-            }}
-          />
-          <Transliteration>
-            {languages.target.transliterate(translation)}
-          </Transliteration>
-=======
-          <Box padding={2} sx={{ backgroundColor: grey[200], borderRadius: 1 }}>
+          <Box padding={2} sx={{ backgroundColor: blue[50], borderRadius: 1 }}>
             <Box>{translation}</Box>
             <Transliteration>
               {languages.target.transliterate(translation)}
             </Transliteration>
           </Box>
->>>>>>> 8ac36b0 (translation style)
         </TranslationFieldContainer>
       </Flex>
     </>
