@@ -12,6 +12,8 @@ import {
   transliterateLatinToCyril,
 } from "../transliterate";
 
+const headerHeight = "40px";
+
 const Grid = styled.div`
   display: grid;
   height: calc(100% - ${headerHeight});
@@ -39,10 +41,6 @@ const SwitchButtonWrapper = styled.div`
 const TranslationFieldContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const TransliterationView = styled.div`
-  flex-grow: 1;
 `;
 
 const fieldStyleOverride = {
