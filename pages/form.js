@@ -1,9 +1,9 @@
 import { TextField, IconButton } from "@mui/material";
 import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { headerHeight } from "./variables";
-import { useState } from 'react';
+import { useState } from "react";
 import debounce from "debounce-promise";
 import { translate } from "../api";
 
@@ -37,18 +37,31 @@ const fieldStyleOverride = {
   },
 };
 
-const debouncedTranslate = debounce(translate, 500)
+const debouncedTranslate = debounce(translate, 500);
 
 const Form = () => {
   const [source, setSource] = useState("Як тут працює громадський транспорт?");
-  const [translation, setTranslation] = useState('');
+  const [translation, setTranslation] = useState("");
+  const [languages, setLanguages] = useState({ source: "uk", target: "cs" });
 
   function handleChangeSource(text) {
     setSource(text);
-    debouncedTranslate({text, fromLanguage: 'uk', toLanguage: 'cs'}).then(response => {
-      setTranslation(response.data.join(" "))
-    })
   }
+
+  const flipLanguages = useCallback(() => {
+    setLanguages((state) => ({ source: state.target, target: state.source }));
+    setSource(translation);
+  }, [source, languages]);
+
+  useEffect(() => {
+    debouncedTranslate({
+      text: source,
+      fromLanguage: languages.source,
+      toLanguage: languages.target,
+    }).then((response) => {
+      setTranslation(response.data.join(" "));
+    });
+  }, [source]);
 
   return (
     <Grid>
@@ -63,7 +76,7 @@ const Form = () => {
       />
 
       <SwitchButtonWrapper>
-        <IconButton aria-label="switch languages">
+        <IconButton aria-label="switch languages" onClick={flipLanguages}>
           <SwapVert />
         </IconButton>
       </SwitchButtonWrapper>
@@ -78,6 +91,6 @@ const Form = () => {
       />
     </Grid>
   );
-}
+};
 
 export default Form;
