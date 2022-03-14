@@ -16,8 +16,13 @@ const Container = styled.div`
 `;
 
 export function TranslationHistory({ getHistory, onSelect }) {
-  const [history, setHistory] = useState(getHistory());
+  const [history, setHistory] = useState([]);
   const [historyOpen, setHistoryOpen] = useState(false);
+
+  React.useEffect(() => {
+    if(history.length === 0)
+      setHistory(getHistory())
+  })
 
   if (history.length === 0) {
     return null;

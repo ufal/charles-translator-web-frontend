@@ -2,3 +2,5 @@ node_modules
 .idea/
 .next
 yarn-error.log
+package-lock.json
+yarn.lock
