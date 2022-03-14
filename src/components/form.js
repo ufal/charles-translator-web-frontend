@@ -82,7 +82,7 @@ const languageCs = {
 };
 
 const Form = () => {
-  const [source, setSource] = useState("Як тут працює громадський транспорт?");
+  const [source, setSource] = useState("");
   const [translation, setTranslation] = useState("");
   const [languages, setLanguages] = useState({
     source: languageUk,
@@ -118,7 +118,7 @@ const Form = () => {
             <Label for="destination">{languages.source.name}</Label>
             <TranslationHistory
               getHistory={() => getHistory(languages.source)}
-              onSelect={setSource}
+              onSelect={handleChangeSource}
             />
           </LabelContainer>
           <TextField
