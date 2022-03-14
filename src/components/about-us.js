@@ -10,7 +10,7 @@ export default function AboutUs({ handleChange }) {
     <Box component="span" sx={{ p: 2 }}>
       <p><b>Privacy settings</b></p>
       <FormControlLabel
-        control={<Checkbox onChange={handleChange} />}
+        control={<Checkbox onChange={handleChange} defaultChecked={localStorage.getItem("collectDataConsentValue") === "true"} />}
         label={AboutUsConst.checkBoxLabel}
       />
 
