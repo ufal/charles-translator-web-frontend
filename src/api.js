@@ -21,9 +21,9 @@ function getAuthor() {
   return localStorage.getItem("author");
 }
 
-export function translate({ text, fromLanguage, toLanguage }) {
+export function translate({ text, fromLanguage, toLanguage, loadingID }) {
   const data = new FormData();
-  data.append("input_text", text);
+  data.append("input_text", text.length === 0 ? " " : text);
   data.append("logInput", getConsent());
   data.append("author", getAuthor());
 
@@ -34,5 +34,5 @@ export function translate({ text, fromLanguage, toLanguage }) {
     )}&tgt=${encodeURIComponent(toLanguage)}`,
     data,
     headers,
-  }).then((response) => response.data.join(" "));
+  }).then((response) => {return { data: response.data.join("\n"), loadingID }});
 }

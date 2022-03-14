@@ -5,12 +5,26 @@ import Checkbox from "@mui/material/Checkbox";
 import { AboutUsConst } from "../constants/about-us-constsant";
 import Divider from "@mui/material/Divider";
 
-export default function AboutUs({ handleChange }) {
+export default function AboutUs() {
+  const [checked, setChecked] = React.useState(false);
+  React.useEffect(() => setChecked(localStorage.getItem("collectDataConsentValue") === "true"))
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+
+    if(typeof window !== 'undefined'){
+      window.localStorage.setItem(
+        "collectDataConsentValue",
+        JSON.stringify(event.target.checked)
+      );
+    }
+  };
+
   return (
     <Box component="span" sx={{ p: 2 }}>
       <p><b>Privacy settings</b></p>
       <FormControlLabel
-        control={<Checkbox onChange={handleChange} />}
+        control={<Checkbox onChange={handleChange} checked={checked} />}
         label={AboutUsConst.checkBoxLabel}
       />
 

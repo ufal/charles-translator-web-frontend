@@ -1,6 +1,7 @@
-import { TextField, IconButton, Tooltip, Box } from "@mui/material";
+import { TextField, IconButton, Tooltip, LinearProgress, Box } from "@mui/material";
 import styled from "styled-components";
 import { SwapVert } from "@mui/icons-material";
+import CircularProgress from '@mui/material/CircularProgress';
 import React, { useCallback, useState } from "react";
 import debounce from "debounce-promise";
 import { setAuthor, translate } from "../api";
@@ -34,7 +35,7 @@ const SwitchButtonWrapper = styled.div`
   margin: 4px;
 `;
 
-const Transliteration = styled.p`
+const Transliteration = styled.div`
   color: grey;
   word-break: break-all;
   margin-bottom: 0;
@@ -66,7 +67,7 @@ const TranslationFieldContainer = styled.div`
   }
 `;
 
-const debouncedTranslate = debounce(translate, 500);
+const debouncedTranslate = debounce((setLoading, data) => {setLoading ; return translate(data) }, 500);
 const debouncedSave = debounce(saveHistory, 10000);
 
 const languageUk = {
@@ -81,6 +82,8 @@ const languageCs = {
   transliterate: transliterateLatinToCyril,
 };
 
+let loadingID = 0;
+
 const Form = () => {
   const [source, setSource] = useState("");
   const [translation, setTranslation] = useState("");
@@ -88,22 +91,33 @@ const Form = () => {
     source: languageUk,
     target: languageCs,
   });
+  const [loading, setLoading] = useState(false);
 
-  function handleChangeSource(text) {
+  function handleChangeSource(text, fromLanguage = languages.source.id, toLanguage = languages.target.id) {
     setSource(text);
     debouncedSave(languages.source, text);
-    debouncedTranslate({
+    debouncedTranslate(setLoading(true), {
       text,
-      fromLanguage: languages.source.id,
-      toLanguage: languages.target.id,
-    }).then(setTranslation);
+      fromLanguage,
+      toLanguage,
+      loadingID: ++loadingID,
+    })
+    .then((data) => {
+      if(data.loadingID === loadingID)
+        setLoading(false);
+      setTranslation(data.data);
+    })
+    .catch(() => {
+      setLoading(false);
+    })
   }
 
   const flipLanguages = useCallback(() => {
+    const oldSource = languages.source.id;
+    const oldTarget = languages.target.id;
     setLanguages((state) => ({ source: state.target, target: state.source }));
-    setSource("");
-    setTranslation("");
-  }, ["", languages]);
+    handleChangeSource(source, oldTarget, oldSource);
+  }, [source, languages]);
 
   const { query } = useRouter();
 
@@ -116,7 +130,7 @@ const Form = () => {
       <Flex>
         <TranslationFieldContainer>
           <LabelContainer>
-            <Label for="destination">{languages.source.name}</Label>
+            <Label htmlFor="destination">{languages.source.name}</Label>
             <TranslationHistory
               getHistory={() => getHistory(languages.source)}
               onSelect={handleChangeSource}
@@ -144,10 +158,12 @@ const Form = () => {
             </IconButton>
           </Tooltip>
         </SwitchButtonWrapper>
+
         <TranslationFieldContainer>
           <LabelContainer>
-            <Label for="destination">{languages.target.name}</Label>
+            <Label htmlFor="destination">{languages.target.name}</Label>
           </LabelContainer>
+          {loading && (<LinearProgress sx={{ top: "4px", marginTop: "-4px" }} />)}
           <Box
             padding={2}
             sx={{
@@ -159,10 +175,10 @@ const Form = () => {
             }}
           >
             <Box>
-              <strong>{translation}</strong>
+              <strong>{translation.split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{item}</p>))}</strong>
             </Box>
             <Transliteration>
-              {languages.target.transliterate(translation)}
+              {languages.target.transliterate(translation).split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{item}</p>))}
             </Transliteration>
           </Box>
         </TranslationFieldContainer>
