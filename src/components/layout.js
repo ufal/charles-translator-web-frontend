@@ -66,10 +66,6 @@ function Layout({ children }) {
           <Toolbar sx={{ padding: 2 }}>
             <Link href="/">
               <HomeLink>
-                <img
-                  src="/static/img/lindat-logo.svg"
-                  style={{ width: "88px" }}
-                />
                 <Typography
                   variant="h6"
                   component="div"
@@ -85,7 +81,7 @@ function Layout({ children }) {
                       src="/static/img/czech-republic.png"
                       style={{ width: "30px", marginRight: "10px" }}
                     />
-                    <p>Translator</p>
+                    <p>ÚFAL Translator</p>
                   </FlagsContainer>
                 </Typography>
               </HomeLink>
