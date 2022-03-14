@@ -101,8 +101,9 @@ const Form = () => {
 
   const flipLanguages = useCallback(() => {
     setLanguages((state) => ({ source: state.target, target: state.source }));
-    handleChangeSource(translation);
-  }, [source, languages]);
+    setSource("");
+    setTranslation("");
+  }, ["", languages]);
 
   const { query } = useRouter();
 
