@@ -4,6 +4,8 @@ import {
   TextField,
   Tabs,
   Tab,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
@@ -12,15 +14,15 @@ import Divider from "@mui/material/Divider";
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
+import CheckIcon from '@mui/icons-material/Check';
 
 import ufalLogo from '../../public/static/img/ufal-logo.svg';
 import lindatLogo from '../../public/static/img/lindat-logo-violet.svg';
 
 export default function AboutUs() {
-  const [state, setState] = React.useState({
-    author: localStorage.getItem("organizationName") || "",
-  });
-
+  const [author, setAuthor] = React.useState(localStorage.getItem("organizationName") || "");
+  const [authorSaved, setauthorSaved] = React.useState(false);
+  
   const [privacyTabValue, setPrivacyTabValue] = React.useState("0");
 
 
@@ -28,13 +30,14 @@ export default function AboutUs() {
   React.useEffect(() => setChecked(localStorage.getItem("collectDataConsentValue") === "true"), [])
 
   const changeAuthor = (event) => {
-    setState({author: event.target.value})
+    setAuthor(event.target.value);
     if(typeof window !== 'undefined'){
       window.localStorage.setItem(
         "organizationName",
         event.target.value
       );
     }
+    setauthorSaved(true);
   }
 
   const handleChange = (event) => {
@@ -69,7 +72,21 @@ export default function AboutUs() {
         )}
       />
 
-      <TextField fullWidth id="outlined-basic" label="Organization name (optional)" variant="outlined" onChange={changeAuthor} value={state.author}/>
+      <TextField
+        fullWidth
+        id="outlined-basic"
+        label="Organization name (optional)"
+        variant="outlined"
+        onChange={changeAuthor}
+        value={author}
+        InputProps={{
+          endAdornment : 
+            <InputAdornment position="end">
+              {authorSaved && <CheckIcon color="success"/>}
+            </InputAdornment>
+        }}
+      />
+
 
       <h2>About us</h2>
 
