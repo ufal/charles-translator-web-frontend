@@ -13,6 +13,9 @@ import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 
+import ufalLogo from '../../public/static/img/ufal-logo.svg';
+import lindatLogo from '../../public/static/img/lindat-logo-violet.svg';
+
 export default function AboutUs() {
   const [state, setState] = React.useState({
     author: localStorage.getItem("organizationName") || "",
@@ -70,8 +73,8 @@ export default function AboutUs() {
 
       <h2>About us</h2>
 
-      <img src="/static/img/ufal-logo.svg"  style={{ width: "100px", marginRight: "10px" }} />
-      <img src="/static/img/lindat-logo-violet.svg"  style={{ width: "130px", marginRight: "10px" }} />
+      <img src={ufalLogo.src}  style={{ width: "100px", marginRight: "10px" }} />
+      <img src={lindatLogo.src}  style={{ width: "130px", marginRight: "10px" }} />
 
       <p>The Translator was developed at the <b><a href="https://ufal.mff.cuni.cz" target="_blank">Institute of Formal and Applied Linguistics</a></b>, Faculty of Mathematics and Physics, Charles University and was supported by the the <a href="https://lindat.mff.cuni.cz" target="_blank">LINDAT/CLARIAH-CZ</a> project.</p>
 
