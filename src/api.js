@@ -13,12 +13,8 @@ function getConsent() {
     : "false";
 }
 
-export function setAuthor(author) {
-  return localStorage.setItem("author", author);
-}
-
 function getAuthor() {
-  return localStorage.getItem("author");
+  return localStorage.getItem("organizationName") || "";
 }
 
 export function translate({ text, fromLanguage, toLanguage, loadingID }) {

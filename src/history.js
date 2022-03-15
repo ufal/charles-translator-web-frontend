@@ -5,7 +5,7 @@ export function getHistory(language) {
     return [];
   }
 
-  const historyJson = localStorage.getItem(`history-${language}`);
+  const historyJson = localStorage.getItem(`history-${language}`) || "";
 
   if (historyJson == null) {
     return [];

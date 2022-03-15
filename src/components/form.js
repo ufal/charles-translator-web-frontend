@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import {
@@ -19,7 +19,7 @@ import styled from "styled-components";
 import debounce from "debounce-promise";
 
 import { TranslationHistory } from "./TranslationHistory";
-import { setAuthor, translate } from "../api";
+import { translate } from "../api";
 import { getHistory, saveHistory } from "../history";
 import {
   transliterateCyrilToLatin,
@@ -106,6 +106,14 @@ const Form = () => {
   });
   const [loading, setLoading] = useState(false);
 
+  React.useEffect(() => {
+    const defaultSource = localStorage.getItem("lastTranslationSource") || "";
+    if(defaultSource === languageCs.id)
+      setLanguages({source: languageCs, target: languageUk });
+    else
+      setLanguages({source: languageUk, target: languageCs });
+  }, [])
+
   function handleChangeSource(text, fromLanguage = languages.source.id, toLanguage = languages.target.id) {
     setSource(text);
     debouncedSave(languages.source, text);
@@ -135,13 +143,15 @@ const Form = () => {
     const oldTarget = languages.target.id;
     setLanguages((state) => ({ source: state.target, target: state.source }));
     handleChangeSource(source, oldTarget, oldSource);
+    if(typeof window !== 'undefined'){
+      window.localStorage.setItem(
+        "lastTranslationSource",
+        oldTarget
+      );
+    }
   }, [source, languages]);
 
   const { query } = useRouter();
-
-  if (query.author != null) {
-    setAuthor(query.author);
-  }
 
   return (
     <>

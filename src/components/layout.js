@@ -6,11 +6,21 @@ import {
   AppBar,
   Toolbar,
   IconButton,
+  Button,
   Tooltip,
+  Dialog,
+  Snackbar,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogContentText,
 } from "@mui/material";
 import { Info as InfoIcon } from "@mui/icons-material";
+import CloseIcon from '@mui/icons-material/Close';
 import { blue } from "@mui/material/colors";
 import Link from "next/link";
+
+import AboutUs from "./about-us";
 
 const Container = styled.div`
   display: flex;
@@ -46,10 +56,22 @@ const Footer = styled.footer`
 
 function Layout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [collectionSnackbar, setCollectionSnackbar] = useState(true);
+  const [openAboutUs, setOpenAboutUs] = React.useState(false);
+  const [forOrganizations, setForOrganizations] = React.useState(false);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  React.useEffect(() => setCollectionSnackbar(localStorage.getItem("collectDataConsentValue") !== "true"))
+  React.useEffect(() => setForOrganizations((localStorage.getItem("organizationName") || "").length !== 0))
+
+  const allowCollection = () => { 
+    setCollectionSnackbar(false);
+    if(typeof window !== 'undefined'){
+      window.localStorage.setItem(
+        "collectDataConsentValue",
+        "true"
+      );
+    }
+  }
 
   return (
     <>
@@ -64,46 +86,68 @@ function Layout({ children }) {
           elevation={0}
         >
           <Toolbar sx={{ padding: 2 }}>
-            <Link href="/">
-              <HomeLink>
-                <Typography
-                  variant="h6"
-                  component="div"
-                  sx={{ flexGrow: 1, ml: 1 }}
-                  color="white"
-                >
-                  <FlagsContainer>
-                    <img
-                      src="/static/img/ukraine.png"
-                      style={{ width: "30px", marginRight: "10px" }}
-                    />
-                    <img
-                      src="/static/img/czech-republic.png"
-                      style={{ width: "30px", marginRight: "10px" }}
-                    />
-                    <p>ÚFAL Translator</p>
-                  </FlagsContainer>
-                </Typography>
-              </HomeLink>
-            </Link>
-            <Link href="/settings">
-              <a>
-                <Tooltip title="About us">
-                  <IconButton
-                    size="small"
-                    edge="start"
-                    aria-label="menu"
-                    sx={{ mr: 1, color: "white" }}
-                    onClick={() => toggleMenu()}
-                  >
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
-              </a>
-            </Link>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, ml: 1 }}
+              color="white"
+            >
+              <FlagsContainer>
+                <img
+                  src="/static/img/ukraine.png"
+                  style={{ width: "30px", marginRight: "10px" }}
+                />
+                <img
+                  src="/static/img/czech-republic.png"
+                  style={{ width: "30px", marginRight: "10px" }}
+                />
+                <p>ÚFAL Translator {forOrganizations && "for organizations"}</p>
+              </FlagsContainer>
+            </Typography>
+            <Tooltip title="About us">
+              <IconButton
+                size="small"
+                edge="start"
+                aria-label="menu"
+                sx={{ mr: 1, color: "white" }}
+                onClick={() => setOpenAboutUs(true)}
+              >
+                <InfoIcon />
+              </IconButton>
+            </Tooltip>
           </Toolbar>
         </AppBar>
+
         {children}
+
+        <Dialog
+          PaperProps = {{
+            sx:{maxWidth: "800px"}
+          }}
+          open={openAboutUs}
+          onClose={()=>setOpenAboutUs(false)}
+        >
+          <AboutUs/>
+          <DialogActions>
+            <Button onClick={()=>setOpenAboutUs(false)}>Close</Button>
+          </DialogActions>
+        </Dialog>
+
+        <Snackbar
+          open={collectionSnackbar}
+          message={`Souhlasím s tím, aby Ústav formální a aplikované lingvistiky
+            MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu,
+            mohou být anonymizované texty využity pro další vývoj systému.`}
+          anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
+          action={(
+            <React.Fragment>
+              <Button size="large" onClick={allowCollection}>
+                SOUHLASÍM
+              </Button>
+            </React.Fragment>
+          )}
+        />
+
         <Footer>
           THE LINDAT/CLARIAH-CZ PROJECT (LM2018101; formerly LM2010013,
           LM2015071) IS FULLY SUPPORTED BY THE MINISTRY OF EDUCATION, SPORTS AND

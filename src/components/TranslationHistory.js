@@ -22,7 +22,7 @@ export function TranslationHistory({ getHistory, onSelect }) {
   React.useEffect(() => {
     if(history.length === 0)
       setHistory(getHistory())
-  })
+  }, [])
 
   if (history.length === 0) {
     return null;
@@ -55,6 +55,9 @@ export function TranslationHistory({ getHistory, onSelect }) {
       <Drawer
         open={historyOpen}
         anchor="bottom"
+        PaperProps = {{
+          sx:{maxHeight: "60%"}
+        }}
         onClose={() => setHistoryOpen(false)}
       >
         <List
