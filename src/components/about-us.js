@@ -2,17 +2,24 @@ import * as React from "react";
 import {
   FormControlLabel,
   TextField,
+  Tabs,
+  Tab,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import { AboutUsConst } from "../constants/about-us-constsant";
 import Divider from "@mui/material/Divider";
-import Image from 'next/image'
+import TabPanel from '@mui/lab/TabPanel';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
 
 export default function AboutUs() {
   const [state, setState] = React.useState({
     author: localStorage.getItem("organizationName") || "",
   });
+
+  const [privacyTabValue, setPrivacyTabValue] = React.useState("0");
+
 
   const [checked, setChecked] = React.useState(false);
   React.useEffect(() => setChecked(localStorage.getItem("collectDataConsentValue") === "true"), [])
@@ -43,14 +50,23 @@ export default function AboutUs() {
       <p><b>Privacy settings</b></p>
       <FormControlLabel
         control={<Checkbox onChange={handleChange} checked={checked} />}
-        label={AboutUsConst.checkBoxLabel}
+        label={(
+          <TabContext value={privacyTabValue}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList onChange={(event, newValue) => {setPrivacyTabValue(newValue)}}>
+                <Tab label="EN" value="0" />
+                <Tab label="CS" value="1" />
+                <Tab label="UK" value="2" />
+              </TabList>
+            </Box>
+            <TabPanel value="0"> {AboutUsConst.checkBoxLabel[0]} </TabPanel>
+            <TabPanel value="1"> {AboutUsConst.checkBoxLabel[1]} </TabPanel>
+            <TabPanel value="2"> {AboutUsConst.checkBoxLabel[2]} </TabPanel>
+          </TabContext>
+        )}
       />
 
-      <Divider sx={{ marginTop: 2, marginBottom: 2, minWidth: "300px" }}></Divider>
-
       <TextField fullWidth id="outlined-basic" label="Organization name (optional)" variant="outlined" onChange={changeAuthor} value={state.author}/>
-
-      <Divider sx={{ marginTop: 2 }}></Divider>
 
       <h2>About us</h2>
 

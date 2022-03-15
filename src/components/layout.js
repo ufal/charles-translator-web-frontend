@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { Info as InfoIcon } from "@mui/icons-material";
 import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
 import { blue } from "@mui/material/colors";
 
 import AboutUs from "./about-us";
@@ -141,16 +142,13 @@ function Layout({ children }) {
           action={(
             <React.Fragment>
               <Button size="large" onClick={allowCollection}>
+                <CheckIcon fontSize="small" />
                 SOUHLASÍM
               </Button>
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={() => setCollectionSnackbar(false)}
-              >
+              <Button size="large" onClick={() => setCollectionSnackbar(false)}>
                 <CloseIcon fontSize="small" />
-              </IconButton>
+                NESOUHLASÍM
+              </Button>
             </React.Fragment>
           )}
         />
