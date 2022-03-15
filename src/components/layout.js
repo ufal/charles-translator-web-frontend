@@ -127,6 +127,19 @@ function Layout({ children }) {
           open={openAboutUs}
           onClose={()=>setOpenAboutUs(false)}
         >
+          <DialogTitle>
+            <IconButton
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+              onClick={()=>setOpenAboutUs(false)}
+            >
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
           <AboutUs/>
           <DialogActions>
             <Button onClick={()=>setOpenAboutUs(false)}>Close</Button>
