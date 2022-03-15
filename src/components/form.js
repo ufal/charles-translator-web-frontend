@@ -1,18 +1,31 @@
-import { TextField, IconButton, Tooltip, LinearProgress, Box } from "@mui/material";
-import styled from "styled-components";
-import { SwapVert } from "@mui/icons-material";
-import CircularProgress from '@mui/material/CircularProgress';
 import React, { useCallback, useState } from "react";
+import { useRouter } from "next/router";
+
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  LinearProgress,
+  TextField,
+  Tooltip,
+} from "@mui/material";
+import {
+  Clear as ClearIcon,
+  SwapVert,
+} from "@mui/icons-material";
+import { blue } from "@mui/material/colors";
+
+import styled from "styled-components";
 import debounce from "debounce-promise";
+
+import { TranslationHistory } from "./TranslationHistory";
 import { setAuthor, translate } from "../api";
 import { getHistory, saveHistory } from "../history";
 import {
   transliterateCyrilToLatin,
   transliterateLatinToCyril,
 } from "../transliterate";
-import { TranslationHistory } from "./TranslationHistory";
-import { blue } from "@mui/material/colors";
-import { useRouter } from "next/router";
+
 
 const Flex = styled.div`
   display: flex;
@@ -103,13 +116,18 @@ const Form = () => {
       loadingID: ++loadingID,
     })
     .then((data) => {
-      if(data.loadingID === loadingID)
+      if(data.loadingID === loadingID){
         setLoading(false);
-      setTranslation(data.data);
+      }
+      setTranslation(data.data); // TODO maybe add this into if block as well
     })
     .catch(() => {
       setLoading(false);
     })
+  }
+
+  const clearSource = () => {
+    handleChangeSource("");
   }
 
   const flipLanguages = useCallback(() => {
@@ -131,10 +149,6 @@ const Form = () => {
         <TranslationFieldContainer>
           <LabelContainer>
             <Label htmlFor="destination">{languages.source.name}</Label>
-            <TranslationHistory
-              getHistory={() => getHistory(languages.source)}
-              onSelect={handleChangeSource}
-            />
           </LabelContainer>
           <TextField
             value={source}
@@ -143,7 +157,32 @@ const Form = () => {
             variant="filled"
             multiline
             minRows={6}
-            sx={{ "& .MuiInputBase-root": { paddingTop: "8px" } }}
+            sx={{
+              "& .MuiInputBase-root": {
+                paddingTop: "8px",
+                paddingRight: "40px",
+              },
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  { source.length !== 0 &&
+                    <Tooltip title="Clear source text">
+                      <IconButton 
+                        onClick={clearSource}
+                        sx={{
+                          position: "absolute",
+                          top: "10px",
+                          right: "10px",
+                        }}
+                      >
+                        <ClearIcon/>
+                      </IconButton>
+                    </Tooltip>
+                  }
+                </InputAdornment>
+              ),
+            }}
           />
         </TranslationFieldContainer>
 
@@ -162,6 +201,10 @@ const Form = () => {
         <TranslationFieldContainer>
           <LabelContainer>
             <Label htmlFor="destination">{languages.target.name}</Label>
+            <TranslationHistory
+              getHistory={() => getHistory(languages.source)}
+              onSelect={handleChangeSource}
+            />
           </LabelContainer>
           {loading && (<LinearProgress sx={{ top: "4px", marginTop: "-4px" }} />)}
           <Box
@@ -172,6 +215,7 @@ const Form = () => {
               height: "100%",
               minHeight: "157px",
               marginBottom: "20px",
+              overflowWrap: "break-word",
             }}
           >
             <Box>

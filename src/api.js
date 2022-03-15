@@ -22,8 +22,11 @@ function getAuthor() {
 }
 
 export function translate({ text, fromLanguage, toLanguage, loadingID }) {
+  if(text.length === 0)
+    return Promise.resolve({ data: "", loadingID });
+
   const data = new FormData();
-  data.append("input_text", text.length === 0 ? " " : text);
+  data.append("input_text", text);
   data.append("logInput", getConsent());
   data.append("author", getAuthor());
 
