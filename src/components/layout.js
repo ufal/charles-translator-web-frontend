@@ -18,7 +18,6 @@ import {
 import { Info as InfoIcon } from "@mui/icons-material";
 import CloseIcon from '@mui/icons-material/Close';
 import { blue } from "@mui/material/colors";
-import Link from "next/link";
 
 import AboutUs from "./about-us";
 
@@ -60,7 +59,7 @@ function Layout({ children }) {
   const [openAboutUs, setOpenAboutUs] = React.useState(false);
   const [forOrganizations, setForOrganizations] = React.useState(false);
 
-  React.useEffect(() => setCollectionSnackbar(localStorage.getItem("collectDataConsentValue") !== "true"))
+  React.useEffect(() => setCollectionSnackbar(localStorage.getItem("collectDataConsentValue") !== "true"),[])
   React.useEffect(() => setForOrganizations((localStorage.getItem("organizationName") || "").length !== 0))
 
   const allowCollection = () => { 
@@ -144,6 +143,14 @@ function Layout({ children }) {
               <Button size="large" onClick={allowCollection}>
                 SOUHLASÍM
               </Button>
+              <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={() => setCollectionSnackbar(false)}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
             </React.Fragment>
           )}
         />

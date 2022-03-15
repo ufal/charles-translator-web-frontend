@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import { AboutUsConst } from "../constants/about-us-constsant";
 import Divider from "@mui/material/Divider";
+import Image from 'next/image'
 
 export default function AboutUs() {
   const [state, setState] = React.useState({
