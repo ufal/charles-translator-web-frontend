@@ -25,8 +25,8 @@ export function translate({ text, fromLanguage, toLanguage, loadingID }) {
   if(text.length === 0)
     return Promise.resolve({ data: "", loadingID });
 
-  const data = new FormData();
-  data.append("input_text", text);
+  const data = new URLSearchParams();
+  data.append("input_text", text.normalize('NFC'));
   data.append("logInput", getConsent());
   data.append("author", getAuthor());
 
@@ -37,5 +37,5 @@ export function translate({ text, fromLanguage, toLanguage, loadingID }) {
     )}&tgt=${encodeURIComponent(toLanguage)}`,
     data,
     headers,
-  }).then((response) => {return { data: response.data.join("\n"), loadingID }});
+  }).then((response) => {return { data: response.data.join(" "), loadingID }});
 }

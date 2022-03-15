@@ -219,10 +219,10 @@ const Form = () => {
             }}
           >
             <Box>
-              <strong>{translation.split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{item}</p>))}</strong>
+              <strong>{translation.split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item != "") ? item : <br />}</p>))}</strong>
             </Box>
             <Transliteration>
-              {languages.target.transliterate(translation).split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{item}</p>))}
+              {languages.target.transliterate(translation).split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item != "") ? item : <br />}</p>))}
             </Transliteration>
           </Box>
         </TranslationFieldContainer>
