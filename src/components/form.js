@@ -141,8 +141,10 @@ const Form = () => {
   const flipLanguages = useCallback(() => {
     const oldSource = languages.source.id;
     const oldTarget = languages.target.id;
+    setSource("");
+    setTranslation("");
     setLanguages((state) => ({ source: state.target, target: state.source }));
-    handleChangeSource(source, oldTarget, oldSource);
+    //handleChangeSource(source, oldTarget, oldSource);
     if(typeof window !== 'undefined'){
       window.localStorage.setItem(
         "lastTranslationSource",
