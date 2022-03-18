@@ -85,7 +85,7 @@ const debouncedSave = debounce(saveHistory, 10000);
 
 const languageUk = {
   id: "uk",
-  name: "Український",
+  name: "Українською",
   transliterate: transliterateCyrilToLatin,
 };
 
