@@ -30,7 +30,7 @@ export function translate({ text, fromLanguage, toLanguage, loadingID }) {
     method: "POST",
     url: `${baseApiUrl}/?src=${encodeURIComponent(
       fromLanguage
-    )}&tgt=${encodeURIComponent(toLanguage)}`,
+    )}&tgt=${encodeURIComponent(toLanguage)}&frontend=u4u`,
     data,
     headers,
   }).then((response) => {return { data: response.data.join(" "), loadingID }});
