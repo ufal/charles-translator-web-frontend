@@ -8,11 +8,13 @@ import {
   LinearProgress,
   TextField,
   Tooltip,
+  Button,
 } from "@mui/material";
 import {
   Clear as ClearIcon,
   SwapVert,
 } from "@mui/icons-material";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { blue } from "@mui/material/colors";
 
 import styled from "styled-components";
@@ -133,7 +135,7 @@ const Form = () => {
       // this request has some new information
       if(loadedID < data.loadingID){
         loadedID = data.loadingID;
-        setTranslation(data.data);
+        setTranslation(data.data.trim());
       }
 
     })
@@ -222,7 +224,6 @@ const Form = () => {
         <TranslationFieldContainer>
           <LabelContainer>
             <Label htmlFor="destination">{languages.target.name}</Label>
-            <button onClick={() => {navigator.clipboard.writeText(translation)}}>Copy translation</button>
             <TranslationHistory
               getHistory={() => getHistory(languages.source)}
               onSelect={handleChangeSource}
@@ -238,11 +239,28 @@ const Form = () => {
               minHeight: "157px",
               marginBottom: "20px",
               overflowWrap: "break-word",
+              display: "grid",
             }}
           >
             <Box>
               <strong>{translation.split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item != "") ? item : <br />}</p>))}</strong>
             </Box>
+            
+            {translation.length !== 0 && <Tooltip
+                title="Copy translation to cliboard"
+                  sx={{
+                    justifySelf: "end",
+                  }}
+              >
+                <Button 
+                  onClick={() => {navigator.clipboard.writeText(translation)}}
+                  variant="text"
+                  startIcon={<ContentCopyIcon/>}
+                >
+                  COPY
+                </Button>
+              </Tooltip>}
+          
             <Transliteration>
               {languages.target.transliterate(translation).split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item != "") ? item : <br />}</p>))}
             </Transliteration>
