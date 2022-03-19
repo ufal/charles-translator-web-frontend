@@ -222,6 +222,7 @@ const Form = () => {
         <TranslationFieldContainer>
           <LabelContainer>
             <Label htmlFor="destination">{languages.target.name}</Label>
+            <button onClick={() => {navigator.clipboard.writeText(translation)}}>Copy translation</button>
             <TranslationHistory
               getHistory={() => getHistory(languages.source)}
               onSelect={handleChangeSource}
