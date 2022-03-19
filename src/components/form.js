@@ -96,6 +96,7 @@ const languageCs = {
 };
 
 let loadingID = 0;
+let loadedID = 0;
 
 const Form = () => {
   const [source, setSource] = useState("");
@@ -124,10 +125,17 @@ const Form = () => {
       loadingID: ++loadingID,
     })
     .then((data) => {
+      // this request is last that was sent
       if(data.loadingID === loadingID){
         setLoading(false);
       }
-      setTranslation(data.data); // TODO maybe add this into if block as well
+      
+      // this request has some new information
+      if(loadedID < data.loadingID){
+        loadedID = data.loadingID;
+        setTranslation(data.data);
+      }
+
     })
     .catch(() => {
       setLoading(false);
@@ -139,16 +147,17 @@ const Form = () => {
   }
 
   const flipLanguages = useCallback(() => {
-    const oldSource = languages.source.id;
-    const oldTarget = languages.target.id;
-    setSource("");
+    const oldSource = languages.source;
+    const oldTarget = languages.target;
     setTranslation("");
     setLanguages((state) => ({ source: state.target, target: state.source }));
-    //handleChangeSource(source, oldTarget, oldSource);
+
+    handleChangeSource(source, oldTarget.id, oldSource.id);
+
     if(typeof window !== 'undefined'){
       window.localStorage.setItem(
         "lastTranslationSource",
-        oldTarget
+        oldTarget.id
       );
     }
   }, [source, languages]);
