@@ -24,10 +24,6 @@ export function TranslationHistory({ getHistory, onSelect }) {
       setHistory(getHistory())
   }, [])
 
-  if (history.length === 0) {
-    return null;
-  }
-
   function open() {
     setHistoryOpen(true);
     setHistory(getHistory());
