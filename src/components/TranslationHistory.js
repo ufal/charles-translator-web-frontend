@@ -12,7 +12,7 @@ import { History as HistoryIcon } from "@mui/icons-material";
 import styled from "styled-components";
 
 const Container = styled.div`
-  margin-left: auto;
+
 `;
 
 export function TranslationHistory({ getHistory, onSelect }) {

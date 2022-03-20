@@ -222,13 +222,33 @@ const Form = () => {
         </SwitchButtonWrapper>
 
         <TranslationFieldContainer>
-          <LabelContainer>
+          <Box
+            sx={{
+              height: "38px",
+              minHeight: "38px",
+              display:"flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Label htmlFor="destination">{languages.target.name}</Label>
+            {translation.length !== 0 && <Tooltip
+              title="Copy translation to cliboard"
+            >
+              <Button 
+                onClick={() => {navigator.clipboard.writeText(translation)}}
+                variant="text"
+                size="small"
+                startIcon={<ContentCopyIcon/>}
+              >
+                COPY
+              </Button>
+            </Tooltip>}
             <TranslationHistory
               getHistory={() => getHistory(languages.source)}
               onSelect={handleChangeSource}
             />
-          </LabelContainer>
+          </Box>
           {loading && (<LinearProgress sx={{ top: "4px", marginTop: "-4px" }} />)}
           <Box
             padding={2}
@@ -239,27 +259,11 @@ const Form = () => {
               minHeight: "157px",
               marginBottom: "20px",
               overflowWrap: "break-word",
-              display: "grid",
             }}
           >
             <Box>
               <strong>{translation.split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item != "") ? item : <br />}</p>))}</strong>
             </Box>
-            
-            {translation.length !== 0 && <Tooltip
-                title="Copy translation to cliboard"
-                  sx={{
-                    justifySelf: "end",
-                  }}
-              >
-                <Button 
-                  onClick={() => {navigator.clipboard.writeText(translation)}}
-                  variant="text"
-                  startIcon={<ContentCopyIcon/>}
-                >
-                  COPY
-                </Button>
-              </Tooltip>}
           
             <Transliteration>
               {languages.target.transliterate(translation).split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item != "") ? item : <br />}</p>))}
