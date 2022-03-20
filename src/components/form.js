@@ -227,6 +227,8 @@ const Form = () => {
               height: "38px",
               minHeight: "38px",
               display:"flex",
+              flexDirection: "row",
+              flexWrap: "nowrap",
               alignItems: "center",
               justifyContent: "space-between",
             }}
