@@ -2,6 +2,7 @@
 import Layout from "../src/components/layout";
 import { blue } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Head from 'next/head';
 
 export default function MyApp({ Component, pageProps }) {
   const theme = createTheme({
@@ -11,6 +12,9 @@ export default function MyApp({ Component, pageProps }) {
   });
   return (
     <ThemeProvider theme={theme}>
+      <Head>
+        <title>ÚFAL Translator</title>
+      </Head>
       <Layout>
         <Component {...pageProps} />
       </Layout>

@@ -62,7 +62,6 @@ function Layout({ children }) {
 
   React.useEffect(() => setCollectionSnackbar(localStorage.getItem("collectDataConsentValue") !== "true"),[])
   React.useEffect(() => setForOrganizations((localStorage.getItem("organizationName") || "").length !== 0))
-  React.useEffect(() => { document.title = "ÚFAL Translator" }, [])
 
   const allowCollection = () => { 
     setCollectionSnackbar(false);
