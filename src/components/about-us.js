@@ -97,7 +97,8 @@ export default function AboutUs() {
 
       <p><b>Development of the translation system:</b> <a href="https://ufal.mff.cuni.cz/martin-popel" target="_blank">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky" target="_blank">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl" target="_blank">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak" target="_blank">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa" target="_blank">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner" target="_blank">Zdeněk Kasner</a></p>
 
-      <p><b>Data preparation:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova" target="_blank">Lucie Poláková</a>, <a href="https://martin.majlis.cz" target="_blank">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br /> Many thanks to <a href="https://intercorp.korpus.cz/" target="_blank">korpus.cz</a> for providing us with <b>InterCorp v14</b>, a part of the project Czech National Corpus.</p>
+      <p><b>Data preparation:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova" target="_blank">Lucie Poláková</a>, <a href="https://martin.majlis.cz" target="_blank">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br /> Many thanks to <a href="https://wiki.korpus.cz/doku.php/en:cnk:intercorp" target="_blank">korpus.cz</a> for providing us with <b>InterCorp v14</b>, a part of the project Czech National Corpus.<br />
+      We thank <a href="https://www.ceskepreklady.cz" target="_blank">České překlady</a> for cooperating on the project.</p>
 
       <p>
         <b> Back-end development: </b>
