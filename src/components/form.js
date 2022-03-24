@@ -234,7 +234,7 @@ const Form = () => {
             }}
           >
             <Label htmlFor="destination">{languages.target.name}</Label>
-            {translation.length !== 0 && <Tooltip
+            {translation.length !== 0 && navigator.clipboard !== 'undefined' && <Tooltip
               title="Copy translation to cliboard"
             >
               <Button 
