@@ -1,0 +1,52 @@
+.flex {
+	display: flex;
+	flex-direction: row;
+	@media (min-width: 769px) {
+		margin: 12px;
+	}
+	@media (max-width: 768px) {
+		flex-direction: column;
+		margin-top: 8px;
+	}
+}
+
+.switchButtonWrapper {
+	align-self: center;
+	justify-self: center;
+	@media (min-width: 769px) {
+	transform: rotate(90deg);
+	}
+	margin: 4px;
+}
+
+.transliteration {
+  color: grey;
+  word-break: break-all;
+  margin-bottom: 0;
+}
+
+.labelContainer {
+  display: flex;
+  flex-direction: row;
+  height: 38px;
+  align-items: center;
+  flex-shrink: 0;
+  @media (max-width: 768px) {
+    padding: 0 8px;
+  }
+}
+
+.label {
+  font-size: 0.9rem;
+}
+
+.translationFieldContainer {
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 769px) {
+    width: calc(50% - 20px);
+  }
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+}
