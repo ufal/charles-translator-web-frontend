@@ -14,6 +14,7 @@ import {
   Clear as ClearIcon,
   SwapVert,
 } from "@mui/icons-material";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { blue } from "@mui/material/colors";
 
@@ -108,6 +109,7 @@ const Form = () => {
     target: languageCs,
   });
   const [loading, setLoading] = useState(false);
+  const [loadingError, setLoadingError] = useState(false);
 
   React.useEffect(() => {
     const defaultSource = localStorage.getItem("lastTranslationSource") || "";
@@ -136,11 +138,15 @@ const Form = () => {
       if(loadedID < data.loadingID){
         loadedID = data.loadingID;
         setTranslation(data.data.trim());
+        setLoadingError(false);
       }
 
     })
-    .catch(() => {
+    .catch((error) => {
       setLoading(false);
+      setLoadingError(true);
+      console.error("Error when loading translation");
+      console.error(error);
     })
   }
 
@@ -263,14 +269,35 @@ const Form = () => {
               overflowWrap: "break-word",
             }}
           >
-            <Box>
-              <strong>{translation.split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item != "") ? item : <br />}</p>))}</strong>
-            </Box>
-          
-            <Transliteration>
-              {languages.target.transliterate(translation).split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item != "") ? item : <br />}</p>))}
-            </Transliteration>
+            {loadingError ? 
+              <Box
+                sx={{
+                  display: "grid",
+                  alignItems: "center",
+                  justifyItems: "center",
+                  height: "100%",
+                  minHeight: "100%",
+                }}
+              >
+                <ErrorOutlineIcon/>
+                <span>Translation error</span>
+                <Button
+                  onClick={()=>{location.reload();}}
+                >Try again</Button>
+              </Box>
+              :
+              <Box>
+                <Box>
+                  <strong>{translation.split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item != "") ? item : <br />}</p>))}</strong>
+                </Box>
+              
+                <Transliteration>
+                  {languages.target.transliterate(translation).split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item != "") ? item : <br />}</p>))}
+                </Transliteration>
+              </Box>
+            }
           </Box>
+            
         </TranslationFieldContainer>
       </Flex>
     </>
