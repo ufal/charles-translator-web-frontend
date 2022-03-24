@@ -26,7 +26,7 @@ import { transliterateCyrilToLatin, transliterateLatinToCyril } from "../transli
 import styles from "./form.module.scss"
 
 
-const debouncedTranslate = debounce((setLoading, data) => {setLoading ; return translate(data) }, 500);
+const debouncedTranslate = debounce(translate, 500);
 const debouncedSave = debounce(saveHistory, 10000);
 
 const languageUk = {
@@ -41,21 +41,19 @@ const languageCs = {
   transliterate: transliterateLatinToCyril,
 };
 
-let loadingID = 0;
-let loadedID = 0;
+let loadingID = 0; // id of most recent sent request
+let loadedID = 0; // id o most recent received request
 
 const Form = () => {
   const [source, setSource] = useState("");
   const [translation, setTranslation] = useState("");
-  const [languages, setLanguages] = useState({
-    source: languageUk,
-    target: languageCs,
-  });
+  const [languages, setLanguages] = useState({ source: languageUk, target: languageCs });
   const [loading, setLoading] = useState(false);
   const [loadingError, setLoadingError] = useState(false);
 
   React.useEffect(() => {
     const defaultSource = localStorage.getItem("lastTranslationSource") || "";
+
     if(defaultSource === languageCs.id)
       setLanguages({source: languageCs, target: languageUk });
     else
@@ -64,8 +62,10 @@ const Form = () => {
 
   function handleChangeSource(text, fromLanguage = languages.source.id, toLanguage = languages.target.id) {
     setSource(text);
+    setLoading(true);
+
     debouncedSave(languages.source, text);
-    debouncedTranslate(setLoading(true), {
+    debouncedTranslate({
       text,
       fromLanguage,
       toLanguage,
@@ -73,9 +73,8 @@ const Form = () => {
     })
     .then((data) => {
       // this request is last that was sent
-      if(data.loadingID === loadingID){
+      if(data.loadingID === loadingID)
         setLoading(false);
-      }
       
       // this request has some new information
       if(loadedID < data.loadingID){
@@ -93,25 +92,21 @@ const Form = () => {
     })
   }
 
-  const clearSource = () => {
-    handleChangeSource("");
-  }
-
-  const flipLanguages = useCallback(() => {
+  const flipLanguages = () => {
     const oldSource = languages.source;
     const oldTarget = languages.target;
     setTranslation("");
     setLanguages((state) => ({ source: state.target, target: state.source }));
 
+    /**/// switch - keep source text as source
     handleChangeSource(source, oldTarget.id, oldSource.id);
-
-    if(typeof window !== 'undefined'){
-      window.localStorage.setItem(
-        "lastTranslationSource",
-        oldTarget.id
-      );
-    }
-  }, [source, languages]);
+    /*/           - insert translation as new source
+    handleChangeSource(translation, oldTarget.id, oldSource.id);
+    /**/
+    
+    if(typeof window !== 'undefined')
+      window.localStorage.setItem("lastTranslationSource", oldTarget.id);
+  }
 
   return (
     <div className={styles.flex}>
@@ -126,24 +121,15 @@ const Form = () => {
           variant="filled"
           multiline
           minRows={6}
-          sx={{
-            "& .MuiInputBase-root": {
-              paddingTop: "8px",
-              paddingRight: "40px",
-            },
-          }}
+          className={styles.sourceInput}
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
                 { source.length !== 0 &&
                   <Tooltip title="Clear source text">
                     <IconButton 
-                      onClick={clearSource}
-                      sx={{
-                        position: "absolute",
-                        top: "10px",
-                        right: "10px",
-                      }}
+                      onClick={() => {handleChangeSource("")}}
+                      className={styles.removeButton}
                     >
                       <ClearIcon/>
                     </IconButton>

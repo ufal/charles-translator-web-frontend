@@ -50,3 +50,16 @@
     max-width: 100%;
   }
 }
+
+.sourceInput {
+	& .MuiInputBase-root {
+		padding-top: 8px;
+		padding-right: 40px;
+	}
+}
+
+.removeButton {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
