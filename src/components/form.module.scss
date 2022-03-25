@@ -20,35 +20,35 @@
 }
 
 .transliteration {
-  color: grey;
-  word-break: break-all;
-  margin-bottom: 0;
+	color: grey;
+	word-break: break-all;
+	margin-bottom: 0;
 }
 
 .labelContainer {
-  display: flex;
-  flex-direction: row;
-  height: 38px;
-  align-items: center;
-  flex-shrink: 0;
-  @media (max-width: 768px) {
-    padding: 0 8px;
-  }
+	display: flex;
+	flex-direction: row;
+	height: 38px;
+	align-items: center;
+	flex-shrink: 0;
+	@media (max-width: 768px) {
+		padding: 0 8px;
+	}
 }
 
 .label {
-  font-size: 0.9rem;
+	font-size: 0.9rem;
 }
 
 .translationFieldContainer {
-  display: flex;
-  flex-direction: column;
-  @media (min-width: 769px) {
-    width: calc(50% - 20px);
-  }
-  @media (max-width: 768px) {
-    max-width: 100%;
-  }
+	display: flex;
+	flex-direction: column;
+	@media (min-width: 769px) {
+		width: calc(50% - 20px);
+	}
+	@media (max-width: 768px) {
+		max-width: 100%;
+	}
 }
 
 .sourceInput {
@@ -62,4 +62,42 @@
 	position: absolute;
 	top: 10px;
 	right: 10px;
+}
+
+.translationHeader {
+	height: 38px;
+	min-height: 38px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-between;
+}
+
+
+.translationOutput {
+	background-color: #e3f2fd;
+	border-radius: 1;
+	height: 100%;
+	min-height: 157px;
+	margin-bottom: 20px;
+	overflow-wrap: break-word;
+	padding: 16px;
+}
+
+.networkError {
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	height: 100%;
+	min-height: 100%;
+}
+
+.loadingBar {
+	top: 4px;
+	margin-top: -4px;
+}
+
+.translationText{
+	font-weight: bold;
 }
