@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
-	Typography,
 	AppBar,
-	Toolbar,
-	IconButton,
 	Button,
-	Tooltip,
 	Dialog,
-	Snackbar,
-	DialogTitle,
 	DialogActions,
+	DialogTitle,
+	IconButton,
+	Snackbar,
+	Toolbar,
+	Tooltip,
+	Typography,
 } from "@mui/material";
-import { Info as InfoIcon } from "@mui/icons-material";
-import CloseIcon from '@mui/icons-material/Close';
-import CheckIcon from '@mui/icons-material/Check';
+import {
+	Check as CheckIcon,
+	Close as CloseIcon,
+	Info as InfoIcon,
+} from "@mui/icons-material";
 
 import AboutUs from "./about-us";
 

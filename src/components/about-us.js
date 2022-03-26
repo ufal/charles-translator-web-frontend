@@ -1,24 +1,23 @@
 import * as React from "react";
-
 import {
-	FormControlLabel,
-	TextField,
-	Tab,
-	InputAdornment,
 	Box,
 	Checkbox,
+	FormControlLabel,
+	InputAdornment,
+	Tab,
+	TextField,
 } from "@mui/material";
 import { AboutUsConst } from "../constants/about-us-constsant";
 import {
-	TabPanel,
 	TabContext,
 	TabList,
+	TabPanel,
 } from '@mui/lab';
 import CheckIcon from '@mui/icons-material/Check';
 
-import ufalLogo from '../../public/static/img/ufal-logo.svg';
-import lindatLogo from '../../public/static/img/lindat-logo-violet.svg';
 import atChar from '../../public/static/img/at.svg';
+import lindatLogo from '../../public/static/img/lindat-logo-violet.svg';
+import ufalLogo from '../../public/static/img/ufal-logo.svg';
 
 import styles from "./about-us.module.scss"
 

@@ -1,37 +1,43 @@
-import axios from "axios";
-
-const baseApiUrl = "https://lindat.cz/translation/api/v2/languages";
-
 const headers = {
-  accept: "application/json",
-  "Content-Type": "application/x-www-form-urlencoded",
+	accept: "application/json",
+	'Content-Type': 'application/x-www-form-urlencoded'
 };
 
 function getConsent() {
-  return localStorage.getItem("collectDataConsentValue") === "true"
-    ? "true"
-    : "false";
+	return localStorage.getItem("collectDataConsentValue") === "true"
+		? "true"
+		: "false";
 }
 
 function getAuthor() {
-  return localStorage.getItem("organizationName") || "";
+	return localStorage.getItem("organizationName") || "";
 }
 
 export function translate({ text, fromLanguage, toLanguage, loadingID }) {
-  if(text.length === 0)
-    return Promise.resolve({ data: "", loadingID });
+	if(text.length === 0)
+		return Promise.resolve({ data: "", loadingID });
+		
+	const baseApiUrl = "https://lindat.cz/translation/api/v2/languages";
+	const url = `${baseApiUrl}/?src=${encodeURIComponent(fromLanguage)}&tgt=${encodeURIComponent(toLanguage)}&frontend=u4u`;
 
-  const data = new URLSearchParams();
-  data.append("input_text", text.normalize('NFC'));
-  data.append("logInput", getConsent());
-  data.append("author", getAuthor());
+	const formData = {
+		input_text: text.normalize('NFC'),
+		logInput: getConsent(),
+		author: getAuthor(),
+	}
 
-  return axios({
-    method: "POST",
-    url: `${baseApiUrl}/?src=${encodeURIComponent(
-      fromLanguage
-    )}&tgt=${encodeURIComponent(toLanguage)}&frontend=u4u`,
-    data,
-    headers,
-  }).then((response) => {return { data: response.data.join(" "), loadingID }});
+	const formBody = [];
+	for (let property in formData) {
+		const encodedKey = encodeURIComponent(property)
+		const encodedValue = encodeURIComponent(formData[property])
+		formBody.push(encodedKey + "=" + encodedValue)
+	}
+	
+	return fetch(url, {
+		method: 'POST',
+		body: formBody.join("&"),
+		headers,
+	})
+	.then(response => response.json())
+	.then(response => {return { data: response.join(" "), loadingID }})
 }

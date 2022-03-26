@@ -1,25 +1,23 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
 import debounce from "debounce-promise";
 import {
-	Box,
+	Button,
 	IconButton,
 	InputAdornment,
 	LinearProgress,
 	TextField,
 	Tooltip,
-	Button,
 } from "@mui/material";
 import {
 	Clear as ClearIcon,
-	ErrorOutline as ErrorOutlineIcon,
 	ContentCopy as ContentCopyIcon,
+	ErrorOutline as ErrorOutlineIcon,
 	SwapVert,
 } from "@mui/icons-material";
 
-import { TranslationHistory } from "./TranslationHistory";
-import { translate } from "../api";
 import { getHistory, saveHistory } from "../history";
+import { translate } from "../api";
+import { TranslationHistory } from "./TranslationHistory";
 import { transliterateCyrilToLatin, transliterateLatinToCyril } from "../transliterate";
 
 import styles from "./form.module.scss"
