@@ -34,5 +34,18 @@
 	color: #0d47a1;
 	@media (max-width: 768px) {
 		font-size: 0.55rem;
+	}
 }
+
+.header {
+	background-color: #2196f3;
+	& .MuiToolbar-root {
+		padding: 4px 0 4px 12px;
+	}
+}
+
+.closeAboutUsButton {
+	position: absolute;
+	right: 8px;
+	top: 8px;
 }

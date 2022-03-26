@@ -36,15 +36,12 @@ function Layout({ children }) {
 	}
 
 	return (
-		<>
+		<div>
 			<CssBaseline />
 			<div className={styles.container}>
 				<AppBar
 					position="static"
-					sx={{
-						bgcolor: "#2196f3",
-						"& .MuiToolbar-root": { padding: "4px 0 4px 12px" },
-					}}
+					className={styles.header}
 					elevation={0}
 				>
 					<Toolbar sx={{ padding: 2 }}>
@@ -91,12 +88,7 @@ function Layout({ children }) {
 				>
 					<DialogTitle>
 						<IconButton
-							sx={{
-								position: 'absolute',
-								right: 8,
-								top: 8,
-								color: (theme) => theme.palette.grey[500],
-							}}
+							className={styles.closeAboutUsButton}
 							onClick={()=>setOpenAboutUs(false)}
 						>
 							<CloseIcon />
@@ -135,7 +127,7 @@ function Layout({ children }) {
 					PROGRAMME LM OF LARGE INFRASTRUCTURES
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }
 
