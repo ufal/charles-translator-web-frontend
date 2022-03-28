@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Image from 'next/image';
 import CssBaseline from "@mui/material/CssBaseline";
 import {
 	AppBar,
@@ -29,6 +30,7 @@ function Layout({ children }) {
 	const [forOrganizations, setForOrganizations] = useState(false);
 
 	useEffect(() => setCollectionSnackbar(localStorage.getItem("collectDataConsentValue") !== "true"),[])
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => setForOrganizations((localStorage.getItem("organizationName") || "").length !== 0))
 
 	const allowCollection = () => { 
@@ -54,11 +56,17 @@ function Layout({ children }) {
 							color="white"
 						>
 							<div className={styles.flagsContainer}>
-								<img
+								<Image
+									width={30}
+									height={30}
+									alt="uk-flag"
 									src="/static/img/ukraine.png"
 									className={styles.flagIcon}
 								/>
-								<img
+								<Image
+									width={30}
+									height={30}
+									alt="cs-flag"
 									src="/static/img/czech-republic.png"
 									className={styles.flagIcon}
 								/>
