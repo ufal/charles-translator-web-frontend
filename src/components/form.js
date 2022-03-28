@@ -44,13 +44,16 @@ let loadedID = 0;  // id o most recent received request
 const Form = () => {
 	const [source, setSource] = useState("");
 	const [translation, setTranslation] = useState("");
-	const [languages, setLanguages] = useState({ source: languageUk, target: languageCs });
+	const [languages, setLanguages] = useState({ source: languageCs, target: languageUk });
 	const [loading, setLoading] = useState(false);
 	const [loadingError, setLoadingError] = useState(false);
 
 	React.useEffect(() => {
-		const defaultSource = localStorage.getItem("lastTranslationSource") || "";
+		const defaultSource = localStorage.getItem("lastTranslationSource");
 
+		if(defaultSource === null)
+			return;
+		
 		if(defaultSource === languageCs.id)
 			setLanguages({source: languageCs, target: languageUk });
 		else
