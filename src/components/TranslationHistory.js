@@ -5,7 +5,6 @@ import {
 	Button,
 	List,
 	ListItemButton,
-	ListItemText,
 	ListSubheader,
 	Tooltip,
 } from "@mui/material";
@@ -13,6 +12,10 @@ import {
 	History as HistoryIcon,
 	Star as StarIcon,
 	StarBorder as StarBorderIcon,
+	Delete as DeleteIcon,
+	DeleteForever as DeleteForeverIcon,
+	ArrowRightAlt as ArrowRightAltIcon,
+	ArrowRight as ArrowRightIcon,
 } from "@mui/icons-material";
 
 import {
@@ -67,9 +70,23 @@ export function TranslationHistory({ getHistory, onSelect }) {
 					component="nav"
 					aria-labelledby="nested-list-subheader"
 					subheader={
-						<ListSubheader component="div" id="nested-list-subheader" className={styles.header}>
-							History
-						</ListSubheader>
+						<div className={styles.header}>
+							<ListSubheader component="div" id="nested-list-subheader" className={styles.headerTitle}>
+								History
+							</ListSubheader>
+							<Button
+								onClick={()=>{
+									if(!confirm("Are you sure to remove whole history?"))
+										return;
+
+									localStorage.removeItem("translationHistory");
+									setHistory(getHistory());
+								}}
+								color="error">
+								<div>Remove everything</div>
+								<DeleteForeverIcon/>
+							</Button>
+						</div>
 					}
 				>
 					{history.sort((a,b) => a.star ? -1 : b.star ? 1 : 0).map((value, index) => (
@@ -83,9 +100,16 @@ export function TranslationHistory({ getHistory, onSelect }) {
 									<StarBorderIcon/>
 								</Button>
 							}
-							<ListItemButton onClick={() => selectItem(value)}>
-								<ListItemText primary={`${value.fromLanguageId} => ${value.toLanguageId} : ${value.text}`} />
+							<ListItemButton onClick={() => selectItem(value)} className={styles.listItemText}>
+								<div>{value.fromLanguageId}</div>
+								<ArrowRightAltIcon/>
+								<div>{value.toLanguageId}</div>
+								<ArrowRightIcon/>
+								<b>{value.text}</b>
 							</ListItemButton>
+							<Button onClick={()=>{removeItemFromHistory(value); setHistory(getHistory());}}>
+								<DeleteIcon/>
+							</Button>
 						</div>
 					))}
 				</List>

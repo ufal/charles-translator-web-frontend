@@ -72,6 +72,8 @@ const Form = () => {
 		else
 			setLanguages((state) => ({ source: languageUk, target: languageCs }));
 
+		if(typeof window !== 'undefined')
+			window.localStorage.setItem("lastTranslationSource", fromLanguage);
 
 		debouncedSave(fromLanguage, toLanguage, text);
 		debouncedTranslate({
@@ -111,9 +113,6 @@ const Form = () => {
 		/*/                     - insert translation as new source
 		handleChangeSource(translation, oldTarget.id, oldSource.id);
 		/**/
-		
-		if(typeof window !== 'undefined')
-			window.localStorage.setItem("lastTranslationSource", oldTarget.id);
 	}
 
 	return (

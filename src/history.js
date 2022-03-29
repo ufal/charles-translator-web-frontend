@@ -39,8 +39,10 @@ export function saveHistory(fromLanguageId, toLanguageId, text) {
 	localStorage.setItem("translationHistory", JSON.stringify(originalHistory.slice(0, MAX_HISTORY_COUNT)));
 }
 
-export function removeItemFromHistory(index){
-	localStorage.removeItem(index);
+export function removeItemFromHistory(value){
+	let originalHistory = getHistory();
+	originalHistory = originalHistory.filter((item) => item.text !== value.text || item.fromLanguageId !== value.fromLanguageId || item.toLanguageId !== value.toLanguageId);
+	localStorage.setItem("translationHistory", JSON.stringify(originalHistory));
 }
 
 export function changeStarInHistory(value, star){

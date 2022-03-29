@@ -1,4 +1,11 @@
 .header{
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+	justify-items: start;
+}
+
+.headerTitle{
 	font-weight: bold;
 }
 
@@ -7,4 +14,12 @@
 	grid-template-columns: auto 1fr auto;
 	align-items: center;
 	justify-items: start;
+}
+
+.listItemText{
+	display: grid;
+	grid-template-columns: repeat(4, auto) 1fr;
+	align-items: center;
+	width: 100%;
+	grid-column-gap: 8px;
 }
