@@ -58,14 +58,14 @@ function Layout({ children }) {
 							color="white"
 						>
 							<div className={styles.flagsContainer}>
-								<Image
+								<img
 									width={30}
 									height={30}
 									alt="uk-flag"
 									src={ukraineFlag.src}
 									className={styles.flagIcon}
 								/>
-								<Image
+								<img
 									width={30}
 									height={30}
 									alt="cs-flag"
