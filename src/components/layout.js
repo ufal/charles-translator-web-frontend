@@ -20,6 +20,8 @@ import {
 } from "@mui/icons-material";
 
 import AboutUs from "./about-us";
+import ukraineFlag from "../../public/static/img/ukraine.png";
+import czechFlag from "../../public/static/img/czech-republic.png";
 
 import styles from "./layout.module.scss"
 
@@ -60,14 +62,14 @@ function Layout({ children }) {
 									width={30}
 									height={30}
 									alt="uk-flag"
-									src="/static/img/ukraine.png"
+									src={ukraineFlag.src}
 									className={styles.flagIcon}
 								/>
 								<Image
 									width={30}
 									height={30}
 									alt="cs-flag"
-									src="/static/img/czech-republic.png"
+									src={czechFlag.src}
 									className={styles.flagIcon}
 								/>
 								<p>ÚFAL Translator {forOrganizations && "for organizations"}</p>
