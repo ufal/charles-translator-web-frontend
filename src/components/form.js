@@ -15,7 +15,10 @@ import {
 	SwapVert,
 } from "@mui/icons-material";
 
-import { getHistory, saveHistory } from "../history";
+import {
+	getHistory,
+	saveHistory,
+} from "../history";
 import { translate } from "../api";
 import { TranslationHistory } from "./TranslationHistory";
 import { transliterateCyrilToLatin, transliterateLatinToCyril } from "../transliterate";
@@ -64,7 +67,13 @@ const Form = () => {
 		setSource(text);
 		setLoading(true);
 
-		debouncedSave(languages.source, text);
+		if(fromLanguage === languageCs.id)
+			setLanguages((state) => ({ source: languageCs, target: languageUk }));
+		else
+			setLanguages((state) => ({ source: languageUk, target: languageCs }));
+
+
+		debouncedSave(fromLanguage, toLanguage, text);
 		debouncedTranslate({
 			text,
 			fromLanguage,
@@ -96,7 +105,6 @@ const Form = () => {
 		const oldSource = languages.source;
 		const oldTarget = languages.target;
 		setTranslation("");
-		setLanguages((state) => ({ source: state.target, target: state.source }));
 
 		/**/// switch - keep source text as source
 		handleChangeSource(source, oldTarget.id, oldSource.id);
@@ -168,7 +176,7 @@ const Form = () => {
 						</Button>
 					</Tooltip>}
 					<TranslationHistory
-						getHistory={() => getHistory(languages.source)}
+						getHistory={() => getHistory()}
 						onSelect={handleChangeSource}
 					/>
 				</div>

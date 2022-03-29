@@ -1,0 +1,10 @@
+.header{
+	font-weight: bold;
+}
+
+.historyItem{
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	justify-items: start;
+}
