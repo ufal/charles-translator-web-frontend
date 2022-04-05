@@ -21,5 +21,12 @@
 	grid-template-columns: repeat(4, auto) 1fr;
 	align-items: center;
 	width: 100%;
-	grid-column-gap: 8px;
+	grid-column-gap: 0;
+    padding: 0;
+}
+
+.valueText{
+	font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
 }

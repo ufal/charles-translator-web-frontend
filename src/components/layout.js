@@ -20,8 +20,6 @@ import {
 } from "@mui/icons-material";
 
 import AboutUs from "./about-us";
-import ukraineFlag from "../../public/static/img/ukraine.png";
-import czechFlag from "../../public/static/img/czech-republic.png";
 
 import styles from "./layout.module.scss"
 
@@ -50,7 +48,7 @@ function Layout({ children }) {
 					className={styles.header}
 					elevation={0}
 				>
-					<Toolbar sx={{ padding: 2 }}>
+					<Toolbar className={styles.toolbar}>
 						<Typography
 							variant="h6"
 							component="div"
@@ -58,21 +56,8 @@ function Layout({ children }) {
 							color="white"
 						>
 							<div className={styles.flagsContainer}>
-								<img
-									width={30}
-									height={30}
-									alt="uk-flag"
-									src={ukraineFlag.src}
-									className={styles.flagIcon}
-								/>
-								<img
-									width={30}
-									height={30}
-									alt="cs-flag"
-									src={czechFlag.src}
-									className={styles.flagIcon}
-								/>
-								<p>ÚFAL Translator {forOrganizations && "for organizations"}</p>
+
+								<div>ÚFAL Translator {forOrganizations && "for organizations"}</div>
 							</div>
 						</Typography>
 						<Tooltip title="About us">

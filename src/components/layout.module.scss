@@ -48,3 +48,9 @@
 	right: 8px;
 	top: 8px;
 }
+
+.toolbar{
+	@media (min-width: 768px) {
+		min-height: 70px;
+	}
+}

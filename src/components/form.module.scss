@@ -67,6 +67,7 @@
 .translationHeader {
 	height: 38px;
 	min-height: 38px;
+	margin: 0 8px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -99,4 +100,10 @@
 
 .translationText{
 	font-weight: bold;
+}
+
+.languageContainer{
+	display: flex;
+	align-items: center;
+	column-gap: 8px;
 }

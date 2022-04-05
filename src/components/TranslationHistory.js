@@ -105,7 +105,7 @@ export function TranslationHistory({ getHistory, onSelect }) {
 								<ArrowRightAltIcon/>
 								<div>{value.toLanguageId}</div>
 								<ArrowRightIcon/>
-								<b>{value.text}</b>
+								<div className={styles.valueText}>{value.text}</div>
 							</ListItemButton>
 							<Button onClick={()=>{removeItemFromHistory(value); setHistory(getHistory());}}>
 								<DeleteIcon/>

@@ -23,6 +23,9 @@ import { translate } from "../api";
 import { TranslationHistory } from "./TranslationHistory";
 import { transliterateCyrilToLatin, transliterateLatinToCyril } from "../transliterate";
 
+import ukraineFlag from "../../public/static/img/ukraine.png";
+import czechFlag from "../../public/static/img/czech-republic.png";
+
 import styles from "./form.module.scss"
 
 
@@ -33,12 +36,14 @@ const languageUk = {
 	id: "uk",
 	name: "Українською",
 	transliterate: transliterateCyrilToLatin,
+	flag: ukraineFlag,
 };
 
 const languageCs = {
 	id: "cs",
 	name: "Česky",
 	transliterate: transliterateLatinToCyril,
+	flag: czechFlag,
 };
 
 let loadingID = 0; // id of most recent sent request
@@ -119,7 +124,18 @@ const Form = () => {
 		<div className={styles.flex}>
 			<div className={styles.translationFieldContainer}>
 				<div className={styles.labelContainer}>
-					<label className={styles.label} htmlFor="destination">{languages.source.name}</label>
+					<div className={styles.languageContainer}>
+						<img
+							width={30}
+							height={30}
+							alt="flag"
+							src={languages.source.flag.src}
+							className={styles.flagIcon}
+						/>
+						<label className={styles.label} htmlFor="destination">
+							{languages.source.name}
+						</label>
+					</div>
 				</div>
 				<TextField
 					value={source}
@@ -162,7 +178,19 @@ const Form = () => {
 
 			<div className={styles.translationFieldContainer}>
 				<div className={styles.translationHeader}>
-					<label className={styles.label} htmlFor="destination">{languages.target.name}</label>
+					<div className={styles.languageContainer}>
+						<img	
+							width={30}
+							height={30}
+							alt="flag"
+							src={languages.target.flag.src}
+							className={styles.flagIcon}
+						/>
+						<label className={styles.label} htmlFor="destination">
+							{languages.target.name}
+						</label>
+					</div>
+
 					{translation.length !== 0 && navigator.clipboard !== 'undefined' &&
 						<Tooltip title="Copy translation to cliboard">
 						<Button 
