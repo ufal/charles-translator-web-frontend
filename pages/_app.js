@@ -15,6 +15,7 @@ export default function MyApp({ Component, pageProps }) {
 		<ThemeProvider theme={theme}>
 			<Head>
 				<title>ÚFAL Translator</title>
+				<meta name="theme-color" content="#2196F3" />
 			</Head>
 			<Layout>
 				<Component {...pageProps} />
