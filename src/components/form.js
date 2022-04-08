@@ -191,7 +191,7 @@ const Form = () => {
 						</label>
 					</div>
 
-					{translation.length !== 0 && navigator.clipboard !== 'undefined' &&
+					{translation.length !== 0 && navigator.clipboard !== undefined &&
 						<Tooltip title="Copy translation to cliboard">
 						<Button 
 							onClick={() => {navigator.clipboard.writeText(translation)}}
