@@ -89,7 +89,7 @@ export default function AboutUs() {
 			<Image height={80} width={100} alt="ufal logo" src={ufalLogo.src} className={styles.logo} />
 			<Image height={80} width={139} alt="lindat logo" src={lindatLogo.src} className={styles.logo} />
 
-			<p>The Translator was developed at the <b><a href="https://ufal.mff.cuni.cz" rel="noreferrer" target="_blank">Institute of Formal and Applied Linguistics</a></b>, Faculty of Mathematics and Physics, Charles University and was supported by the the <a href="https://lindat.mff.cuni.cz" rel="noreferrer" target="_blank">LINDAT/CLARIAH-CZ</a> project.</p>
+			<p>The Translator was developed at the <b><a href="https://ufal.mff.cuni.cz" rel="noreferrer" target="_blank">Institute of Formal and Applied Linguistics</a></b>, Faculty of Mathematics and Physics, Charles University and was supported by the <a href="https://lindat.mff.cuni.cz" rel="noreferrer" target="_blank">LINDAT/CLARIAH-CZ</a> project.</p>
 
 			<p>
 				<b>Development of the translation system: </b>
