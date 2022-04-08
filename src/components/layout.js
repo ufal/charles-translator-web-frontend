@@ -28,8 +28,10 @@ function Layout({ children }) {
 	const [collectionSnackbar, setCollectionSnackbar] = useState(true);
 	const [openAboutUs, setOpenAboutUs] = useState(false);
 	const [forOrganizations, setForOrganizations] = useState(false);
-
+	const [notOfficialDeplo, setNotOfficialDeplo] = useState(false);
+	
 	useEffect(() => setCollectionSnackbar(localStorage.getItem("collectDataConsentValue") !== "true"),[])
+	useEffect(() => setNotOfficialDeplo(window.location.href.indexOf("lindat.cz/translation") === -1),[])
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => setForOrganizations((localStorage.getItem("organizationName") || "").length !== 0))
 
@@ -72,6 +74,16 @@ function Layout({ children }) {
 							</IconButton>
 						</Tooltip>
 					</Toolbar>
+					{notOfficialDeplo && <div className={styles.notOfficialDeplo}>
+						<a href="https://lindat.cz/translation">
+							🚧🚧This version is not for public, please click here.🚧🚧 
+						</a>
+						<IconButton
+							onClick={()=>setNotOfficialDeplo(false)}
+						>
+							<CloseIcon />
+						</IconButton>
+					</div>}
 				</AppBar>
 
 				{children}

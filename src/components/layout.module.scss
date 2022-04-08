@@ -54,3 +54,14 @@
 		min-height: 70px;
 	}
 }
+
+.notOfficialDeplo{
+	display: grid;
+	grid-template-columns: 1fr auto;
+	background: #f00;
+	a{
+		color: white;
+		text-decoration: none;
+		padding: 10px;
+	}
+}
