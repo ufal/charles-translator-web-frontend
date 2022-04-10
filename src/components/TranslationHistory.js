@@ -76,10 +76,12 @@ export function TranslationHistory({ getHistory, onSelect }) {
 							</ListSubheader>
 							<Button
 								onClick={()=>{
-									if(!confirm("Are you sure to remove whole history?"))
+									if(!confirm("Are you sure to remove unstarred items from history?"))
 										return;
 
-									localStorage.removeItem("translationHistory");
+									let filteredHistory = getHistory().filter((item) => item.star);
+
+									localStorage.setItem("translationHistory", JSON.stringify(filteredHistory));
 									setHistory(getHistory());
 								}}
 								color="error">
