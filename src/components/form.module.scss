@@ -14,7 +14,7 @@
 	align-self: center;
 	justify-self: center;
 	@media (min-width: 769px) {
-	transform: rotate(90deg);
+		transform: rotate(90deg);
 	}
 	margin: 4px;
 }
@@ -59,7 +59,7 @@
 }
 
 .removeButton {
-	position: absolute;
+	position: absolute !important;
 	top: 10px;
 	right: 10px;
 }

@@ -149,10 +149,12 @@ const Form = () => {
 						endAdornment: (
 							<InputAdornment position='end'>
 								{ source.length !== 0 &&
-									<Tooltip title="Clear source text">
+									<Tooltip 
+										className={styles.removeButton}
+										title="Clear source text"
+									>
 										<IconButton 
 											onClick={() => {handleChangeSource("")}}
-											className={styles.removeButton}
 										>
 											<ClearIcon/>
 										</IconButton>
