@@ -17,6 +17,10 @@ export function translate({ text, fromLanguage, toLanguage, loadingID }) {
 	if(text.length === 0)
 		return Promise.resolve({ data: "", loadingID });
 		
+	if(text.length > 5000)
+		return Promise.reject({ data: "The translation is too long", loadingID });
+
+
 	const baseApiUrl = "https://lindat.cz/translation/api/v2/languages";
 	const url = `${baseApiUrl}/?src=${encodeURIComponent(fromLanguage)}&tgt=${encodeURIComponent(toLanguage)}&frontend=u4u`;
 

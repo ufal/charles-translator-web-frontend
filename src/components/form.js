@@ -54,7 +54,7 @@ const Form = () => {
 	const [translation, setTranslation] = useState("");
 	const [languages, setLanguages] = useState({ source: languageCs, target: languageUk });
 	const [loading, setLoading] = useState(false);
-	const [loadingError, setLoadingError] = useState(false);
+	const [loadingError, setLoadingError] = useState(null);
 
 	React.useEffect(() => {
 		const defaultSource = localStorage.getItem("lastTranslationSource");
@@ -96,13 +96,13 @@ const Form = () => {
 			if(loadedID < data.loadingID){
 				loadedID = data.loadingID;
 				setTranslation(data.data.trim());
-				setLoadingError(false);
+				setLoadingError(null);
 			}
 
 		})
 		.catch((error) => {
 			setLoading(false);
-			setLoadingError(true);
+			setLoadingError(error.data || "");
 			console.log("Error when loading translation");
 			console.log(error);
 		})
@@ -142,6 +142,9 @@ const Form = () => {
 					onChange={(e) => handleChangeSource(e.target.value)}
 					id="source"
 					variant="filled"
+					color={source.length > 2000 ? "warning" : "primary"}
+					error={source.length > 5000}
+					helperText={source.length > 2000 ? "maximum text size is 5000 chars" : ""}
 					multiline
 					minRows={6}
 					className={styles.sourceInput}
@@ -211,12 +214,14 @@ const Form = () => {
 				</div>
 				{loading && (<LinearProgress className={styles.loadingBar}/>)}
 				<div className={styles.translationOutput}>
-					{loadingError ? 
+					{loadingError !== null ? 
 						<div className={styles.networkError}>
 							<ErrorOutlineIcon/>
-							<span>Translation error</span>
+							<span>{loadingError !== "" ? loadingError : "Translation error"}</span>
 							<Button
-								onClick={()=>{location.reload();}}
+								onClick={()=>{
+									handleChangeSource(source);
+								}}
 							>
 								Try again
 							</Button>
