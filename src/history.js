@@ -28,10 +28,13 @@ export function saveHistory(fromLanguageId, toLanguageId, text) {
 	}
 
 	let originalHistory = getHistory();
-	let foundDuplicate = originalHistory.findIndex((item) => item.text === text) !== -1;
+	let foundDuplicate = originalHistory.findIndex(
+		(item) => text.length >= item.text.length && text.substr(0,item.text.length) === item.text
+	);
 
-	if(foundDuplicate){
+	if(foundDuplicate !== -1){
 		originalHistory.sort((a,b) => a.text === text ? -1 : b.text === text ? 1 : 0);
+		originalHistory[0].text = text;
 	} else {
 		originalHistory.unshift(historyItem);
 	}

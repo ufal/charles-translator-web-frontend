@@ -30,7 +30,7 @@ import styles from "./form.module.scss"
 
 
 const debouncedTranslate = debounce(translate, 500);
-const debouncedSave = debounce(saveHistory, 5000);
+const debouncedSave = debounce(saveHistory, 3000);
 
 const languageUk = {
 	id: "uk",

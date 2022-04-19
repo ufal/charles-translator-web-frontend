@@ -74,25 +74,28 @@ export function TranslationHistory({ getHistory, onSelect }) {
 							<ListSubheader component="div" id="nested-list-subheader" className={styles.headerTitle}>
 								History
 							</ListSubheader>
-							<Button
-								onClick={()=>{
-									if(!confirm("Are you sure to remove unstarred items from history?"))
-										return;
+							<Tooltip title="Wipe whole translation history">
+								<Button
+									onClick={()=>{
+										if(!confirm("Are you sure to remove unstarred items from history?"))
+											return;
 
-									let filteredHistory = getHistory().filter((item) => item.star);
+										let filteredHistory = getHistory().filter((item) => item.star);
 
-									localStorage.setItem("translationHistory", JSON.stringify(filteredHistory));
-									setHistory(getHistory());
-								}}
-								color="error">
-								<div>Remove everything</div>
-								<DeleteForeverIcon/>
-							</Button>
+										localStorage.setItem("translationHistory", JSON.stringify(filteredHistory));
+										setHistory(getHistory());
+									}}
+									color="error">
+									<div>Remove everything</div>
+									<DeleteForeverIcon/>
+								</Button>
+							</Tooltip>
 						</div>
 					}
 				>
 					{history.sort((a,b) => a.star ? -1 : b.star ? 1 : 0).map((value, index) => (
 						<div key={index} className={styles.historyItem}>
+							<Tooltip title={value.star ? "Mark as favorite" : "Unmark as favorite"}>
 							{ value.star ? 
 								<Button onClick={()=>{changeStarInHistory(value, false); setHistory(getHistory());}}>
 									<StarIcon/>
@@ -102,6 +105,7 @@ export function TranslationHistory({ getHistory, onSelect }) {
 									<StarBorderIcon/>
 								</Button>
 							}
+							</Tooltip>
 							<ListItemButton onClick={() => selectItem(value)} className={styles.listItemText}>
 								<div>{value.fromLanguageId}</div>
 								<ArrowRightAltIcon/>
@@ -109,9 +113,11 @@ export function TranslationHistory({ getHistory, onSelect }) {
 								<ArrowRightIcon/>
 								<div className={styles.valueText}>{value.text}</div>
 							</ListItemButton>
-							<Button onClick={()=>{removeItemFromHistory(value); setHistory(getHistory());}}>
-								<DeleteIcon/>
-							</Button>
+							<Tooltip title="Remove this from history">
+								<Button onClick={()=>{removeItemFromHistory(value); setHistory(getHistory());}}>
+									<DeleteIcon/>
+								</Button>	
+							</Tooltip>
 						</div>
 					))}
 				</List>
