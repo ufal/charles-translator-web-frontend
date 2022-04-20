@@ -11,7 +11,7 @@
 
 .historyItem{
 	display: grid;
-	grid-template-columns: auto 1fr auto;
+	grid-template-columns: 64px calc(100vw - 128px) 64px;
 	align-items: center;
 	justify-items: start;
 }
