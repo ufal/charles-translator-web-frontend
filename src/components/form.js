@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import debounce from "debounce-promise";
 import {
 	Button,
@@ -49,6 +49,7 @@ const languageCs = {
 let loadingID = 0; // id of most recent sent request
 let loadedID = 0;  // id o most recent received request
 
+
 const Form = () => {
 	const [source, setSource] = useState("");
 	const [translation, setTranslation] = useState("");
@@ -67,6 +68,13 @@ const Form = () => {
 		else
 			setLanguages({source: languageUk, target: languageCs });
 	}, [])
+
+	const focusInput = useRef(null);
+
+	React.useEffect(() => {
+		if(focusInput.current)
+			focusInput.current.focus(); 
+	}, [focusInput]);
 
 	function handleChangeSource(text, fromLanguage = languages.source.id, toLanguage = languages.target.id) {
 		setSource(text);
@@ -146,6 +154,7 @@ const Form = () => {
 					error={source.length > 5000}
 					helperText={source.length > 2000 ? "maximum text size is 5000 chars" : ""}
 					multiline
+					inputRef={focusInput}
 					minRows={6}
 					className={styles.sourceInput}
 					InputProps={{
