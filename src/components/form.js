@@ -73,7 +73,7 @@ const Form = () => {
 
 	React.useEffect(() => {
 		if(focusInput.current)
-			focusInput.current.focus(); 
+			focusInput.current.focus();
 	}, [focusInput]);
 
 	function handleChangeSource(text, fromLanguage = languages.source.id, toLanguage = languages.target.id) {
@@ -166,7 +166,7 @@ const Form = () => {
 										title="Clear source text"
 									>
 										<IconButton 
-											onClick={() => {handleChangeSource("")}}
+											onClick={() => { handleChangeSource(""); focusInput.current.focus(); }}
 										>
 											<ClearIcon/>
 										</IconButton>
@@ -182,7 +182,7 @@ const Form = () => {
 				<Tooltip title="Swap languages">
 					<IconButton
 						aria-label="switch languages"
-						onClick={flipLanguages}
+						onClick={ () => { flipLanguages(); focusInput.current.focus(); } }
 						size="large"
 					>
 						<SwapVert fontSize="large" color="primary" />
