@@ -14,7 +14,7 @@ export default function MyApp({ Component, pageProps }) {
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>
-				<title>ÚFAL Translator</title>
+				<title>Charles Translator for Ukraine</title>
 				<meta name="theme-color" content="#2196F3" />
 			</Head>
 			<Layout>

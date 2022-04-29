@@ -31,7 +31,10 @@ function Layout({ children }) {
 	const [notOfficialDeplo, setNotOfficialDeplo] = useState(false);
 	
 	useEffect(() => setCollectionSnackbar(localStorage.getItem("collectDataConsentValue") !== "true"),[])
-	useEffect(() => setNotOfficialDeplo(window.location.href.indexOf("lindat.cz/translation") === -1),[])
+	useEffect(() => setNotOfficialDeplo(
+		window.location.href.indexOf("lindat.cz/translation") === -1 &&
+		window.location.href.indexOf("translator.cuni.cz") === -1
+	),[])
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => setForOrganizations((localStorage.getItem("organizationName") || "").length !== 0))
 
@@ -59,7 +62,7 @@ function Layout({ children }) {
 						>
 							<div className={styles.flagsContainer}>
 
-								<div>ÚFAL Translator {forOrganizations && "for organizations"}</div>
+								<div>Charles Translator for Ukraine</div>
 							</div>
 						</Typography>
 						<Tooltip title="About us">
