@@ -25,11 +25,12 @@
 	margin-bottom: 0;
 }
 
-.labelContainer {
+.translationHeaderContainer {
 	display: flex;
 	flex-direction: row;
 	height: 38px;
 	align-items: center;
+	justify-content: space-between;
 	flex-shrink: 0;
 	@media (max-width: 768px) {
 		padding: 0 8px;

@@ -20,6 +20,7 @@ import {
 	saveHistory,
 } from "../history";
 import { translate } from "../api";
+import ASR from "./asr";
 import { TranslationHistory } from "./TranslationHistory";
 import { transliterateCyrilToLatin, transliterateLatinToCyril } from "../transliterate";
 
@@ -131,7 +132,7 @@ const Form = () => {
 	return (
 		<div className={styles.flex}>
 			<div className={styles.translationFieldContainer}>
-				<div className={styles.labelContainer}>
+				<div className={styles.translationHeaderContainer}>
 					<div className={styles.languageContainer}>
 						<img
 							width={30}
@@ -144,6 +145,8 @@ const Form = () => {
 							{languages.source.name}
 						</label>
 					</div>
+					<></>
+					<div className={styles.asrContainer}><ASR/></div>
 				</div>
 				<TextField
 					value={source}
