@@ -3,8 +3,11 @@ import {
 	Tooltip,
 	IconButton,
 } from "@mui/material";
-import CheckIcon from '@mui/icons-material/Check';
 import MicIcon from '@mui/icons-material/Mic';
+
+import {
+	init as initASR,
+} from "./asrScripts";
 
 import styles from "./asr.module.scss"
 
@@ -17,6 +20,8 @@ export default function ASR() {
 	});
 
 	React.useEffect(() => { setState({ ...state, visible: navigator !== undefined })}, [])
+	
+	let ASR
 
 	return (
 		<div>
@@ -29,7 +34,16 @@ export default function ASR() {
 					size="large"
 					color={state.active ? "success" : state.error ? "error" : undefined}
 					onClick={() => {
-						setState({ ...state, active: !state.active });
+						let newState = !state.active;
+						setState({ ...state, active: newState });
+						if(ASR == undefined)
+							ASR = initASR();
+
+						if(newState === true)
+							ASR.start()
+						else
+							ASR.stop()
+
 						console.log("pressed ASR");
 					}}
 					sx={{ padding: 0 }}
