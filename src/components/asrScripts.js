@@ -107,7 +107,7 @@ const Recorder = function(cfg){
 }
 
 
-const SpeechRecognition = function() {
+export const SpeechRecognition = function() {
 	this.continuous = true;
 	this.interimResults = true;
 	this.onstart = function() {};
@@ -167,7 +167,8 @@ const SpeechRecognition = function() {
 
 	function createSocket() {
 		let socket = io.connect('wss://lindat.cz/', {
-			path: '/services/ukrasr/socket.io'
+			path: '/services/ukrasr/socket.io',
+			transports : ['websocket'],
 		});
 
 		socket.on("connect", function() {
@@ -247,93 +248,4 @@ const models = {
     "en-towninfo": "English (VYSTADIAL TownInfo AM+LM)",
     "cs": "Czech (VYSTADIAL AM + Wikipedia LM)",
     "cs-alex": "Czech (VYSTADIAL AM + PTIcs LM)"
-}
-
-
-export function init() {
-    let speechRecognition = new SpeechRecognition();
-
-    speechRecognition.onresult = function(result) {
-        let transcript = result.result.hypotheses[0].transcript;
-        if(transcript == '') {
-            return;
-        }
-
-        //$('#transcription .current').text(transcript + " ");
-
-        if(result.final) {
-            //$('#transcription .current').removeClass("current");
-            //$('#transcription').append("<p class='current result'></p>");
-			console.log(result);
-/*
-
-            let formData = {
-                input_text: transcript.normalize('NFC'),
-                logInput: false,
-                author: "",
-            }
-
-            let formBody = [];
-            for (let property in formData) {
-                const encodedKey = encodeURIComponent(property)
-                const encodedValue = encodeURIComponent(formData[property])
-                formBody.push(encodedKey + "=" + encodedValue)
-            }
-            let fromLanguage = "Czech";//$('#src-lang').val();
-            let toLanguage = "Ukrainian"; //$('#tgt-lang').val();
-            let baseApiUrl = "https://lindat.cz/translation/api/v2/languages";
-            let url = `${baseApiUrl}/?src=${encodeURIComponent(fromLanguage)}&tgt=${encodeURIComponent(toLanguage)}&frontend=u4u`;
-            let headers = {
-                "accept": "application/json",
-                "Content-Type": 'application/x-www-form-urlencoded'
-            };
-            return fetch(url, {
-                method: 'POST',
-                body: formBody.join("&"),
-                headers,
-            })
-            .then(response => response.json())
-            .then(response => $('#translation').append("<p>" + response.join(" ") + "</p>"));
-*/
-
-        }
-    }
-
-    speechRecognition.onstart = function(e) {
-		/*
-        $('#start_recording').hide()
-        $('#stop_recording').show()
-        $('#start_recording_text').hide()
-        $('#stop_recording_text').show()
-        $('#error').hide()
-
-        $('#transcription .current').removeClass("current");
-        $('#transcription').append("<p class='current result'></p>");
-		*/
-    }
-
-    speechRecognition.onend = function(e) {
-		/*
-        $('#start_recording').show()
-        $('#stop_recording').hide()
-        $('#start_recording_text').show()
-        $('#stop_recording_text').hide()
-		*/
-    }
-
-    speechRecognition.onerror = function(e) {
-		console.error(e);
-        //$('#error').html("<strong>" + e + "</strong> Please try again later.").show()
-    }
-/*
-    $('#start_recording').click(function() {
-        lang = $('#src-lang').val()
-        speechRecognition.start(lang);
-    });
-
-    $('#stop_recording').click(function() {
-        speechRecognition.stop();
-    });
-*/
-	return speechRecognition;
 }
