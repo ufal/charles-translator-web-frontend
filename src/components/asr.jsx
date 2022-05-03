@@ -12,7 +12,7 @@ import {
 import styles from "./asr.module.scss"
 
 
-export default function ASR() {
+export default function ASR(props) {
 	const [state, setState] = React.useState({
 		visible: false,
 		active: false,
@@ -33,11 +33,15 @@ export default function ASR() {
 			}
 	
 			console.log("temp asr: ", result);
+
+			if(props.onresult !== undefined)
+				props.onresult(result)
 	
 			if(result.final) {
 				console.log("final asr: ", result);
 	
-				// todo connect it to source field in form.js
+				if(props.final !== undefined)
+					props.final(result)	
 			}
 		}
 	
@@ -46,7 +50,9 @@ export default function ASR() {
 		speechRecognition.onend = function(e) {}
 	
 		speechRecognition.onerror = function(e) {
-			console.error(e);
+			console.error("server error: ", e);
+			if(props.onerror !== undefined)
+				props.onerror(e)	
 		}
 		
 		ASR.current = speechRecognition;

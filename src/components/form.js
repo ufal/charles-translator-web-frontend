@@ -146,7 +146,13 @@ const Form = () => {
 						</label>
 					</div>
 					<></>
-					<div className={styles.asrContainer}><ASR/></div>
+					<div className={styles.asrContainer}>
+						<ASR
+							onresult = {(data) => { console.log("from form onresult ASR:", data); }} // todo integrate to temp asr input
+							onfinal = {(data) => { console.log("from form onfinal ASR:", data); }} // todo integrate to source input
+							onerror = {(data) => { console.log("from form onerror ASR:", data); }} // todo remove
+						/>
+					</div>
 				</div>
 				<TextField
 					value={source}
