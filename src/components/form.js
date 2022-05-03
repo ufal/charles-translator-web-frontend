@@ -80,7 +80,7 @@ const Form = () => {
 
 	function handleChangeSource(text, additive = false, fromLanguage = languages.source.id, toLanguage = languages.target.id) {
 		if(additive)
-			setSource((prevState, props) => (prevState + " " + text + "."));
+			setSource((prevState, props) => { text = prevState + " " + text + "."; return text });
 		else
 			setSource((prevState, props) => (text));
 		
