@@ -31,17 +31,13 @@ export default function ASR(props) {
 			if(transcript == '') {
 				return;
 			}
-	
-			console.log("temp asr: ", result);
 
 			if(props.onresult !== undefined)
-				props.onresult(result)
+				props.onresult(transcript)
 	
 			if(result.final) {
-				console.log("final asr: ", result);
-	
-				if(props.final !== undefined)
-					props.final(result)	
+				if(props.onfinal !== undefined)
+					props.onfinal(transcript)	
 			}
 		}
 	
@@ -76,7 +72,7 @@ export default function ASR(props) {
 							initASR();
 
 						if(newState === true)
-							ASR.current.start()
+							ASR.current.start("cs")
 						else
 							ASR.current.stop()
 					}}

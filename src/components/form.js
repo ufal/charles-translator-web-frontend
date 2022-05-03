@@ -53,6 +53,7 @@ let loadedID = 0;  // id o most recent received request
 
 const Form = () => {
 	const [source, setSource] = useState("");
+	const [asrTempOutput, setAsrTempOutput] = useState("");
 	const [translation, setTranslation] = useState("");
 	const [languages, setLanguages] = useState({ source: languageCs, target: languageUk });
 	const [loading, setLoading] = useState(false);
@@ -77,8 +78,12 @@ const Form = () => {
 			focusInput.current.focus();
 	}, [focusInput]);
 
-	function handleChangeSource(text, fromLanguage = languages.source.id, toLanguage = languages.target.id) {
-		setSource(text);
+	function handleChangeSource(text, additive = false, fromLanguage = languages.source.id, toLanguage = languages.target.id) {
+		if(additive)
+			setSource((prevState, props) => (prevState + " " + text + "."));
+		else
+			setSource((prevState, props) => (text));
+		
 		setLoading(true);
 
 		if(fromLanguage === languageCs.id)
@@ -123,9 +128,9 @@ const Form = () => {
 		setTranslation("");
 
 		/**/// switch - keep source text as source
-		handleChangeSource(source, oldTarget.id, oldSource.id);
-		/*/                     - insert translation as new source
-		handleChangeSource(translation, oldTarget.id, oldSource.id);
+		handleChangeSource(source, false, oldTarget.id, oldSource.id);
+		/*/ - insert translation as new source
+		handleChangeSource(translation, false, oldTarget.id, oldSource.id);
 		/**/
 	}
 
@@ -145,12 +150,16 @@ const Form = () => {
 							{languages.source.name}
 						</label>
 					</div>
-					<></>
+					<div className={styles.asrTempOutput}>{asrTempOutput}</div>
 					<div className={styles.asrContainer}>
 						<ASR
-							onresult = {(data) => { console.log("from form onresult ASR:", data); }} // todo integrate to temp asr input
-							onfinal = {(data) => { console.log("from form onfinal ASR:", data); }} // todo integrate to source input
-							onerror = {(data) => { console.log("from form onerror ASR:", data); }} // todo remove
+							onresult = {(data) => { setAsrTempOutput(data); }} // todo integrate to temp asr input
+							onfinal = {(data) => {
+								console.log(source);
+								handleChangeSource(data, true);
+								setAsrTempOutput("");
+							}}
+							onerror = {(data) => { console.log("from form onerror ASR:", data); }} // todo remove or show to user
 						/>
 					</div>
 				</div>
