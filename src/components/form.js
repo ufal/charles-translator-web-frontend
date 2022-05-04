@@ -160,6 +160,7 @@ const Form = () => {
 								setAsrTempOutput("");
 							}}
 							onerror = {(data) => { console.log("from form onerror ASR:", data); }} // todo remove or show to user
+							language = { languages.source.id }
 						/>
 					</div>
 				</div>

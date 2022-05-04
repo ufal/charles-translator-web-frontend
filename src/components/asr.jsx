@@ -19,9 +19,21 @@ export default function ASR(props) {
 		error: false,
 	});
 
-	React.useEffect(() => { setState({ ...state, visible: navigator !== undefined })}, [])
-	
 	let ASR = React.useRef(null);
+
+	React.useEffect(() => { setState({ ...state, visible: navigator !== undefined })}, []);
+	
+	React.useEffect(() => {
+		if(state.active === false)
+			return;
+		
+		setState({ ...state, active: false })
+		
+		if(ASR && ASR.current)
+			ASR.current.stop()
+
+	}, [props.language]);
+
 
 	const initASR = () => {
 		let speechRecognition = new SpeechRecognition();
@@ -72,7 +84,7 @@ export default function ASR(props) {
 							initASR();
 
 						if(newState === true)
-							ASR.current.start("cs")
+							ASR.current.start(props.language || "cs")
 						else
 							ASR.current.stop()
 					}}
