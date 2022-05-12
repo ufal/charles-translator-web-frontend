@@ -24,9 +24,9 @@ import {
 	TabPanel,
  } from '@mui/lab';
 
-import styles from "./SettingsDialog.module.scss"
-
 import { AboutUsConst } from "../constants/about-us-constsant";
+
+import styles from "./SettingsDialog.module.scss"
 
 
 export default function SettingsDialog() { 

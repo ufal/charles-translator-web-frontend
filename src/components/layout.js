@@ -16,6 +16,7 @@ import {
 } from "@mui/icons-material";
 
 import AboutUsDialog from "./AboutUsDialog";
+import FAQDialog from "./FAQDialog";
 import SettingsDialog from "./SettingsDialog";
 
 import styles from "./layout.module.scss"
@@ -62,6 +63,7 @@ function Layout({ children }) {
 							</div>
 						</Typography>
 						<AboutUsDialog/>
+						<FAQDialog/>
 						<SettingsDialog/>
 					</Toolbar>
 					{notOfficialDeplo && <div className={styles.notOfficialDeplo}>
