@@ -115,7 +115,7 @@ function Layout({ children }) {
 				<Snackbar
 					open={collectionSnackbar}
 					message={`Souhlasím s tím, aby Ústav formální a aplikované lingvistiky
-						MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu,
+						MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu
 						mohou být anonymizované texty využity pro další vývoj systému.`}
 					anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
 					action={(
