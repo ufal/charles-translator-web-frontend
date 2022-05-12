@@ -79,11 +79,16 @@ const Form = () => {
 	}, [focusInput]);
 
 	function handleChangeSource(text, additive = false, fromLanguage = languages.source.id, toLanguage = languages.target.id) {
-		if(additive)
-			setSource((prevState, props) => { text = prevState + " " + text + "."; return text });
-		else
-			setSource((prevState, props) => (text));
-		
+		setSource((prevState, props) => {
+			if(additive){
+				if(text.length > 0) text = text.charAt(0).toLocaleUpperCase() + text.slice(1);;
+				if(text !== "") text += ".";
+				if(text !== "" && prevState !== "") text += "\n";
+				text = prevState + text;
+			}
+			return text;
+		});
+
 		setLoading(true);
 
 		if(fromLanguage === languageCs.id)

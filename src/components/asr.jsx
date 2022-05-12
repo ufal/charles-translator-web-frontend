@@ -44,6 +44,8 @@ export default function ASR(props) {
 				return;
 			}
 
+			console.log(result.result);
+
 			if(props.onresult !== undefined)
 				props.onresult(transcript)
 	
@@ -70,7 +72,7 @@ export default function ASR(props) {
 		<div>
 			{state.visible && <Tooltip 
 				className = {styles.removeButton}
-				title = "Speach to text"
+				title = "translate by voice"
 			>
 				<IconButton 
 					className={ state.active ? styles.activeAnimation : null }
