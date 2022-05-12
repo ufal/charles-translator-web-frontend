@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Image from 'next/image';
 import CssBaseline from "@mui/material/CssBaseline";
 import {
 	AppBar,
 	Button,
-	Dialog,
-	DialogActions,
-	DialogTitle,
 	IconButton,
 	Snackbar,
 	Toolbar,
@@ -19,14 +15,14 @@ import {
 	Info as InfoIcon,
 } from "@mui/icons-material";
 
-import AboutUs from "./about-us";
+import AboutUsDialog from "./AboutUsDialog";
+import SettingsDialog from "./SettingsDialog";
 
 import styles from "./layout.module.scss"
 
 
 function Layout({ children }) {
 	const [collectionSnackbar, setCollectionSnackbar] = useState(true);
-	const [openAboutUs, setOpenAboutUs] = useState(false);
 	const [forOrganizations, setForOrganizations] = useState(false);
 	const [notOfficialDeplo, setNotOfficialDeplo] = useState(false);
 	
@@ -65,17 +61,8 @@ function Layout({ children }) {
 								<div>Charles Translator for Ukraine</div>
 							</div>
 						</Typography>
-						<Tooltip title="About us">
-							<IconButton
-								size="small"
-								edge="start"
-								aria-label="menu"
-								sx={{ mr: 1, color: "white" }}
-								onClick={() => setOpenAboutUs(true)}
-							>
-								<InfoIcon />
-							</IconButton>
-						</Tooltip>
+						<AboutUsDialog/>
+						<SettingsDialog/>
 					</Toolbar>
 					{notOfficialDeplo && <div className={styles.notOfficialDeplo}>
 						<a href="https://lindat.cz/translation">
@@ -90,27 +77,6 @@ function Layout({ children }) {
 				</AppBar>
 
 				{children}
-
-				<Dialog
-					PaperProps = {{
-						sx:{maxWidth: "800px"}
-					}}
-					open={openAboutUs}
-					onClose={()=>setOpenAboutUs(false)}
-				>
-					<DialogTitle>
-						<IconButton
-							className={styles.closeAboutUsButton}
-							onClick={()=>setOpenAboutUs(false)}
-						>
-							<CloseIcon />
-						</IconButton>
-					</DialogTitle>
-					<AboutUs/>
-					<DialogActions>
-						<Button onClick={()=>setOpenAboutUs(false)}>Close</Button>
-					</DialogActions>
-				</Dialog>
 
 				<Snackbar
 					open={collectionSnackbar}
