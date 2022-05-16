@@ -13,7 +13,7 @@ function getAuthor() {
 	return localStorage.getItem("organizationName") || "";
 }
 
-export function translate({ text, fromLanguage, toLanguage, loadingID }) {
+export function translate({ text, fromLanguage, toLanguage, loadingID, inputType }) {
 	if(text.length === 0)
 		return Promise.resolve({ data: "", loadingID });
 		
@@ -27,6 +27,7 @@ export function translate({ text, fromLanguage, toLanguage, loadingID }) {
 	const formData = {
 		input_text: text.normalize('NFC'),
 		logInput: getConsent(),
+		inputType,
 		author: getAuthor(),
 	}
 

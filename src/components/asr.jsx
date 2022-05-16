@@ -44,8 +44,6 @@ export default function ASR(props) {
 				return;
 			}
 
-			console.log(result.result);
-
 			if(props.onresult !== undefined)
 				props.onresult(transcript)
 	

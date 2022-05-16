@@ -41,7 +41,7 @@ export function TranslationHistory({ getHistory, onSelect }) {
 	}
 
 	function selectItem(item) {
-		onSelect(item.text, item.fromLanguageId, item.toLanguageId);
+		onSelect(item.text, false, item.fromLanguageId, item.toLanguageId);
 		setHistoryOpen(false);
 	}
 

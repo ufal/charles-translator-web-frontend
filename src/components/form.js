@@ -59,6 +59,8 @@ const Form = () => {
 	const [loading, setLoading] = useState(false);
 	const [loadingError, setLoadingError] = useState(null);
 
+	let inputTypeStatistics = "keyboard";
+
 	React.useEffect(() => {
 		const defaultSource = localStorage.getItem("lastTranslationSource");
 
@@ -81,11 +83,14 @@ const Form = () => {
 	function handleChangeSource(text, additive = false, fromLanguage = languages.source.id, toLanguage = languages.target.id) {
 		setSource((prevState, props) => {
 			if(additive){
-				if(text.length > 0) text = text.charAt(0).toLocaleUpperCase() + text.slice(1);;
+				if(text.length > 0) text = text.charAt(0).toLocaleUpperCase() + text.slice(1);
 				if(text !== "") text += ".";
 				if(text !== "" && prevState !== "") text += "\n";
 				text = prevState + text;
 			}
+
+			console.log(inputTypeStatistics);
+
 			return text;
 		});
 
@@ -105,6 +110,7 @@ const Form = () => {
 			fromLanguage,
 			toLanguage,
 			loadingID: ++loadingID,
+			inputType: inputTypeStatistics,
 		})
 		.then((data) => {
 			// this request is last that was sent
@@ -122,8 +128,8 @@ const Form = () => {
 		.catch((error) => {
 			setLoading(false);
 			setLoadingError(error.data || "");
-			console.log("Error when loading translation");
-			console.log(error);
+			console.error("Error when loading translation");
+			console.error(error);
 		})
 	}
 
@@ -132,6 +138,7 @@ const Form = () => {
 		const oldTarget = languages.target;
 		setTranslation("");
 
+		inputTypeStatistics = "swap-languages";
 		/**/// switch - keep source text as source
 		handleChangeSource(source, false, oldTarget.id, oldSource.id);
 		/*/ - insert translation as new source
@@ -160,18 +167,26 @@ const Form = () => {
 						<ASR
 							onresult = {(data) => { setAsrTempOutput(data); }} // todo integrate to temp asr input
 							onfinal = {(data) => {
-								console.log(source);
+								inputTypeStatistics = "voice";
 								handleChangeSource(data, true);
 								setAsrTempOutput("");
 							}}
-							onerror = {(data) => { console.log("from form onerror ASR:", data); }} // todo remove or show to user
+							onerror = {(data) => { console.error("from form onerror ASR:", data); }} // todo remove or show to user
 							language = { languages.source.id }
 						/>
 					</div>
 				</div>
 				<TextField
 					value={source}
-					onChange={(e) => handleChangeSource(e.target.value)}
+					onChange={(e) => {
+						switch(e.nativeEvent.inputType){
+							case "insertFromPaste": inputTypeStatistics = "clipboard"; break;
+							case "deleteContentBackward":
+							case "insertText":
+							default: inputTypeStatistics = "keyboard";
+						}
+						return handleChangeSource(e.target.value);
+					}}
 					id="source"
 					variant="filled"
 					color={source.length > 2000 ? "warning" : "primary"}
@@ -242,7 +257,7 @@ const Form = () => {
 					</Tooltip>}
 					<TranslationHistory
 						getHistory={() => getHistory()}
-						onSelect={handleChangeSource}
+						onSelect={ (...args) => { inputTypeStatistics = "history" ; return handleChangeSource(...args); } }
 					/>
 				</div>
 				{loading && (<LinearProgress className={styles.loadingBar}/>)}
