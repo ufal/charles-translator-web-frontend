@@ -4,9 +4,9 @@ const Recorder = function(cfg){
 	let config = cfg || {};
 	let bufferLen = config.bufferLen || 16384;
 	let numChannels = config.numChannels || 1;
-	let bufferCallback = config.bufferCallback || function(buffer) { console.log(buffer); };
-	let errorCallback = config.errorCallback || function(error) { console.log(error); };
-	let volumeCallback = config.volumeCallback || function(average) { console.log(average); };
+	let bufferCallback = config.bufferCallback || function(buffer) { /*console.info(buffer);*/ };
+	let errorCallback = config.errorCallback || function(error) { /*console.info(error);*/ };
+	let volumeCallback = config.volumeCallback || function(average) { /*console.info(average);*/ };
 	let sampleRate = 0;
 	let recording = false;
 	let source = null;
@@ -51,8 +51,8 @@ const Recorder = function(cfg){
 			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 			audio_context = new AudioContext;
-			console.log('Audio context set up.');
-			console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+			//console.info('Audio context set up.');
+			//console.info('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
 
 			return audio_context;
 		} catch (e) {
@@ -62,7 +62,7 @@ const Recorder = function(cfg){
 
 	function startUserMedia(stream) {
 		source = audio_context.createMediaStreamSource(stream);
-		console.log('Media stream created.');
+		//console.info('Media stream created.');
 
 		source.context.createScriptProcessor = source.context.createScriptProcessor || source.context.createJavaScriptNode;
 		sourceProcessor = source.context.createScriptProcessor(bufferLen, numChannels, numChannels);
@@ -90,7 +90,7 @@ const Recorder = function(cfg){
 		source.connect(sourceProcessor);
 		analyser.connect(sourceProcessor);
 		sourceProcessor.connect(source.context.destination);
-		console.log('Input connected to audio context destination.');
+		//console.info('Input connected to audio context destination.');
 	}
 
 	function getAverageVolume(array) {
@@ -145,7 +145,7 @@ export const SpeechRecognition = function() {
 	};
 
 	this.changeLM = function(newLM) {
-		console.log(newLM);
+		//console.info(newLM);
 		socket.emit('change_lm', {'new_lm': newLM});
 	}
 
@@ -171,7 +171,7 @@ export const SpeechRecognition = function() {
 		});
 
 		socket.on("connect", function() {
-			console.log("Socket connected");
+			//console.info("Socket connected");
 		});
 
 		socket.on("connect_failed", function() {
