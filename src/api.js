@@ -21,7 +21,7 @@ export function translate({ text, fromLanguage, toLanguage, loadingID, inputType
 		return Promise.reject({ data: "The translation is too long", loadingID });
 
 
-	const baseApiUrl = "https://translator.cuni.cz/api";
+	const baseApiUrl = "https://translator.cuni.cz/api/v2/languages";
 	const url = `${baseApiUrl}/?src=${encodeURIComponent(fromLanguage)}&tgt=${encodeURIComponent(toLanguage)}&frontend=u4u`;
 
 	const formData = {
