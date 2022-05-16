@@ -85,7 +85,7 @@ const Form = () => {
 			if(additive){
 				if(text.length > 0) text = text.charAt(0).toLocaleUpperCase() + text.slice(1);
 				if(text !== "") text += ".";
-				if(text !== "" && prevState !== "") text += "\n";
+				if(text !== "" && prevState !== "") text = "\n" + text;
 				text = prevState + text;
 			}
 
