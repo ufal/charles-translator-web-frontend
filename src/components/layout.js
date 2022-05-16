@@ -18,6 +18,7 @@ import {
 import AboutUsDialog from "./AboutUsDialog";
 import FAQDialog from "./FAQDialog";
 import SettingsDialog from "./SettingsDialog";
+import logo from '../../public/static/img/logo.svg';
 
 import styles from "./layout.module.scss"
 
@@ -58,7 +59,7 @@ function Layout({ children }) {
 							color="white"
 						>
 							<div className={styles.flagsContainer}>
-
+								<img alt="logo" src={logo.src} className={styles.logo}/>
 								<div>Charles Translator for Ukraine</div>
 							</div>
 						</Typography>
