@@ -3,11 +3,13 @@ PREREQUISITES
 
 NODEJS (v16.x)
 ------
+### Ubuntu
 ```
-# Using Ubuntu
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
+### Windows
+https://nodejs.org/en/download/
 
 CONFIG PATH
 -----------
