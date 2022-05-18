@@ -12,6 +12,8 @@ import {
 	Tab,
 	TextField,
 	Tooltip,
+	FormGroup,
+	Switch,
  } from "@mui/material";
 import { 
 	Check as CheckIcon,
@@ -82,6 +84,7 @@ export default function SettingsDialog() {
 				<SettingsIcon />
 			</IconButton>
 		</Tooltip>
+
 		<Dialog
 			PaperProps = { { 
 				sx:{ maxWidth: "800px" }
@@ -90,15 +93,34 @@ export default function SettingsDialog() {
 			onClose = { () => setState((prevState) => ({ ...prevState, openSettings: false })) }
 		>
 			<DialogTitle>
+				Privacy settings
 				<IconButton
-					className = { styles.closeAboutUsButton }
+					className={styles.closeFAQButton}
 					onClick = { () => setState((prevState) => ({ ...prevState, openSettings: false })) }
+					sx={{
+						position: 'absolute',
+						right: 8,
+						top: 8,
+					  }}
 				>
 					<CloseIcon />
 				</IconButton>
 			</DialogTitle>
 			<Box component = "span" sx = { { padding: 2 } }>
-				<h2>Privacy settings</h2>
+				<TextField
+					fullWidth
+					id = "outlined-basic"
+					label = "Organization name (optional)"
+					variant = "outlined"
+					onChange = { changeAuthor }
+					value = { state.author }
+					InputProps = { { 
+						endAdornment: 
+							<InputAdornment position = "end">
+								{ state.authorSaved && <div>Saved <CheckIcon color = "success"/></div> }
+							</InputAdornment>
+					} }
+				/>
 				<FormControlLabel
 					control = { <Checkbox onChange = { handleChange } checked = { state.checked } /> }
 					label = { (
@@ -117,20 +139,6 @@ export default function SettingsDialog() {
 					) }
 				/>
 
-				<TextField
-					fullWidth
-					id = "outlined-basic"
-					label = "Organization name (optional)"
-					variant = "outlined"
-					onChange = { changeAuthor }
-					value = { state.author }
-					InputProps = { { 
-						endAdornment: 
-							<InputAdornment position = "end">
-								{ state.authorSaved && <div>Saved <CheckIcon color = "success"/></div> }
-							</InputAdornment>
-					 } }
-				/>
 			</Box>
 			<DialogActions>
 				<Button onClick = { () => setState({ ...state, openSettings: false }) }>Close</Button>

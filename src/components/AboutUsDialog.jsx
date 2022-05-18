@@ -37,6 +37,7 @@ export default function AboutUsDialog() {
 				<InfoIcon />
 			</IconButton>
 		</Tooltip>
+		
 		<Dialog
 			PaperProps = {{
 				sx:{maxWidth: "800px"}
@@ -45,16 +46,20 @@ export default function AboutUsDialog() {
 			onClose={()=>setOpenAboutUs(false)}
 		>
 			<DialogTitle>
+				About us
 				<IconButton
-					className={styles.closeAboutUsButton}
+					className={styles.closeFAQButton}
 					onClick={()=>setOpenAboutUs(false)}
+					sx={{
+						position: 'absolute',
+						right: 8,
+						top: 8,
+					  }}
 				>
 					<CloseIcon />
 				</IconButton>
 			</DialogTitle>
 			<Box component="span" sx={{ padding: 2 }}>
-				<h2>About us</h2>
-
 				<Image height={80} width={100} alt="ufal logo" src={ufalLogo.src} className={styles.logo} />
 				<Image height={80} width={139} alt="lindat logo" src={lindatLogo.src} className={styles.logo} />
 
