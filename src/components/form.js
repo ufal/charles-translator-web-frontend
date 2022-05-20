@@ -89,8 +89,6 @@ const Form = () => {
 				text = prevState + text;
 			}
 
-			console.log(inputTypeStatistics);
-
 			return text;
 		});
 

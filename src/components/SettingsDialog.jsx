@@ -12,39 +12,30 @@ import {
 	InputAdornment,
 	MenuItem,
 	Grid,
-	Paper,
 	Select,
 	TextField,
 	Tooltip,
-	FormGroup,
 	InputLabel,
-	Switch,
 } from "@mui/material";
 import {
 	Check as CheckIcon,
 	Close as CloseIcon,
 	Settings as SettingsIcon,
 } from "@mui/icons-material";
-import {
-	TabContext,
-	TabList,
-	TabPanel,
-} from '@mui/lab';
 
-import { AboutUsConst } from "../constants/about-us-constsant";
+import { AboutUsConst } from "../constants/texts";
 
 import styles from "./SettingsDialog.module.scss"
-import { margin } from "@mui/system";
-
 
 export default function SettingsDialog() {
 	const [state, setState] = React.useState({
 		author: "",
 		authorSaved: false,
 		privacyTabValue: "0",
-		checked: false,
+		collectDataConsent: false,
 		openSettings: false,
 		language: "cs",
+		allowLocalHistory: true,
 	});
 
 	React.useEffect(() => setDefaults(), [])
@@ -54,7 +45,8 @@ export default function SettingsDialog() {
 			...prevState,
 			language: localStorage.getItem("language") || "cs",
 			author: localStorage.getItem("organizationName") || "",
-			checked: localStorage.getItem("collectDataConsentValue") === "true",
+			collectDataConsent: localStorage.getItem("collectDataConsentValue") === "true",
+			allowLocalHistory: localStorage.getItem("allowLocalHistory") !== "false",
 		}))
 	}
 
@@ -79,14 +71,24 @@ export default function SettingsDialog() {
 			window.localStorage.setItem("language", event.target.value);
 	}
 
-	const handleChange = (event) => {
+	const changeConsent = (event) => {
 		setState((prevState) => ({
 			...prevState,
-			checked: event.target.checked,
+			collectDataConsent: event.target.checked,
 		}))
 
 		if (typeof window !== "undefined")
 			window.localStorage.setItem("collectDataConsentValue", JSON.stringify(event.target.checked));
+	}
+	
+	const changeLocalHistory = (event) => {
+		setState((prevState) => ({
+			...prevState,
+			allowLocalHistory: event.target.checked,
+		}))
+
+		if (typeof window !== "undefined")
+			window.localStorage.setItem("allowLocalHistory", JSON.stringify(event.target.checked));
 	}
 
 	return (
@@ -163,19 +165,19 @@ export default function SettingsDialog() {
 					</Grid>
 
 					<FormControlLabel
-						sx={{ marginBlock: "16px" }}
-						control={<Checkbox onChange={handleChange} checked={state.checked} />}
-						label={AboutUsConst.checkBoxLabel[state.language]}
+						sx = { { marginBlock: "16px" } }
+						control = { <Checkbox onChange = { changeConsent } checked = { state.collectDataConsent } /> }
+						label = {  AboutUsConst.checkBoxLabel[state.language] }
 					/>
 
-					<FormGroup>
-						<FormControlLabel control={<Switch defaultChecked />} label="Allow local history (stored on your device)" />
-						<FormControlLabel control={<Switch defaultChecked />} label="Allow saving text translation for translation improvement" />
-						<FormControlLabel control={<Switch defaultChecked />} label="Allow saving voice for ASR improvement" />
-					</FormGroup>
+					<FormControlLabel
+						sx={{ marginBlock: "16px" }}
+						control={<Checkbox onChange={ changeLocalHistory } checked={state.allowLocalHistory} />}
+						label={ AboutUsConst.allowLocalHistory[state.language] }
+					/>
 				</Box>
 				<DialogActions>
-					<Button onClick={() => setState({ ...state, openSettings: false })}>Close</Button>
+					<Button onClick={ () => setState({ ...state, openSettings: false }) }>Close</Button>
 				</DialogActions>
 			</Dialog>
 		</>
