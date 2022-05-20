@@ -1,149 +1,185 @@
 import * as React from "react";
-import { 
+import {
 	Box,
 	Button,
 	Checkbox,
 	Dialog,
 	DialogActions,
 	DialogTitle,
+	FormControl,
 	FormControlLabel,
 	IconButton,
 	InputAdornment,
-	Tab,
+	MenuItem,
+	Grid,
+	Select,
 	TextField,
 	Tooltip,
-	FormGroup,
-	Switch,
- } from "@mui/material";
-import { 
+	InputLabel,
+} from "@mui/material";
+import {
 	Check as CheckIcon,
 	Close as CloseIcon,
 	Settings as SettingsIcon,
- } from "@mui/icons-material";
-import { 
-	TabContext,
-	TabList,
-	TabPanel,
- } from '@mui/lab';
+} from "@mui/icons-material";
 
-import { AboutUsConst } from "../constants/about-us-constsant";
+import { AboutUsConst } from "../constants/texts";
 
 import styles from "./SettingsDialog.module.scss"
 
-
-export default function SettingsDialog() { 
-	const [state, setState] = React.useState({ 
+export default function SettingsDialog() {
+	const [state, setState] = React.useState({
 		author: "",
 		authorSaved: false,
 		privacyTabValue: "0",
-		checked: false,
+		collectDataConsent: false,
 		openSettings: false,
-	 });
+		language: "cs",
+		allowLocalHistory: true,
+	});
 
 	React.useEffect(() => setDefaults(), [])
 
-	const setDefaults = () => { 
-		setState((prevState) => ({ 
+	const setDefaults = () => {
+		setState((prevState) => ({
 			...prevState,
+			language: localStorage.getItem("language") || "cs",
 			author: localStorage.getItem("organizationName") || "",
-			checked: localStorage.getItem("collectDataConsentValue") === "true",
-		 }))
-	 }
+			collectDataConsent: localStorage.getItem("collectDataConsentValue") === "true",
+			allowLocalHistory: localStorage.getItem("allowLocalHistory") !== "false",
+		}))
+	}
 
-	const changeAuthor = (event) => { 
-		setState((prevState) => ({ 
+	const changeAuthor = (event) => {
+		setState((prevState) => ({
 			...prevState,
 			author: event.target.value,
 			authorSaved: true
-		 }))
-		
-		if(typeof window !== "undefined")
+		}))
+
+		if (typeof window !== "undefined")
 			window.localStorage.setItem("organizationName", event.target.value);
-	 }
+	}
 
-	const handleChange = (event) => { 
-		setState((prevState) => ({ 
+	const changeLanguage = (event) => {
+		setState((prevState) => ({
 			...prevState,
-			checked: event.target.checked,
-		 }))
+			language: event.target.value,
+		}))
 
-		if(typeof window !== "undefined")
+		if (typeof window !== "undefined")
+			window.localStorage.setItem("language", event.target.value);
+	}
+
+	const changeConsent = (event) => {
+		setState((prevState) => ({
+			...prevState,
+			collectDataConsent: event.target.checked,
+		}))
+
+		if (typeof window !== "undefined")
 			window.localStorage.setItem("collectDataConsentValue", JSON.stringify(event.target.checked));
+	}
+	
+	const changeLocalHistory = (event) => {
+		setState((prevState) => ({
+			...prevState,
+			allowLocalHistory: event.target.checked,
+		}))
+
+		if (typeof window !== "undefined")
+			window.localStorage.setItem("allowLocalHistory", JSON.stringify(event.target.checked));
 	}
 
 	return (
 		<>
-		<Tooltip title = "Settings">
-			<IconButton
-				size = "small"
-				edge = "start"
-				aria-label = "menu"
-				sx = { { mr: 1, color: "white" } }
-				onClick = { () => { setState((prevState) => ({ ...prevState, openSettings: true })); setDefaults(); } }
-			>
-				<SettingsIcon />
-			</IconButton>
-		</Tooltip>
-
-		<Dialog
-			PaperProps = { { 
-				sx:{ maxWidth: "800px" }
-			 } }
-			open = { state.openSettings }
-			onClose = { () => setState((prevState) => ({ ...prevState, openSettings: false })) }
-		>
-			<DialogTitle>
-				Privacy settings
+			<Tooltip title="Settings">
 				<IconButton
-					className={styles.closeFAQButton}
-					onClick = { () => setState((prevState) => ({ ...prevState, openSettings: false })) }
-					sx={{
-						position: 'absolute',
-						right: 8,
-						top: 8,
-					  }}
+					size="small"
+					edge="start"
+					aria-label="menu"
+					sx={{ mr: 1, color: "white" }}
+					onClick={() => { setState((prevState) => ({ ...prevState, openSettings: true })); setDefaults(); }}
 				>
-					<CloseIcon />
+					<SettingsIcon />
 				</IconButton>
-			</DialogTitle>
-			<Box component = "span" sx = { { padding: 2 } }>
-				<TextField
-					fullWidth
-					id = "outlined-basic"
-					label = "Organization name (optional)"
-					variant = "outlined"
-					onChange = { changeAuthor }
-					value = { state.author }
-					InputProps = { { 
-						endAdornment: 
-							<InputAdornment position = "end">
-								{ state.authorSaved && <div>Saved <CheckIcon color = "success"/></div> }
-							</InputAdornment>
-					} }
-				/>
-				<FormControlLabel
-					control = { <Checkbox onChange = { handleChange } checked = { state.checked } /> }
-					label = { (
-						<TabContext value = { state.privacyTabValue }>
-							<Box sx = { { borderBottom: 1, borderColor: 'divider' } }>
-								<TabList onChange = { (event, newValue) => { setState((prevState) => ({ ...prevState, privacyTabValue: newValue })) } }>
-									<Tab label = "EN" value = "0" />
-									<Tab label = "CS" value = "1" />
-									<Tab label = "UK" value = "2" />
-								</TabList>
-							</Box>
-							<TabPanel value = "0"> { AboutUsConst.checkBoxLabel[0] } </TabPanel>
-							<TabPanel value = "1"> { AboutUsConst.checkBoxLabel[1] } </TabPanel>
-							<TabPanel value = "2"> { AboutUsConst.checkBoxLabel[2] } </TabPanel>
-						</TabContext>
-					) }
-				/>
+			</Tooltip>
 
-			</Box>
-			<DialogActions>
-				<Button onClick = { () => setState({ ...state, openSettings: false }) }>Close</Button>
-			</DialogActions>
-		</Dialog>
+			<Dialog
+				PaperProps={{
+					sx: { maxWidth: "800px" }
+				}}
+				open={state.openSettings}
+				onClose={() => setState((prevState) => ({ ...prevState, openSettings: false }))}
+			>
+				<DialogTitle>
+					Settings
+					<IconButton
+						className={styles.closeFAQButton}
+						onClick={() => setState((prevState) => ({ ...prevState, openSettings: false }))}
+						sx={{
+							position: 'absolute',
+							right: 8,
+							top: 8,
+						}}
+					>
+						<CloseIcon />
+					</IconButton>
+				</DialogTitle>
+				<Box component="span" sx={{ padding: 2 }}>
+
+					<Grid container spacing={2}>
+						<Grid item xs={12} sm={4}>
+							<FormControl fullWidth>
+								<InputLabel id="languageLabel">Language</InputLabel>
+								<Select
+									labelId="languageLabel"
+									variant="outlined"
+									label="Language"
+									value={state.language}
+									onChange={changeLanguage}
+								>
+									<MenuItem value={"cs"}>Čeština</MenuItem>
+									<MenuItem value={"en"}>English</MenuItem>
+									<MenuItem value={"uk"}>українська</MenuItem>
+								</Select>
+							</FormControl>
+						</Grid>
+						<Grid item xs={12} sm={8}>
+							<TextField
+								fullWidth
+								id="outlined-basic"
+								label="Organization name (optional)"
+								variant="outlined"
+								onChange={changeAuthor}
+								value={state.author}
+								InputProps={{
+									endAdornment:
+										<InputAdornment position="end">
+											{state.authorSaved && <div>Saved <CheckIcon color="success" /></div>}
+										</InputAdornment>
+								}}
+							/>
+
+						</Grid>
+					</Grid>
+
+					<FormControlLabel
+						sx = { { marginBlock: "16px" } }
+						control = { <Checkbox onChange = { changeConsent } checked = { state.collectDataConsent } /> }
+						label = {  AboutUsConst.checkBoxLabel[state.language] }
+					/>
+
+					<FormControlLabel
+						sx={{ marginBlock: "16px" }}
+						control={<Checkbox onChange={ changeLocalHistory } checked={state.allowLocalHistory} />}
+						label={ AboutUsConst.allowLocalHistory[state.language] }
+					/>
+				</Box>
+				<DialogActions>
+					<Button onClick={ () => setState({ ...state, openSettings: false }) }>Close</Button>
+				</DialogActions>
+			</Dialog>
 		</>
 	);
- }
+}

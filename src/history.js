@@ -1,3 +1,5 @@
+import { RestaurantMenu } from "@mui/icons-material";
+
 const MAX_HISTORY_COUNT = 100;
 
 export function getHistory() {
@@ -18,6 +20,9 @@ export function getHistory() {
 
 export function saveHistory(fromLanguageId, toLanguageId, text) {
 	if (text === "")
+		return;
+
+	if(localStorage.getItem("allowLocalHistory") === "false")
 		return;
 
 	const historyItem = {
