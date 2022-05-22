@@ -13,6 +13,7 @@ const Recorder = function(cfg){
 	let analyser = null;
 	let sourceProcessor = null;
 	let audio_context;
+	let stream;
 
 	this.init = function() {
 		audio_context = createAudioContext();
@@ -38,11 +39,13 @@ const Recorder = function(cfg){
 	}
 
 	this.record = function(){
+		this.init();
 		recording = true;
 	}
 
 	this.stop = function(){
 		recording = false;
+		stream.getTracks()[0].stop();
 	}
 
 	function createAudioContext() {
@@ -60,7 +63,8 @@ const Recorder = function(cfg){
 		}
 	}
 
-	function startUserMedia(stream) {
+	function startUserMedia(streamIn) {
+		stream = streamIn;
 		source = audio_context.createMediaStreamSource(stream);
 		//console.info('Media stream created.');
 
@@ -123,8 +127,7 @@ export const SpeechRecognition = function() {
 	let socket = createSocket();
 
 	this.start = function(model) {
-		if (!recorder)
-			recorder = createRecorder();
+		recorder = createRecorder();
 
 		socket.emit('begin', {'model': model, 'sample_rate': recorder.sampleRate});
 		recorder.record();
@@ -135,10 +138,9 @@ export const SpeechRecognition = function() {
 	this.stop = function() {
 		socket.emit('end', {});
 	
-		if (!recorder)
-			recorder = createRecorder();
-		else
+		if (recorder){
 			recorder.stop();
+		}
 	
 		this.isRecording = false;
 		this.onend();
@@ -203,7 +205,6 @@ export const SpeechRecognition = function() {
 			errorCallback: handleError,
 			volumeCallback: handleVolume,
 		});
-		recorder.init();
 
 		return recorder;
 	}
