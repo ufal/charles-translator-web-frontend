@@ -64,9 +64,30 @@
 		text-decoration: none;
 		padding: 10px;
 	}
+	svg{
+		vertical-align: bottom;
+		color: white;
+	}
 }
 
 .logo{
 	height: 32px;
 	width: auto;
+}
+
+.tryAndroidApp{
+	display: grid;
+	grid-template-columns: 1fr auto;
+	background-color: #2196f3;
+	margin: 5px;
+	a{
+		color: white;
+		text-decoration: none;
+		padding: 10px;
+	}
+	svg{
+		vertical-align: bottom;
+		color: white;
+	}
+
 }

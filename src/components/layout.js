@@ -6,13 +6,13 @@ import {
 	IconButton,
 	Snackbar,
 	Toolbar,
-	Tooltip,
 	Typography,
 } from "@mui/material";
 import {
 	Check as CheckIcon,
 	Close as CloseIcon,
 	Info as InfoIcon,
+	PhoneAndroid as PhoneAndroidIcon,
 } from "@mui/icons-material";
 
 import AboutUsDialog from "./AboutUsDialog";
@@ -27,14 +27,18 @@ function Layout({ children }) {
 	const [collectionSnackbar, setCollectionSnackbar] = useState(true);
 	const [forOrganizations, setForOrganizations] = useState(false);
 	const [notOfficialDeplo, setNotOfficialDeplo] = useState(false);
+	const [tryAndroidApp, setTryAndroidApp] = useState(false);
 	
-	useEffect(() => setCollectionSnackbar(localStorage.getItem("collectDataConsentValue") !== "true"),[])
-	useEffect(() => setNotOfficialDeplo(
-		window.location.href.indexOf("lindat.cz/translation") === -1 &&
-		window.location.href.indexOf("translator.cuni.cz") === -1
-	),[])
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	useEffect(() => setForOrganizations((localStorage.getItem("organizationName") || "").length !== 0))
+	useEffect(() => {
+		setCollectionSnackbar(localStorage.getItem("collectDataConsentValue") !== "true");
+		setNotOfficialDeplo(
+			window.location.href.indexOf("lindat.cz/translation") === -1 &&
+			window.location.href.indexOf("translator.cuni.cz") === -1
+		)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		setForOrganizations((localStorage.getItem("organizationName") || "").length !== 0)
+		setTryAndroidApp(/(android)/i.test(navigator.userAgent))
+	}, [])
 
 	const allowCollection = () => { 
 		setCollectionSnackbar(false);
@@ -78,6 +82,16 @@ function Layout({ children }) {
 						</IconButton>
 					</div>}
 				</AppBar>
+				{tryAndroidApp && <div className={styles.tryAndroidApp}>
+						<a href="https://play.google.com/store/apps/details?id=cz.cuni.translator">
+							<PhoneAndroidIcon/> Try our android app. 
+						</a>
+						<IconButton
+							onClick={()=>setTryAndroidApp(false)}
+						>
+							<CloseIcon />
+						</IconButton>
+					</div>}
 
 				{children}
 
