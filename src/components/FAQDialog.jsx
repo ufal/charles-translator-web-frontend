@@ -65,7 +65,7 @@ export default function FAQDialog() {
 				</p>
 				<p>
 					<strong>Je překladač dostupný jako aplikace pro mobilní telefon?</strong><br/>
-					Brzy vydáme aplikaci pro Android na Google Play. Pro iOS bohužel nemáme vývojáře.
+					Ano, aplikace pro Android je ke stažení na <a href="https://play.google.com/store/apps/details?id=cz.cuni.mff.ufal.translator">Google Play</a>. Pro iOS bohužel nemáme vývojáře.
 				</p>
 				<p>
 					<strong>Jaké výhody má aplikace pro Android oproti webu?</strong><br/>
