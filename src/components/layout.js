@@ -61,10 +61,9 @@ function Layout({ children }) {
 							height={70}
 							alt="Charles Translator for Ukraine"
 							src={logo.src}
-							
 							className={styles.logo}
 						/>
-						<></>
+						<div className={styles.spacer}></div>
 						<AboutUsDialog/>
 						<SettingsDialog/>
 					</Toolbar>

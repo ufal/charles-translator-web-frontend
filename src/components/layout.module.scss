@@ -12,9 +12,7 @@
 }
 
 .toolbar {
-	display: grid;
-	grid-template-columns: 1fr auto auto;
-	padding: 0 10px 0 0;
+	padding: 0 10px 0 0 !important;
 	max-height: 100px;
 }
 
@@ -76,6 +74,10 @@
 .logo{
 	max-height: 100%;
 	width: auto;
+}
+
+.spacer{
+	flex-grow: 1;
 }
 
 .tryAndroidApp{
