@@ -101,6 +101,8 @@ export default function AboutUsDialog() {
 				</p>
 
 				<p>
+					<b> FAQ: </b>
+					<a href="https://ufal.mff.cuni.cz/ufal-ukraine#faq" rel="noreferrer" target="_blank">Frequently Asked Questions (in Czech)</a><br/>
 					For any questions about this Translator, please contact <strong>u4u<Image src={atChar.src} alt="@" width={13} height={13} className={ styles.atChar }/>ufal.mff.cuni.cz</strong> .
 				</p>
 			</Box>
