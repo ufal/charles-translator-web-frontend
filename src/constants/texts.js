@@ -5,8 +5,8 @@ export const AboutUsConst = {
 		uk: "Я надаю Інституту формальної і прикладної лінгвістики, Фізико-математичного факультету Карлового університету в Празі (UFAL MFF UK) згоду на зберігання і опрацювання наданих мною текстів і отриманих перекладів. Тексти будуть анонімізовані і можуть бути використані для подальшого удосконалення системи",
 	},
 	allowLocalHistory: {
-		en: "Allow local history (stored on your device)",
-		cs: "Povolit historii překladu v telefonu",
-		uk: "Увімкнути історію перекладу на телефоні"
+		en: "Store new texts and translations into local history (on your device)",
+		cs: "Ukládat nové texty a překlady do lokální historie (do vašeho zařízení)",
+		uk: "Зберігати нові тексти та переклади у локальній історії (на вашому пристрої)"
 	}
 };
