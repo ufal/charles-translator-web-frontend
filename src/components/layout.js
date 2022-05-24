@@ -56,19 +56,16 @@ function Layout({ children }) {
 					elevation={0}
 				>
 					<Toolbar className={styles.toolbar}>
-						<Typography
-							variant="h6"
-							component="div"
-							sx={{ flexGrow: 1, ml: 1 }}
-							color="white"
-						>
-							<div className={styles.flagsContainer}>
-								<img alt="logo" src={logo.src} className={styles.logo}/>
-								<div>Charles Translator for Ukraine</div>
-							</div>
-						</Typography>
+						<img
+							width={230}
+							height={70}
+							alt="Charles Translator for Ukraine"
+							src={logo.src}
+							
+							className={styles.logo}
+						/>
+						<></>
 						<AboutUsDialog/>
-						<FAQDialog/>
 						<SettingsDialog/>
 					</Toolbar>
 					{notOfficialDeplo && <div className={styles.notOfficialDeplo}>

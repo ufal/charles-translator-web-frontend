@@ -11,9 +11,11 @@
 	position: absolute;
 }
 
-.flagsContainer {
-	display: flex;
-	align-items: center;
+.toolbar {
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	padding: 0 10px 0 0;
+	max-height: 100px;
 }
 
 .homeLink {
@@ -38,6 +40,7 @@
 
 .header {
 	background-color: #2196f3;
+	width: 100%;
 	& .MuiToolbar-root {
 		padding: 4px 0 4px 12px;
 	}
@@ -71,7 +74,7 @@
 }
 
 .logo{
-	height: 32px;
+	max-height: 100%;
 	width: auto;
 }
 
