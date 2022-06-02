@@ -7,6 +7,7 @@ import {
 	Snackbar,
 	Toolbar,
 	Typography,
+	Alert,
 } from "@mui/material";
 import {
 	Check as CheckIcon,
@@ -25,23 +26,33 @@ import styles from "./layout.module.scss"
 
 function Layout({ children }) {
 	const [collectionSnackbar, setCollectionSnackbar] = useState(true);
-	const [forOrganizations, setForOrganizations] = useState(false);
 	const [notOfficialDeplo, setNotOfficialDeplo] = useState(false);
 	const [tryAndroidApp, setTryAndroidApp] = useState(false);
+	const [state, setState] = useState({
+		collectionSnackbar: false,
+		collectionSnackbarInfo: false,
+	});
 	
 	useEffect(() => {
-		setCollectionSnackbar(localStorage.getItem("collectDataConsentValue") !== "true");
+		console.log(localStorage.getItem("collectDataConsentValue") === null);
+		setState( (prevState) => { return {
+			...prevState,
+			collectionSnackbar: localStorage.getItem("collectDataConsentValue") === null
+		}});
 		setNotOfficialDeplo(
 			window.location.href.indexOf("lindat.cz/translation") === -1 &&
 			window.location.href.indexOf("translator.cuni.cz") === -1
 		)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		setForOrganizations((localStorage.getItem("organizationName") || "").length !== 0)
 		setTryAndroidApp(/(android)/i.test(navigator.userAgent))
 	}, [])
 
 	const allowCollection = () => { 
-		setCollectionSnackbar(false);
+		setState( (prevState) => { return {
+			...prevState,
+			collectionSnackbar: false,
+			collectionSnackbarInfo: true,
+		}});
 		if(typeof window !== 'undefined')
 			window.localStorage.setItem("collectDataConsentValue", "true");
 	}
@@ -92,24 +103,35 @@ function Layout({ children }) {
 				{children}
 
 				<Snackbar
-					open={collectionSnackbar}
+					open={state.collectionSnackbar}
 					message={`Souhlasím s tím, aby Ústav formální a aplikované lingvistiky
 						MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu
 						mohou být anonymizované texty využity pro další vývoj systému.`}
 					anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
 					action={(
 						<React.Fragment>
-							<Button size="large" onClick={allowCollection}>
+							<Button size="large" onClick={ allowCollection }>
 								<CheckIcon fontSize="small" />
 								SOUHLASÍM
 							</Button>
-							<Button size="large" onClick={() => setCollectionSnackbar(false)}>
+							<Button size="large" onClick={() => {
+									setState({
+										...state,
+										collectionSnackbarInfo: true,
+										collectionSnackbar: false,
+									});
+								}}>
 								<CloseIcon fontSize="small" />
 								NESOUHLASÍM
 							</Button>
 						</React.Fragment>
 					)}
 				/>
+				 <Snackbar open={state.collectionSnackbarInfo} autoHideDuration={3000} onClose={() => setState({ ...state, collectionSnackbarInfo: false })}>
+					<Alert severity="info" onClose={() => setState({ ...state, collectionSnackbarInfo: false })} sx={{ width: '100%' }}>
+						Své rozhodnutí můžete kdykoli později změnit v Nastavení.
+					</Alert>
+				</Snackbar>
 
 				<div className={styles.footer}>
 					THE LINDAT/CLARIAH-CZ PROJECT (LM2018101; formerly
