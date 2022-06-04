@@ -44,7 +44,10 @@ const Recorder = function(cfg){
 
 	this.stop = function(){
 		recording = false;
-		//stream.getTracks()[0].stop();
+		stream.getTracks().forEach(function(track) {
+			track.stop();
+		});
+		sourceProcessor.onaudioprocess = null;
 	}
 
 	function createAudioContext() {
@@ -75,7 +78,9 @@ const Recorder = function(cfg){
 		analyser.fftSize = 512;
 
 		sourceProcessor.onaudioprocess = function(e){
-			if (!recording) return;
+			if (!recording)
+				return;
+	
 			let buffer = [];
 			for (let channel = 0; channel < numChannels; channel++){
 					buffer.push(e.inputBuffer.getChannelData(channel));
@@ -86,7 +91,6 @@ const Recorder = function(cfg){
 			let values =  new Uint8Array(analyser.frequencyBinCount);
 			analyser.getByteFrequencyData(values);
 			let average = getAverageVolume(values);
-			console.log(average);
 			volumeCallback(average);
 		}
 
@@ -127,8 +131,7 @@ export const SpeechRecognition = function() {
 	let socket = createSocket();
 
 	this.start = function(model) {
-		if (!recorder)
-			recorder = createRecorder();
+		recorder = createRecorder();
 
 		socket.emit('begin', {'model': model, 'sample_rate': recorder.sampleRate});
 		recorder.record();
@@ -212,7 +215,6 @@ export const SpeechRecognition = function() {
 	}
 
 	function handleChunk(chunk) {
-		console.log("socket chunk", chunk);
 		socket.emit("chunk", floatTo16BitPcm(chunk[0]));
 		recognizer.onchunk(chunk);
 	}
@@ -232,7 +234,7 @@ export const SpeechRecognition = function() {
 	function handleVolume(volume) {
 		if(volume == 0) {
 			if(recognizer.quietForChunks >= 50) {
-		this.stop();
+				this.stop();
 			}
 
 			recognizer.quietForChunks++;
