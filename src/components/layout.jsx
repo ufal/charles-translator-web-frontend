@@ -17,7 +17,6 @@ import {
 } from "@mui/icons-material";
 
 import AboutUsDialog from "./AboutUsDialog";
-import FAQDialog from "./FAQDialog";
 import SettingsDialog from "./SettingsDialog";
 import logo from '../../public/static/img/logo.svg';
 
@@ -25,7 +24,6 @@ import styles from "./layout.module.scss"
 
 
 function Layout({ children }) {
-	const [collectionSnackbar, setCollectionSnackbar] = useState(true);
 	const [notOfficialDeplo, setNotOfficialDeplo] = useState(false);
 	const [tryAndroidApp, setTryAndroidApp] = useState(false);
 	const [state, setState] = useState({
@@ -34,7 +32,6 @@ function Layout({ children }) {
 	});
 	
 	useEffect(() => {
-		console.log(localStorage.getItem("collectDataConsentValue") === null);
 		setState( (prevState) => { return {
 			...prevState,
 			collectionSnackbar: localStorage.getItem("collectDataConsentValue") === null

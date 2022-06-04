@@ -39,13 +39,12 @@ const Recorder = function(cfg){
 	}
 
 	this.record = function(){
-		this.init();
 		recording = true;
 	}
 
 	this.stop = function(){
 		recording = false;
-		stream.getTracks()[0].stop();
+		//stream.getTracks()[0].stop();
 	}
 
 	function createAudioContext() {
@@ -87,6 +86,7 @@ const Recorder = function(cfg){
 			let values =  new Uint8Array(analyser.frequencyBinCount);
 			analyser.getByteFrequencyData(values);
 			let average = getAverageVolume(values);
+			console.log(average);
 			volumeCallback(average);
 		}
 
@@ -127,7 +127,8 @@ export const SpeechRecognition = function() {
 	let socket = createSocket();
 
 	this.start = function(model) {
-		recorder = createRecorder();
+		if (!recorder)
+			recorder = createRecorder();
 
 		socket.emit('begin', {'model': model, 'sample_rate': recorder.sampleRate});
 		recorder.record();
@@ -138,16 +139,16 @@ export const SpeechRecognition = function() {
 	this.stop = function() {
 		socket.emit('end', {});
 	
-		if (recorder){
+		if (recorder)
 			recorder.stop();
-		}
+		
 	
 		this.isRecording = false;
 		this.onend();
 	};
 
 	this.changeLM = function(newLM) {
-		//console.info(newLM);
+		console.info("change_lm");
 		socket.emit('change_lm', {'new_lm': newLM});
 	}
 
@@ -206,10 +207,12 @@ export const SpeechRecognition = function() {
 			volumeCallback: handleVolume,
 		});
 
+		recorder.init();
 		return recorder;
 	}
 
 	function handleChunk(chunk) {
+		console.log("socket chunk", chunk);
 		socket.emit("chunk", floatTo16BitPcm(chunk[0]));
 		recognizer.onchunk(chunk);
 	}
