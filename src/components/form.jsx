@@ -147,7 +147,7 @@ const Form = () => {
 
 	return (
 		<div className={styles.flex}>
-			<Paper elevation={3} className={styles.translationFieldContainer}>
+			<Paper elevation={2} className={styles.translationFieldContainer}>
 				<div className={styles.translationHeaderContainer}>
 					<div className={styles.languageContainer}>
 						<img
@@ -177,6 +177,7 @@ const Form = () => {
 				</div>
 				<TextField
 					value={source}
+					label=" " 
 					onChange={(e) => {
 						switch(e.nativeEvent.inputType){
 							case "insertFromPaste": inputTypeStatistics = "clipboard"; break;
@@ -228,7 +229,7 @@ const Form = () => {
 				</Tooltip>
 			</div>
 
-			<Paper elevation={3} className={styles.translationFieldContainer}>
+			<Paper elevation={2} className={styles.translationFieldContainer}>
 				<div className={styles.translationHeader}>
 					<div className={styles.languageContainer}>
 						<img	

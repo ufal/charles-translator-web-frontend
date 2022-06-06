@@ -6,7 +6,7 @@ import {
 	IconButton,
 	Snackbar,
 	Toolbar,
-	Typography,
+	Tooltip,
 	Alert,
 } from "@mui/material";
 import {
@@ -61,7 +61,7 @@ function Layout({ children }) {
 				<AppBar
 					position="static"
 					className={styles.header}
-					elevation={0}
+					elevation={2}
 				>
 					<Toolbar className={styles.toolbar}>
 						<img
@@ -79,22 +79,26 @@ function Layout({ children }) {
 						<a href="https://lindat.cz/translation">
 							🚧🚧This version is not for public, please click here.🚧🚧 
 						</a>
-						<IconButton
-							onClick={()=>setNotOfficialDeplo(false)}
-						>
-							<CloseIcon />
-						</IconButton>
+						<Tooltip title="Close">
+							<IconButton
+								onClick={()=>setNotOfficialDeplo(false)}
+							>
+								<CloseIcon />
+							</IconButton>
+						</Tooltip>
 					</div>}
 				</AppBar>
 				{tryAndroidApp && <div className={styles.tryAndroidApp}>
 						<a href="https://play.google.com/store/apps/details?id=cz.cuni.mff.ufal.translator">
 							<PhoneAndroidIcon/> Try our android app. 
 						</a>
-						<IconButton
-							onClick={()=>setTryAndroidApp(false)}
-						>
-							<CloseIcon />
-						</IconButton>
+						<Tooltip title="Close">
+							<IconButton
+								onClick={()=>setTryAndroidApp(false)}
+							>
+								<CloseIcon />
+							</IconButton>
+						</Tooltip>
 					</div>}
 
 				{children}
