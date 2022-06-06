@@ -7,6 +7,7 @@ import {
 	LinearProgress,
 	TextField,
 	Tooltip,
+	Paper,
 } from "@mui/material";
 import {
 	Clear as ClearIcon,
@@ -146,7 +147,7 @@ const Form = () => {
 
 	return (
 		<div className={styles.flex}>
-			<div className={styles.translationFieldContainer}>
+			<Paper elevation={3} className={styles.translationFieldContainer}>
 				<div className={styles.translationHeaderContainer}>
 					<div className={styles.languageContainer}>
 						<img
@@ -213,7 +214,7 @@ const Form = () => {
 						),
 					}}
 				/>
-			</div>
+			</Paper>
 
 			<div className={styles.switchButtonWrapper}>
 				<Tooltip title="Swap languages">
@@ -227,7 +228,7 @@ const Form = () => {
 				</Tooltip>
 			</div>
 
-			<div className={styles.translationFieldContainer}>
+			<Paper elevation={3} className={styles.translationFieldContainer}>
 				<div className={styles.translationHeader}>
 					<div className={styles.languageContainer}>
 						<img	
@@ -284,7 +285,7 @@ const Form = () => {
 						</div>
 					}
 				</div>
-			</div>
+			</Paper>
 		</div>
 	);
 };

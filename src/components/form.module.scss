@@ -2,6 +2,7 @@
 	display: flex;
 	flex-direction: row;
 	@media (min-width: 769px) {
+		align-items: flex-start;
 		margin: 12px;
 	}
 	@media (max-width: 768px) {
@@ -11,9 +12,11 @@
 }
 
 .switchButtonWrapper {
-	align-self: center;
 	justify-self: center;
+	align-self: center;
 	@media (min-width: 769px) {
+		align-self: flex-start;
+		margin-top: 70px;
 		transform: rotate(90deg);
 	}
 	margin: 4px;
@@ -27,6 +30,7 @@
 
 .translationHeaderContainer {
 	display: flex;
+	padding: 0 10px;
 	flex-direction: row;
 	height: 38px;
 	align-items: center;
