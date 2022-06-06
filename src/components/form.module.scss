@@ -1,13 +1,14 @@
 .flex {
 	display: flex;
 	flex-direction: row;
+	margin: 20px auto;
+    width: min(calc(100% - 40px), 1400px);
 	@media (min-width: 769px) {
 		align-items: flex-start;
-		margin: 12px;
+		margin-top: 20px;
 	}
 	@media (max-width: 768px) {
 		flex-direction: column;
-		margin-top: 8px;
 	}
 }
 

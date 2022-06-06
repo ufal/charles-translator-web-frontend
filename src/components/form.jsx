@@ -278,7 +278,7 @@ const Form = () => {
 							<div className={styles.translationText}>
 								{translation.split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item !== "") ? item : <br />}</p>))}
 							</div>
-						
+
 							<div className={styles.transliteration}>
 								{languages.target.transliterate(translation).split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item !== "") ? item : <br />}</p>))}
 							</div>
