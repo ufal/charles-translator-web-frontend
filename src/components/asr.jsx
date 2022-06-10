@@ -3,7 +3,10 @@ import {
 	Tooltip,
 	IconButton,
 } from "@mui/material";
-import MicIcon from '@mui/icons-material/Mic';
+import {
+	Mic as MicIcon,
+	Stop as StopIcon,
+} from '@mui/icons-material';
 
 import {
 	SpeechRecognition,
@@ -67,12 +70,12 @@ export default function ASR(props) {
 		<div>
 			{state.visible && <Tooltip 
 				className = {styles.removeButton}
-				title = "translate by voice"
+				title = { state.active ? "Stop recording" : "Translate by voice"}
 			>
 				<IconButton 
-					className={ state.active ? styles.activeAnimation : null }
+					className = { state.active ? styles.activeAnimation : null }
 					size = "large"
-					color = {state.active ? "success" : state.error ? "error" : undefined}
+					color = { state.error ? "error" : undefined }
 					onClick = {() => {
 						setState(oldState => {
 							if(ASR.current === null)
@@ -80,7 +83,8 @@ export default function ASR(props) {
 							
 							if(oldState.active)
 								ASR.current.stop()
-							else{
+							else {
+								console.log("props.language: ", props.language);
 								ASR.current.start(props.language || "cs")
 							}
 		
@@ -89,8 +93,8 @@ export default function ASR(props) {
 					}}
 					sx = {{ padding: 0 }}
 				>
-			<MicIcon fontSize = "inherit"/>
-
+					{ !state.active && <MicIcon fontSize = "inherit"/> }
+					{ state.active && <StopIcon fontSize = "inherit"/> }
 				</IconButton>
 			</Tooltip>}
 		</div>
