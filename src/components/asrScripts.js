@@ -120,7 +120,6 @@ export const SpeechRecognition = function() {
 	this.onstart = function() {};
 	this.onresult = function(event) {};
 	this.onerror = function(event) {};
-	this.onend = function() {};
 	this.onchunk = function(chunk) {};
 	this.volumeCallback = function(volume) {};
 	this.isRecording = false;
@@ -132,42 +131,27 @@ export const SpeechRecognition = function() {
 
 	this.start = function(model) {
 		recorder = createRecorder();
-
 		socket.emit('begin', {'model': model, 'sample_rate': recorder.sampleRate});
 		recorder.record();
 		this.isRecording = true;
 		this.onstart();
 	};
 
-	this.stop = function() {
+	this.stop = () => {
 		socket.emit('end', {});
-	
+
 		if (recorder)
 			recorder.stop();
 		
-	
 		this.isRecording = false;
-		this.onend();
-	};
-
-	this.changeLM = function(newLM) {
-		console.info("change_lm");
-		socket.emit('change_lm', {'new_lm': newLM});
 	}
 
-	let handleResult = function(results) {
-		recognizer.onresult(results);
-	};
+	let handleResult = (results) => { recognizer.onresult(results) };
 
 	let handleError = function(error) {
 		recognizer.onerror(error);
-		recognizer.onend();
 		recognizer.isRecording = false;
 		recorder.stop();
-	};
-
-	let handleEnd = function() {
-		recognizer.onend();
 	};
 
 	function createSocket() {
@@ -176,29 +160,11 @@ export const SpeechRecognition = function() {
 			transports : ['websocket'],
 		});
 
-		socket.on("connect", function() {
-			//console.info("Socket connected");
-		});
-
-		socket.on("connect_failed", function() {
-			handleError("Unable to connect to the server.");
-		});
-
-		socket.on("result", function(result) {
-			handleResult(result);
-		});
-
-		socket.on("error", function(error) {
-			handleError(error);
-		});
-
-		socket.on("server_error", function(error) {
-			handleError(error.message);
-		});
-
-		socket.on("end", function(error) {
-			handleEnd();
-		});
+		socket.on("connect", () => {});
+		socket.on("connect_failed", () => { handleError("Unable to connect to the server.") });
+		socket.on("result", (e) => { handleResult(e) });
+		socket.on("error", (e) => { handleError(e) });
+		socket.on("server_error", (e) => { handleError(e.message) });
 
 		return socket;
 	}
@@ -233,9 +199,8 @@ export const SpeechRecognition = function() {
 
 	function handleVolume(volume) {
 		if(volume == 0) {
-			if(recognizer.quietForChunks >= 50) {
+			if(recognizer.quietForChunks >= 50)
 				this.stop();
-			}
 
 			recognizer.quietForChunks++;
 		} else {

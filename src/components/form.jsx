@@ -164,7 +164,7 @@ const Form = () => {
 					<div className={styles.asrTempOutput}>{asrTempOutput}</div>
 					<div className={styles.asrContainer}>
 						<ASR
-							onresult = {(data) => { setAsrTempOutput(data); }} // todo integrate to temp asr input
+							onresult = {(data) => { setAsrTempOutput(data) }}
 							onfinal = {(data) => {
 								inputTypeStatistics = "voice";
 								handleChangeSource(data, true);

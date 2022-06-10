@@ -27,7 +27,7 @@ export default function ASR(props) {
 		if(state.active === false)
 			return;
 		
-		setState({ ...state, active: false })
+		setState(prevState => { return { ...prevState, active: false }})
 		
 		if(ASR && ASR.current)
 			ASR.current.stop()
@@ -40,17 +40,14 @@ export default function ASR(props) {
 	
 		speechRecognition.onresult = function(result) {
 			let transcript = result.result.hypotheses[0].transcript;
-			if(transcript == '') {
+			if(transcript == '')
 				return;
-			}
 
 			if(props.onresult !== undefined)
 				props.onresult(transcript)
 	
-			if(result.final) {
-				if(props.onfinal !== undefined)
-					props.onfinal(transcript)	
-			}
+			if(result.final && props.onfinal !== undefined)
+				props.onfinal(transcript)	
 		}
 	
 		speechRecognition.onstart = function(e) {}
@@ -77,16 +74,18 @@ export default function ASR(props) {
 					size = "large"
 					color = {state.active ? "success" : state.error ? "error" : undefined}
 					onClick = {() => {
-						let newState = !state.active;
-						setState({ ...state, active: newState });
-
-						if(ASR.current === null)
-							initASR();
-
-						if(newState === true)
-							ASR.current.start(props.language || "cs")
-						else
-							ASR.current.stop()
+						setState(oldState => {
+							if(ASR.current === null)
+								initASR();
+							
+							if(oldState.active)
+								ASR.current.stop()
+							else{
+								ASR.current.start(props.language || "cs")
+							}
+		
+							return {...oldState, active: !oldState.active }
+						});
 					}}
 					sx = {{ padding: 0 }}
 				>
