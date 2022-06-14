@@ -43,6 +43,12 @@ export function translate({ text, fromLanguage, toLanguage, loadingID, inputType
 		body: formBody.join("&"),
 		headers,
 	})
-	.then(response => response.json())
-	.then(response => {return { data: response.join(" "), loadingID }})
+	.then(response => {
+		switch(response.status){
+			case 413: throw { data: "The translation is too long" };
+			case 504: throw { data: "The translation took too long" };
+			default: return response.json(); 
+		}
+	})
+	.then(response => { return { data: response.join(" "), loadingID } })
 }
