@@ -84,7 +84,6 @@ export default function ASR(props) {
 							if(oldState.active)
 								ASR.current.stop()
 							else {
-								console.log("props.language: ", props.language);
 								ASR.current.start(props.language || "cs")
 							}
 		
