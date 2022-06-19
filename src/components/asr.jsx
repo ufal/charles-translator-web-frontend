@@ -29,11 +29,14 @@ export default function ASR(props) {
 	React.useEffect(() => {
 		if(state.active === false)
 			return;
-		
-		setState(prevState => { return { ...prevState, active: false }})
-		
+
+		setState(prevState => { return { ...prevState, active: false } })
+
 		if(ASR && ASR.current)
 			ASR.current.stop()
+
+		ASR.current.onresult = (result) => { props.onresult("") }
+		initASR();
 
 	}, [props.language]);
 
@@ -50,7 +53,7 @@ export default function ASR(props) {
 				props.onresult(transcript)
 	
 			if(result.final && props.onfinal !== undefined)
-				props.onfinal(transcript)	
+				props.onfinal(transcript)  
 		}
 	
 		speechRecognition.onstart = function(e) {}
@@ -60,7 +63,7 @@ export default function ASR(props) {
 		speechRecognition.onerror = function(e) {
 			console.error("server error: ", e);
 			if(props.onerror !== undefined)
-				props.onerror(e)	
+				props.onerror(e)
 		}
 		
 		ASR.current = speechRecognition;
@@ -68,15 +71,15 @@ export default function ASR(props) {
 
 	return (
 		<div>
-			{state.visible && <Tooltip 
-				className = {styles.removeButton}
-				title = { state.active ? "Stop recording" : "Translate by voice"}
+			{ state.visible && <Tooltip 
+				className = { styles.removeButton }
+				title = { state.active ? "Stop recording" : "Translate by voice" }
 			>
 				<IconButton 
 					className = { state.active ? styles.activeAnimation : null }
 					size = "large"
 					color = { state.error ? "error" : undefined }
-					onClick = {() => {
+					onClick = { () => {
 						setState(oldState => {
 							if(ASR.current === null)
 								initASR();
@@ -87,15 +90,15 @@ export default function ASR(props) {
 								ASR.current.start(props.language || "cs")
 							}
 		
-							return {...oldState, active: !oldState.active }
+							return { ...oldState, active: !oldState.active }
 						});
-					}}
+					} }
 					sx = {{ padding: 0 }}
 				>
 					{ !state.active && <MicIcon fontSize = "inherit"/> }
 					{ state.active && <StopIcon fontSize = "inherit"/> }
 				</IconButton>
-			</Tooltip>}
+			</Tooltip> }
 		</div>
 	);
 }

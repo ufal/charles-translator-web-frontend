@@ -174,7 +174,7 @@ const Form = () => {
 							onresult = {(data) => { setState((prevState => { return { ...prevState, asrTempOutput: data } })) }}
 							onfinal = {(data) => {
 								inputTypeStatistics = "voice";
-								handleChangeSource(data, true, state.sourceLanguage.id, state.targetLanguage.id);
+								handleChangeSource(data, true);
 								setState((prevState => { return { ...prevState, asrTempOutput: "" } }))
 							}}
 							onerror = {(data) => { console.error("from form onerror ASR:", data); }} // todo remove or show to user
