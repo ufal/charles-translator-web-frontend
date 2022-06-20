@@ -201,9 +201,9 @@ const Form = () => {
 					helperText = { state.source.length > 2000 ? "maximum text size is 5000 chars" : "" }
 					multiline
 					inputRef = { focusInput }
-					minRows={6}
-					className={styles.sourceInput}
-					InputProps={{
+					minRows = { 6 }
+					className = { styles.sourceInput }
+					InputProps = { {
 						endAdornment: (
 							<InputAdornment position='end'>
 								{ state.source.length !== 0 &&
@@ -220,7 +220,7 @@ const Form = () => {
 								}
 							</InputAdornment>
 						),
-					}}
+					} }
 				/>
 			</Paper>
 
