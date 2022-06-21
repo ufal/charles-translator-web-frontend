@@ -16,6 +16,8 @@ import styles from "./asr.module.scss"
 
 
 export default function ASR(props) {
+	return (<></>) // hiden until licence is valid
+
 	const [state, setState] = React.useState({
 		visible: false,
 		active: false,
