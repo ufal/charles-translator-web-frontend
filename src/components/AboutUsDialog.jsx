@@ -80,12 +80,14 @@ export default function AboutUsDialog() {
 				<p>
 					<b> Data preparation: </b> <br/>
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/lucie-polakova" label="Lucie Poláková" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/jaroslava-hlavacova" label="Jaroslava Hlaváčová" />
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://martin.majlis.cz" label="Martin Majliš" />
 					<Chip className={styles.chip} component="span" variant="outlined" label="Denys Bojko" />
 					<Chip className={styles.chip} component="span" variant="outlined" label="Tomáš Musil" />
 					<Chip className={styles.chip} component="span" variant="outlined" label="Tereza Chlaňová" />
 					<Chip className={styles.chip} component="span" variant="outlined" label="Oxana Čmelíková" />
-					<Chip className={styles.chip} component="span" variant="outlined" label="Martin Popel" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/michal-novak" label="Michal Novák" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/martin-popel" label="Martin Popel" />
 					<br/>
 					Many thanks to <a href="https://wiki.korpus.cz/doku.php/en:cnk:intercorp" rel="noreferrer" target="_blank">korpus.cz</a> for providing us with <b>InterCorp v14</b>, a part of the project Czech National Corpus.<br />
 					We thank <a href="https://www.ceskepreklady.cz" rel="noreferrer" target="_blank">České překlady</a> for cooperating on the project.
