@@ -8,6 +8,8 @@ import {
 	DialogTitle,
 	IconButton,
 	Tooltip,
+	Divider,
+	Chip,
 } from "@mui/material";
 import {
 	Close as CloseIcon,
@@ -60,44 +62,49 @@ export default function AboutUsDialog() {
 				</IconButton>
 			</DialogTitle>
 			<Box component="span" sx={{ padding: 2 }}>
+
 				<Image height={80} width={100} alt="ufal logo" src={ufalLogo.src} className={styles.logo} />
 				<Image height={80} width={139} alt="lindat logo" src={lindatLogo.src} className={styles.logo} />
-
 				<p>The Translator was developed at the <b><a href="https://ufal.mff.cuni.cz" rel="noreferrer" target="_blank">Institute of Formal and Applied Linguistics</a></b>, Faculty of Mathematics and Physics, Charles University and was supported by the <a href="https://lindat.mff.cuni.cz" rel="noreferrer" target="_blank">LINDAT/CLARIAH-CZ</a> project.</p>
 
 				<p>
-					<b>Development of the translation system: </b>
-					<a href="https://ufal.mff.cuni.cz/martin-popel" rel="noreferrer" target="_blank">Martin Popel</a>,&nbsp;
-					<a href="https://ufal.mff.cuni.cz/jindrich-libovicky" rel="noreferrer" target="_blank">Jindřich Libovický</a>,&nbsp;
-					<a href="https://ufal.mff.cuni.cz/jindrich-helcl" rel="noreferrer" target="_blank">Jindřich Helcl</a>,&nbsp;
-					<a href="https://ufal.mff.cuni.cz/michal-novak" rel="noreferrer" target="_blank">Michal Novák</a>,&nbsp;
-					<a href="https://ufal.mff.cuni.cz/rudolf-rosa" rel="noreferrer" target="_blank">Rudolf Rosa</a>,&nbsp;
-					<a href="https://ufal.mff.cuni.cz/zdenek-kasner" rel="noreferrer" target="_blank">Zdeněk Kasner</a>
+					<b>Development of the translation system: </b><br/>
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/martin-popel" label="Martin Popel" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/jindrich-libovicky" label="Jindřich Libovický" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/jindrich-helcl" label="Jindřich Helcl" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/michal-novak" label="Michal Novák" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/rudolf-rosa" label="Rudolf Rosa" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/zdenek-kasner" label="Zdeněk Kasner" />
 				</p>
 
 				<p>
-					<b> Data preparation: </b>
-					<a href="https://ufal.mff.cuni.cz/lucie-polakova" rel="noreferrer" target="_blank">Lucie Poláková</a>,&nbsp;
-					<a href="https://martin.majlis.cz" rel="noreferrer" target="_blank">Martin Majliš</a>,&nbsp;
-					Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br />
+					<b> Data preparation: </b> <br/>
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/lucie-polakova" label="Lucie Poláková" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://martin.majlis.cz" label="Martin Majliš" />
+					<Chip className={styles.chip} component="span" variant="outlined" label="Denys Bojko" />
+					<Chip className={styles.chip} component="span" variant="outlined" label="Tomáš Musil" />
+					<Chip className={styles.chip} component="span" variant="outlined" label="Tereza Chlaňová" />
+					<Chip className={styles.chip} component="span" variant="outlined" label="Oxana Čmelíková" />
+					<Chip className={styles.chip} component="span" variant="outlined" label="Martin Popel" />
+					<br/>
 					Many thanks to <a href="https://wiki.korpus.cz/doku.php/en:cnk:intercorp" rel="noreferrer" target="_blank">korpus.cz</a> for providing us with <b>InterCorp v14</b>, a part of the project Czech National Corpus.<br />
 					We thank <a href="https://www.ceskepreklady.cz" rel="noreferrer" target="_blank">České překlady</a> for cooperating on the project.
 				</p>
 				
 				<p>
-					<b> Back-end development: </b>
-					<a href="https://ufal.mff.cuni.cz/ondrej-kosarko" rel="noreferrer" target="_blank">Ondřej Košarko</a>&nbsp;
+					<b> Back-end development: </b><br/>
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/ondrej-kosarko" label="Ondřej Košarko" />
 					and the Lindat team
 				</p>
 
 				<p>
-					<b> Front-end created by: </b>
-					<a href="https://www.nogare.cz/" rel="noreferrer" target="_blank">David Nápravník</a>,&nbsp;
-					<a href="https://www.linkedin.com/in/barborastrihova" rel="noreferrer" target="_blank">Barbora Strihová</a>,&nbsp;
-					<a href="https://www.linkedin.com/in/ivan-lysianok" rel="noreferrer" target="_blank">Ivan Lysianok</a>,&nbsp;
-					<a href="https://www.linkedin.com/in/fogelman" rel="noreferrer" target="_blank"> Michal Fogelman</a>,&nbsp;
-					<a href="https://github.com/janmarek" rel="noreferrer" target="_blank">Jan Marek</a>,&nbsp;
-					<a href="https://obchodniuspech.cz" rel="noreferrer" target="_blank">Michal Pešat</a>
+					<b> Front-end created by: </b><br/>
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://www.nogare.cz/" label="David Nápravník" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://www.linkedin.com/in/barborastrihova" label="Barbora Strihová" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://www.linkedin.com/in/ivan-lysianok" label="Ivan Lysianok" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://www.linkedin.com/in/fogelman" label=" Michal Fogelman" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://github.com/janmarek" label="Jan Marek" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://obchodniuspech.cz" label="Michal Pešat" />
 				</p>
 
 				<p>

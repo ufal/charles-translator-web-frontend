@@ -16,9 +16,11 @@ export default function MyApp({ Component, pageProps }) {
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>
-				<title>Charles Translator for Ukraine</title>
+				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
 				<meta name="theme-color" content="#2196F3" />
-				<link rel="shortcut icon" href={favicon.src} />
+				<meta name="description" content="Charles Translator for Ukraine"/>
+	            <title>Charles Translator for Ukraine</title>
+	            <link rel="shortcut icon" href={favicon.src} />
 			</Head>
 			<Layout>
 				<Component {...pageProps} />

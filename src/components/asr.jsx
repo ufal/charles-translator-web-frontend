@@ -3,7 +3,10 @@ import {
 	Tooltip,
 	IconButton,
 } from "@mui/material";
-import MicIcon from '@mui/icons-material/Mic';
+import {
+	Mic as MicIcon,
+	Stop as StopIcon,
+} from '@mui/icons-material';
 
 import {
 	SpeechRecognition,
@@ -13,6 +16,8 @@ import styles from "./asr.module.scss"
 
 
 export default function ASR(props) {
+	return (<></>) // hiden until licence is valid
+
 	const [state, setState] = React.useState({
 		visible: false,
 		active: false,
@@ -26,11 +31,14 @@ export default function ASR(props) {
 	React.useEffect(() => {
 		if(state.active === false)
 			return;
-		
-		setState({ ...state, active: false })
-		
+
+		setState(prevState => { return { ...prevState, active: false } })
+
 		if(ASR && ASR.current)
 			ASR.current.stop()
+
+		ASR.current.onresult = (result) => { props.onresult("") }
+		initASR();
 
 	}, [props.language]);
 
@@ -40,17 +48,14 @@ export default function ASR(props) {
 	
 		speechRecognition.onresult = function(result) {
 			let transcript = result.result.hypotheses[0].transcript;
-			if(transcript == '') {
+			if(transcript == '')
 				return;
-			}
 
 			if(props.onresult !== undefined)
 				props.onresult(transcript)
 	
-			if(result.final) {
-				if(props.onfinal !== undefined)
-					props.onfinal(transcript)	
-			}
+			if(result.final && props.onfinal !== undefined)
+				props.onfinal(transcript)  
 		}
 	
 		speechRecognition.onstart = function(e) {}
@@ -60,7 +65,7 @@ export default function ASR(props) {
 		speechRecognition.onerror = function(e) {
 			console.error("server error: ", e);
 			if(props.onerror !== undefined)
-				props.onerror(e)	
+				props.onerror(e)
 		}
 		
 		ASR.current = speechRecognition;
@@ -68,32 +73,34 @@ export default function ASR(props) {
 
 	return (
 		<div>
-			{state.visible && <Tooltip 
-				className = {styles.removeButton}
-				title = "translate by voice"
+			{ state.visible && <Tooltip 
+				className = { styles.removeButton }
+				title = { state.active ? "Stop recording" : "Translate by voice" }
 			>
 				<IconButton 
-					className={ state.active ? styles.activeAnimation : null }
+					className = { state.active ? styles.activeAnimation : null }
 					size = "large"
-					color = {state.active ? "success" : state.error ? "error" : undefined}
-					onClick = {() => {
-						let newState = !state.active;
-						setState({ ...state, active: newState });
-
-						if(ASR.current === null)
-							initASR();
-
-						if(newState === true)
-							ASR.current.start(props.language || "cs")
-						else
-							ASR.current.stop()
-					}}
+					color = { state.error ? "error" : undefined }
+					onClick = { () => {
+						setState(oldState => {
+							if(ASR.current === null)
+								initASR();
+							
+							if(oldState.active)
+								ASR.current.stop()
+							else {
+								ASR.current.start(props.language || "cs")
+							}
+		
+							return { ...oldState, active: !oldState.active }
+						});
+					} }
 					sx = {{ padding: 0 }}
 				>
-			<MicIcon fontSize = "inherit"/>
-
+					{ !state.active && <MicIcon fontSize = "inherit"/> }
+					{ state.active && <StopIcon fontSize = "inherit"/> }
 				</IconButton>
-			</Tooltip>}
+			</Tooltip> }
 		</div>
 	);
 }

@@ -12,8 +12,14 @@
 }
 
 .toolbar {
+    width: 100%;
 	padding: 0 10px 0 0 !important;
 	max-height: 100px;
+	@media (min-width: 768px) {
+	    width: min(calc(100% - 40px), 1400px);
+		padding: 0 !important;
+		margin-inline: auto;
+	}
 }
 
 .homeLink {
@@ -59,7 +65,7 @@
 .notOfficialDeplo{
 	display: grid;
 	grid-template-columns: 1fr auto;
-	background: #f00;
+	background: #d60000;
 	a{
 		color: white;
 		text-decoration: none;

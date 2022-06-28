@@ -6,7 +6,8 @@ import {
 	IconButton,
 	Snackbar,
 	Toolbar,
-	Typography,
+	Tooltip,
+	Alert,
 } from "@mui/material";
 import {
 	Check as CheckIcon,
@@ -16,7 +17,6 @@ import {
 } from "@mui/icons-material";
 
 import AboutUsDialog from "./AboutUsDialog";
-import FAQDialog from "./FAQDialog";
 import SettingsDialog from "./SettingsDialog";
 import logo from '../../public/static/img/logo.svg';
 
@@ -24,24 +24,32 @@ import styles from "./layout.module.scss"
 
 
 function Layout({ children }) {
-	const [collectionSnackbar, setCollectionSnackbar] = useState(true);
-	const [forOrganizations, setForOrganizations] = useState(false);
 	const [notOfficialDeplo, setNotOfficialDeplo] = useState(false);
 	const [tryAndroidApp, setTryAndroidApp] = useState(false);
+	const [state, setState] = useState({
+		collectionSnackbar: false,
+		collectionSnackbarInfo: false,
+	});
 	
 	useEffect(() => {
-		setCollectionSnackbar(localStorage.getItem("collectDataConsentValue") !== "true");
+		setState( (prevState) => { return {
+			...prevState,
+			collectionSnackbar: localStorage.getItem("collectDataConsentValue") === null
+		}});
 		setNotOfficialDeplo(
 			window.location.href.indexOf("lindat.cz/translation") === -1 &&
 			window.location.href.indexOf("translator.cuni.cz") === -1
 		)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		setForOrganizations((localStorage.getItem("organizationName") || "").length !== 0)
 		setTryAndroidApp(/(android)/i.test(navigator.userAgent))
 	}, [])
 
 	const allowCollection = () => { 
-		setCollectionSnackbar(false);
+		setState( (prevState) => { return {
+			...prevState,
+			collectionSnackbar: false,
+			collectionSnackbarInfo: true,
+		}});
 		if(typeof window !== 'undefined')
 			window.localStorage.setItem("collectDataConsentValue", "true");
 	}
@@ -53,7 +61,7 @@ function Layout({ children }) {
 				<AppBar
 					position="static"
 					className={styles.header}
-					elevation={0}
+					elevation={2}
 				>
 					<Toolbar className={styles.toolbar}>
 						<img
@@ -71,45 +79,60 @@ function Layout({ children }) {
 						<a href="https://lindat.cz/translation">
 							🚧🚧This version is not for public, please click here.🚧🚧 
 						</a>
-						<IconButton
-							onClick={()=>setNotOfficialDeplo(false)}
-						>
-							<CloseIcon />
-						</IconButton>
+						<Tooltip title="Close">
+							<IconButton
+								onClick={()=>setNotOfficialDeplo(false)}
+							>
+								<CloseIcon />
+							</IconButton>
+						</Tooltip>
 					</div>}
 				</AppBar>
 				{tryAndroidApp && <div className={styles.tryAndroidApp}>
 						<a href="https://play.google.com/store/apps/details?id=cz.cuni.mff.ufal.translator">
 							<PhoneAndroidIcon/> Try our android app. 
 						</a>
-						<IconButton
-							onClick={()=>setTryAndroidApp(false)}
-						>
-							<CloseIcon />
-						</IconButton>
+						<Tooltip title="Close">
+							<IconButton
+								onClick={()=>setTryAndroidApp(false)}
+							>
+								<CloseIcon />
+							</IconButton>
+						</Tooltip>
 					</div>}
 
 				{children}
 
 				<Snackbar
-					open={collectionSnackbar}
+					open={state.collectionSnackbar}
 					message={`Souhlasím s tím, aby Ústav formální a aplikované lingvistiky
 						MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu
 						mohou být anonymizované texty využity pro další vývoj systému.`}
 					anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
 					action={(
 						<React.Fragment>
-							<Button size="large" onClick={allowCollection}>
+							<Button size="large" onClick={ allowCollection }>
 								<CheckIcon fontSize="small" />
 								SOUHLASÍM
 							</Button>
-							<Button size="large" onClick={() => setCollectionSnackbar(false)}>
+							<Button size="large" onClick={() => {
+									setState({
+										...state,
+										collectionSnackbarInfo: true,
+										collectionSnackbar: false,
+									});
+								}}>
 								<CloseIcon fontSize="small" />
 								NESOUHLASÍM
 							</Button>
 						</React.Fragment>
 					)}
 				/>
+				 <Snackbar open={state.collectionSnackbarInfo} autoHideDuration={3000} onClose={() => setState({ ...state, collectionSnackbarInfo: false })}>
+					<Alert severity="info" onClose={() => setState({ ...state, collectionSnackbarInfo: false })} sx={{ width: '100%' }}>
+						Své rozhodnutí můžete kdykoli později změnit v Nastavení.
+					</Alert>
+				</Snackbar>
 
 				<div className={styles.footer}>
 					THE LINDAT/CLARIAH-CZ PROJECT (LM2018101; formerly

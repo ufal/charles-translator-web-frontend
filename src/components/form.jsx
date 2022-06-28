@@ -7,6 +7,7 @@ import {
 	LinearProgress,
 	TextField,
 	Tooltip,
+	Paper,
 } from "@mui/material";
 import {
 	Clear as ClearIcon,
@@ -52,10 +53,15 @@ let loadedID = 0;  // id o most recent received request
 
 
 const Form = () => {
-	const [source, setSource] = useState("");
-	const [asrTempOutput, setAsrTempOutput] = useState("");
-	const [translation, setTranslation] = useState("");
-	const [languages, setLanguages] = useState({ source: languageCs, target: languageUk });
+	const [state, setState] = useState({
+		source: "",
+		asrTempOutput: "",
+		translation: "",
+		sourceLanguage: languageCs,
+		targetLanguage: languageUk,
+		loading: false,
+		loadingError: null,
+	});
 	const [loading, setLoading] = useState(false);
 	const [loadingError, setLoadingError] = useState(null);
 
@@ -68,9 +74,9 @@ const Form = () => {
 			return;
 		
 		if(defaultSource === languageCs.id)
-			setLanguages({source: languageCs, target: languageUk });
+			setState((prevState) => { return { ...prevState, sourceLanguage: languageCs, targetLanguage: languageUk } })
 		else
-			setLanguages({source: languageUk, target: languageCs });
+			setState((prevState) => { return { ...prevState, sourceLanguage: languageUk, targetLanguage: languageCs } })
 	}, [])
 
 	const focusInput = useRef(null);
@@ -80,24 +86,26 @@ const Form = () => {
 			focusInput.current.focus();
 	}, [focusInput]);
 
-	function handleChangeSource(text, additive = false, fromLanguage = languages.source.id, toLanguage = languages.target.id) {
-		setSource((prevState, props) => {
+	function handleChangeSource(text, additive = false, fromLanguage = state.sourceLanguage.id, toLanguage = state.targetLanguage.id) {
+		setState((prevState) => {
 			if(additive){
 				if(text.length > 0) text = text.charAt(0).toLocaleUpperCase() + text.slice(1);
 				if(text !== "") text += ".";
-				if(text !== "" && prevState !== "") text = "\n" + text;
-				text = prevState + text;
+				if(text !== "" && prevState.source !== "") text = "\n" + text;
+				text = prevState.source + text;
 			}
 
-			return text;
+			console.log("fromLanguage: ", fromLanguage, additive, state.sourceLanguage.id);
+
+			return { ...prevState, source: text };
 		});
 
 		setLoading(true);
 
 		if(fromLanguage === languageCs.id)
-			setLanguages((state) => ({ source: languageCs, target: languageUk }));
+			setState((prevState) => { return { ...prevState, sourceLanguage: languageCs, targetLanguage: languageUk } })
 		else
-			setLanguages((state) => ({ source: languageUk, target: languageCs }));
+			setState((prevState) => { return { ...prevState, sourceLanguage: languageUk, targetLanguage: languageCs } })
 
 		if(typeof window !== 'undefined')
 			window.localStorage.setItem("lastTranslationSource", fromLanguage);
@@ -118,7 +126,7 @@ const Form = () => {
 			// this request has some new information
 			if(loadedID < data.loadingID){
 				loadedID = data.loadingID;
-				setTranslation(data.data.trim());
+				setState((prevState) => { return { ...prevState, translation: data.data.trim() } })
 				setLoadingError(null);
 			}
 
@@ -132,50 +140,51 @@ const Form = () => {
 	}
 
 	const flipLanguages = () => {
-		const oldSource = languages.source;
-		const oldTarget = languages.target;
-		setTranslation("");
+		const oldSource = state.sourceLanguage;
+		const oldTarget = state.targetLanguage;
+		setState((prevState) => { return { ...prevState, translation: "" } })
 
 		inputTypeStatistics = "swap-languages";
 		/**/// switch - keep source text as source
-		handleChangeSource(source, false, oldTarget.id, oldSource.id);
+		handleChangeSource(state.source, false, oldTarget.id, oldSource.id);
 		/*/ - insert translation as new source
-		handleChangeSource(translation, false, oldTarget.id, oldSource.id);
+		handleChangeSource(state.translation, false, oldTarget.id, oldSource.id);
 		/**/
 	}
 
 	return (
 		<div className={styles.flex}>
-			<div className={styles.translationFieldContainer}>
+			<Paper elevation={2} className={styles.translationFieldContainer}>
 				<div className={styles.translationHeaderContainer}>
 					<div className={styles.languageContainer}>
 						<img
 							width={30}
 							height={30}
 							alt="flag"
-							src={languages.source.flag.src}
+							src = { state.sourceLanguage.flag.src }
 							className={styles.flagIcon}
 						/>
 						<label className={styles.label} htmlFor="destination">
-							{languages.source.name}
+							{ state.sourceLanguage.name }
 						</label>
 					</div>
-					<div className={styles.asrTempOutput}>{asrTempOutput}</div>
+					<div className={styles.asrTempOutput}>{state.asrTempOutput}</div>
 					<div className={styles.asrContainer}>
 						<ASR
-							onresult = {(data) => { setAsrTempOutput(data); }} // todo integrate to temp asr input
+							onresult = {(data) => { setState((prevState => { return { ...prevState, asrTempOutput: data } })) }}
 							onfinal = {(data) => {
 								inputTypeStatistics = "voice";
 								handleChangeSource(data, true);
-								setAsrTempOutput("");
+								setState((prevState => { return { ...prevState, asrTempOutput: "" } }))
 							}}
 							onerror = {(data) => { console.error("from form onerror ASR:", data); }} // todo remove or show to user
-							language = { languages.source.id }
+							language = { state.sourceLanguage.id }
 						/>
 					</div>
 				</div>
 				<TextField
-					value={source}
+					value={state.source}
+					label=" " 
 					onChange={(e) => {
 						switch(e.nativeEvent.inputType){
 							case "insertFromPaste": inputTypeStatistics = "clipboard"; break;
@@ -185,19 +194,19 @@ const Form = () => {
 						}
 						return handleChangeSource(e.target.value);
 					}}
-					id="source"
-					variant="filled"
-					color={source.length > 2000 ? "warning" : "primary"}
-					error={source.length > 5000}
-					helperText={source.length > 2000 ? "maximum text size is 5000 chars" : ""}
+					id = "source"
+					variant = "filled"
+					color = { state.source.length > 2000 ? "warning" : "primary" }
+					error = { state.source.length > 5000 }
+					helperText = { state.source.length > 2000 ? "maximum text size is 5000 chars" : "" }
 					multiline
-					inputRef={focusInput}
+					inputRef = { focusInput }
 					minRows={6}
 					className={styles.sourceInput}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position='end'>
-								{ source.length !== 0 &&
+								{ state.source.length !== 0 &&
 									<Tooltip 
 										className={styles.removeButton}
 										title="Clear source text"
@@ -213,7 +222,7 @@ const Form = () => {
 						),
 					}}
 				/>
-			</div>
+			</Paper>
 
 			<div className={styles.switchButtonWrapper}>
 				<Tooltip title="Swap languages">
@@ -227,25 +236,25 @@ const Form = () => {
 				</Tooltip>
 			</div>
 
-			<div className={styles.translationFieldContainer}>
+			<Paper elevation={2} className={styles.translationFieldContainer}>
 				<div className={styles.translationHeader}>
 					<div className={styles.languageContainer}>
 						<img	
 							width={30}
 							height={30}
 							alt="flag"
-							src={languages.target.flag.src}
+							src={state.targetLanguage.flag.src}
 							className={styles.flagIcon}
 						/>
 						<label className={styles.label} htmlFor="destination">
-							{languages.target.name}
+							{state.targetLanguage.name}
 						</label>
 					</div>
 
-					{translation.length !== 0 && navigator.clipboard !== undefined &&
+					{state.translation.length !== 0 && navigator.clipboard !== undefined &&
 						<Tooltip title="Copy translation to cliboard">
 						<Button 
-							onClick={() => {navigator.clipboard.writeText(translation)}}
+							onClick={() => {navigator.clipboard.writeText(state.translation)}}
 							variant="text"
 							size="small"
 							startIcon={<ContentCopyIcon/>}
@@ -266,7 +275,7 @@ const Form = () => {
 							<span>{loadingError !== "" ? loadingError : "Translation error"}</span>
 							<Button
 								onClick={()=>{
-									handleChangeSource(source);
+									handleChangeSource(state.source);
 								}}
 							>
 								Try again
@@ -275,16 +284,16 @@ const Form = () => {
 						:
 						<div>
 							<div className={styles.translationText}>
-								{translation.split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item !== "") ? item : <br />}</p>))}
+								{state.translation.split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item !== "") ? item : <br />}</p>))}
 							</div>
-						
+
 							<div className={styles.transliteration}>
-								{languages.target.transliterate(translation).split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item !== "") ? item : <br />}</p>))}
+								{state.targetLanguage.transliterate(state.translation).split('\n').map((item, i) => (<p key={i} style={{margin: 0}}>{(item !== "") ? item : <br />}</p>))}
 							</div>
 						</div>
 					}
 				</div>
-			</div>
+			</Paper>
 		</div>
 	);
 };
