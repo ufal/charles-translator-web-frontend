@@ -121,6 +121,8 @@ function Layout({ children }) {
 										collectionSnackbarInfo: true,
 										collectionSnackbar: false,
 									});
+									if(typeof window !== 'undefined')
+										window.localStorage.setItem("collectDataConsentValue", "false");
 								}}>
 								<CloseIcon fontSize="small" />
 								NESOUHLASÍM
