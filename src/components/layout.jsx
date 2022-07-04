@@ -15,6 +15,7 @@ import {
 	Info as InfoIcon,
 	PhoneAndroid as PhoneAndroidIcon,
 } from "@mui/icons-material";
+import { useTranslation } from 'next-i18next';
 
 import AboutUsDialog from "./AboutUsDialog";
 import SettingsDialog from "./SettingsDialog";
@@ -30,6 +31,8 @@ function Layout({ children }) {
 		collectionSnackbar: false,
 		collectionSnackbarInfo: false,
 	});
+	
+	const { t } = useTranslation("common");
 	
 	useEffect(() => {
 		setState( (prevState) => { return {
@@ -105,15 +108,13 @@ function Layout({ children }) {
 
 				<Snackbar
 					open={state.collectionSnackbar}
-					message={`Souhlasím s tím, aby Ústav formální a aplikované lingvistiky
-						MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu
-						mohou být anonymizované texty využity pro další vývoj systému.`}
+					message={t("collectDataConsentText")}
 					anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
 					action={(
 						<React.Fragment>
 							<Button size="large" onClick={ allowCollection }>
 								<CheckIcon fontSize="small" />
-								SOUHLASÍM
+								{t("agree")}
 							</Button>
 							<Button size="large" onClick={() => {
 									setState({
@@ -125,7 +126,7 @@ function Layout({ children }) {
 										window.localStorage.setItem("collectDataConsentValue", "false");
 								}}>
 								<CloseIcon fontSize="small" />
-								NESOUHLASÍM
+								{t("disagree")}
 							</Button>
 						</React.Fragment>
 					)}

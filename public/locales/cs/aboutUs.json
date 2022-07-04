@@ -1,0 +1,26 @@
+{
+    "developedBy": "Překladač byl vyvinut na",
+    "UFAL": "Institutu formální a aplikované lingvistiky",
+    "MFF": "Matematicko-fyzikální fakulty",
+    "UK": "Univerzity Karlovy",
+    "supportedBy":"a byl podporován projektem",
+
+    "developersTranslation":"Vývojáři překladatelského systému",
+    "dataPreparation":"Příprava dat",
+    "thanksTo":"Moc děkujeme",
+    "providingInterCorp":"za poskytnutí InterCorp v14, součásti projektu Český národní korpus",
+    "weThank":"Děkujeme",
+    "forCooperation":"za spolupráci na projektu",
+   
+    "developersBackEnd":"Back-end vývojáři",
+    "andTheLindatTeam":"a tým Lindat",
+
+    "developersFrontEnd":"Front-end vývojáři",
+
+    "FAQ":"FAQ",
+    "FAQLong":"Často kladené otázky",
+    "forQuestionsContactUs":"V případě jakýchkoli dotazů ohledně tohoto překladače nás prosím kontaktujte na",
+
+   
+    "":""
+}

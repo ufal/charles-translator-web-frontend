@@ -15,9 +15,7 @@ CONFIG PATH
 -----------
 ```
 // next.config.js
-module.exports = {
-	assetPrefix: '/translation',
-}
+assetPrefix: '/translation',
 ```
 
 
