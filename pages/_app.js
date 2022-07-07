@@ -1,14 +1,14 @@
 import Head from 'next/head';
 import { blue } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { appWithTranslation } from 'next-i18next';
 
+import '../i18n';
 import Layout from "../src/components/layout";
 
 import favicon from '../public/static/img/favicon.ico';
 
 
-const MyApp = ({ Component, pageProps }) => {
+export default function MyApp({ Component, pageProps }) {
 	const theme = createTheme({
 		palette: {
 			primary: blue,
@@ -29,5 +29,3 @@ const MyApp = ({ Component, pageProps }) => {
 		</ThemeProvider>
 	);
 }
-
-export default appWithTranslation(MyApp);

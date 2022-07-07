@@ -15,7 +15,7 @@ import {
 	Close as CloseIcon,
 	Info as InfoIcon,
 } from "@mui/icons-material";
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 
 import atChar from '../../public/static/img/at.svg';
 import lindatLogo from '../../public/static/img/lindat-logo-violet.svg';
@@ -27,8 +27,7 @@ import styles from "./AboutUsDialog.module.scss"
 export default function AboutUsDialog() {
 	const [openAboutUs, setOpenAboutUs] = React.useState(false);
 
-	const { t } = useTranslation("aboutUs");
-	const tc = useTranslation("common").t;
+	const { t } = useTranslation();
 
 	return (
 		<>
@@ -69,10 +68,10 @@ export default function AboutUsDialog() {
 
 				<Image height={80} width={100} alt="ufal logo" src={ufalLogo.src} className={styles.logo} />
 				<Image height={80} width={139} alt="lindat logo" src={lindatLogo.src} className={styles.logo} />
-				<p>{t("developedBy")} <b><a href="https://ufal.mff.cuni.cz" rel="noreferrer" target="_blank">{t("UFAL")}</a></b>, {t("MFF")}, {t("UK")} {t("supportedBy")} <a href="https://lindat.mff.cuni.cz" rel="noreferrer" target="_blank">LINDAT/CLARIAH-CZ</a>.</p>
+				<p>{t("aboutUs:developedBy")} <b><a href="https://ufal.mff.cuni.cz" rel="noreferrer" target="_blank">{t("aboutUs:UFAL")}</a></b>, {t("aboutUs:MFF")}, {t("aboutUs:UK")} {t("aboutUs:supportedBy")} <a href="https://lindat.mff.cuni.cz" rel="noreferrer" target="_blank">LINDAT/CLARIAH-CZ</a>.</p>
 
 				<p>
-					<b>{t("developersTranslation")}: </b><br/>
+					<b>{t("aboutUs:developersTranslation")}: </b><br/>
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/martin-popel" label="Martin Popel" />
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/jindrich-libovicky" label="Jindřich Libovický" />
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/jindrich-helcl" label="Jindřich Helcl" />
@@ -82,7 +81,7 @@ export default function AboutUsDialog() {
 				</p>
 
 				<p>
-					<b> {t("dataPreparation")}: </b> <br/>
+					<b> {t("aboutUs:dataPreparation")}: </b> <br/>
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/lucie-polakova" label="Lucie Poláková" />
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/jaroslava-hlavacova" label="Jaroslava Hlaváčová" />
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://martin.majlis.cz" label="Martin Majliš" />
@@ -93,18 +92,18 @@ export default function AboutUsDialog() {
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/michal-novak" label="Michal Novák" />
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/martin-popel" label="Martin Popel" />
 					<br/>
-					{t("thanksTo")} <a href="https://wiki.korpus.cz/doku.php/en:cnk:intercorp" rel="noreferrer" target="_blank">korpus.cz</a> {t("providingInterCorp")}.<br />
-					{t("weThank")} <a href="https://www.ceskepreklady.cz" rel="noreferrer" target="_blank">České překlady</a> {t("forCooperation")}.
+					{t("aboutUs:thanksTo")} <a href="https://wiki.korpus.cz/doku.php/en:cnk:intercorp" rel="noreferrer" target="_blank">korpus.cz</a> {t("aboutUs:providingInterCorp")}.<br />
+					{t("aboutUs:weThank")} <a href="https://www.ceskepreklady.cz" rel="noreferrer" target="_blank">České překlady</a> {t("aboutUs:forCooperation")}.
 				</p>
 				
 				<p>
-					<b> {t("developersBackEnd")}: </b><br/>
+					<b> {t("aboutUs:developersBackEnd")}: </b><br/>
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/ondrej-kosarko" label="Ondřej Košarko" />
-					{t("andTheLindatTeam")}
+					{t("aboutUs:andTheLindatTeam")}
 				</p>
 
 				<p>
-					<b> {t("developersFrontEnd")}: </b><br/>
+					<b> {t("aboutUs:developersFrontEnd")}: </b><br/>
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://www.nogare.cz/" label="David Nápravník" />
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://www.linkedin.com/in/barborastrihova" label="Barbora Strihová" />
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://www.linkedin.com/in/ivan-lysianok" label="Ivan Lysianok" />
@@ -114,13 +113,13 @@ export default function AboutUsDialog() {
 				</p>
 
 				<p>
-					<b> {t("FAQ")}: </b>
-					<a href="https://ufal.mff.cuni.cz/ufal-ukraine#faq" rel="noreferrer" target="_blank">{t("FAQLong")}</a><br/>
-					{t("forQuestionsContactUs")} <strong>u4u<Image src={atChar.src} alt="@" width={13} height={13} className={ styles.atChar }/>ufal.mff.cuni.cz</strong> .
+					<b> {t("aboutUs:FAQ")}: </b>
+					<a href="https://ufal.mff.cuni.cz/ufal-ukraine#faq" rel="noreferrer" target="_blank">{t("aboutUs:FAQLong")}</a><br/>
+					{t("aboutUs:forQuestionsContactUs")} <strong>u4u<Image src={atChar.src} alt="@" width={13} height={13} className={ styles.atChar }/>ufal.mff.cuni.cz</strong> .
 				</p>
 			</Box>
 			<DialogActions>
-				<Button onClick={()=>setOpenAboutUs(false)}>{tc("close")}</Button>
+				<Button onClick={()=>setOpenAboutUs(false)}>{t("common:close")}</Button>
 			</DialogActions>
 		</Dialog>
 		</>

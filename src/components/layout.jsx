@@ -15,7 +15,7 @@ import {
 	Info as InfoIcon,
 	PhoneAndroid as PhoneAndroidIcon,
 } from "@mui/icons-material";
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 
 import AboutUsDialog from "./AboutUsDialog";
 import SettingsDialog from "./SettingsDialog";
@@ -32,7 +32,7 @@ function Layout({ children }) {
 		collectionSnackbarInfo: false,
 	});
 	
-	const { t } = useTranslation("common");
+	const { t } = useTranslation();
 	
 	useEffect(() => {
 		setState( (prevState) => { return {
@@ -80,7 +80,7 @@ function Layout({ children }) {
 					</Toolbar>
 					{notOfficialDeplo && <div className={styles.notOfficialDeplo}>
 						<a href="https://lindat.cz/translation">
-							🚧🚧This version is not for public, please click here.🚧🚧 
+							{t("dev:notPublic")}
 						</a>
 						<Tooltip title="Close">
 							<IconButton
@@ -108,13 +108,13 @@ function Layout({ children }) {
 
 				<Snackbar
 					open={state.collectionSnackbar}
-					message={t("collectDataConsentText")}
+					message={t("common:collectDataConsentText")}
 					anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
 					action={(
 						<React.Fragment>
 							<Button size="large" onClick={ allowCollection }>
 								<CheckIcon fontSize="small" />
-								{t("agree")}
+								{t("common:agree")}
 							</Button>
 							<Button size="large" onClick={() => {
 									setState({
@@ -126,14 +126,14 @@ function Layout({ children }) {
 										window.localStorage.setItem("collectDataConsentValue", "false");
 								}}>
 								<CloseIcon fontSize="small" />
-								{t("disagree")}
+								{t("common:disagree")}
 							</Button>
 						</React.Fragment>
 					)}
 				/>
 				 <Snackbar open={state.collectionSnackbarInfo} autoHideDuration={3000} onClose={() => setState({ ...state, collectionSnackbarInfo: false })}>
 					<Alert severity="info" onClose={() => setState({ ...state, collectionSnackbarInfo: false })} sx={{ width: '100%' }}>
-						Své rozhodnutí můžete kdykoli později změnit v Nastavení.
+						{t("layout:youCanChangeItInSettings")}
 					</Alert>
 				</Snackbar>
 

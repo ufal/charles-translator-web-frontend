@@ -1,0 +1,43 @@
+{
+	"common": {
+		"save": "save",
+		"agree": "agree",
+		"close": "close",
+		"disagree": "disagree",
+
+		"collectDataConsentText": "I am giving the Institute of Formal and Applied Linguistics, Faculty of Mathematics and Physics, Charles Univeristy (UFAL MFF UK) consent to collect my inputs and translations. The texts will be anonymized and may be used for future development of the system.",
+		"allowLocalHistoryText": "Store new texts and translations into local history (on your device)"
+	},
+
+	"dev": {
+		"notPublic": "🚧🚧This version is not for public, please click here.🚧🚧"
+	},
+
+	"layout": {
+		"youCanChangeItInSettings" : "You can always change your decision later in Settings."
+	},
+
+	"aboutUs": {
+		"developedBy": "The Translator was developed at the",
+		"UFAL": "Institute of Formal and Applied Linguistics",
+		"MFF": "Faculty of Mathematics and Physics",
+		"UK": "Charles University",
+		"supportedBy": "and was supported by the",
+
+		"developersTranslation": "Development of the translation system",
+		"dataPreparation": "Data preparation",
+		"thanksTo": "Many thanks to",
+		"providingInterCorp": "for providing us with InterCorp v14, a part of the project Czech National Corpus",
+		"weThank": "We thank",
+		"forCooperation": "for cooperating on the project",
+
+		"developersBackEnd": "Back-end development",
+		"andTheLindatTeam": "and the Lindat team",
+
+		"developersFrontEnd": "Front-end created by",
+
+		"FAQ": "FAQ",
+		"FAQLong": "Frequently Asked Questions (in Czech)",
+		"forQuestionsContactUs": "For any questions about this Translator, please contact"
+	}
+}

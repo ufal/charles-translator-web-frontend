@@ -1,0 +1,43 @@
+{
+	"common": {
+		"save": "uložit",
+		"agree": "souhlasím",
+		"close": "zavřít",
+		"disagree": "nesouhlasím",
+
+		"collectDataConsentText": "Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu mohou být anonymizované texty využity pro další vývoj systému.",
+		"allowLocalHistoryText": "Ukládat nové texty a překlady do lokální historie (do vašeho zařízení)"
+	},
+
+	"dev": {
+		"notPublic": "🚧🚧Tato verze není určena pro veřejnost, klikněte prosím zde.🚧🚧"
+	},
+
+	"layout": {
+		"youCanChangeItInSettings" : "Své rozhodnutí můžete kdykoli později změnit v Nastavení."
+	},
+
+	"aboutUs": {
+		"developedBy": "Překladač byl vyvinut na",
+		"UFAL": "Institutu formální a aplikované lingvistiky",
+		"MFF": "Matematicko-fyzikální fakulty",
+		"UK": "Univerzity Karlovy",
+		"supportedBy": "a byl podporován projektem",
+
+		"developersTranslation": "Vývojáři překladatelského systému",
+		"dataPreparation": "Příprava dat",
+		"thanksTo": "Moc děkujeme",
+		"providingInterCorp": "za poskytnutí InterCorp v14, součásti projektu Český národní korpus",
+		"weThank": "Děkujeme",
+		"forCooperation": "za spolupráci na projektu",
+
+		"developersBackEnd": "Back-end vývojáři",
+		"andTheLindatTeam": "a tým Lindat",
+
+		"developersFrontEnd": "Front-end vývojáři",
+
+		"FAQ": "FAQ",
+		"FAQLong": "Často kladené otázky",
+		"forQuestionsContactUs": "V případě jakýchkoli dotazů ohledně tohoto překladače nás prosím kontaktujte na"
+	}
+}
