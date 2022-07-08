@@ -15,6 +15,7 @@ import {
 	ErrorOutline as ErrorOutlineIcon,
 	SwapVert,
 } from "@mui/icons-material";
+import { useTranslation } from 'react-i18next';
 
 import {
 	getHistory,
@@ -62,8 +63,11 @@ const Form = () => {
 		loading: false,
 		loadingError: null,
 	});
-	const [loading, setLoading] = useState(false);
-	const [loadingError, setLoadingError] = useState(null);
+	const [loading, setLoading] = useState(false); // todo
+	const [loadingError, setLoadingError] = useState(null);  // todo
+
+	const { t } = useTranslation();
+
 
 	let inputTypeStatistics = "keyboard";
 
@@ -209,7 +213,7 @@ const Form = () => {
 								{ state.source.length !== 0 &&
 									<Tooltip 
 										className={styles.removeButton}
-										title="Clear source text"
+										title={t("form:clearSourceText")}
 									>
 										<IconButton 
 											onClick={() => { handleChangeSource(""); focusInput.current.focus(); }}
@@ -225,7 +229,7 @@ const Form = () => {
 			</Paper>
 
 			<div className={styles.switchButtonWrapper}>
-				<Tooltip title="Swap languages">
+				<Tooltip title={t("form:swapLanguages")}>
 					<IconButton
 						aria-label="switch languages"
 						onClick={ () => { flipLanguages(); focusInput.current.focus(); } }
@@ -252,14 +256,14 @@ const Form = () => {
 					</div>
 
 					{state.translation.length !== 0 && navigator.clipboard !== undefined &&
-						<Tooltip title="Copy translation to cliboard">
+						<Tooltip title={t("form:copyToClipboard")}>
 						<Button 
 							onClick={() => {navigator.clipboard.writeText(state.translation)}}
 							variant="text"
 							size="small"
 							startIcon={<ContentCopyIcon/>}
 						>
-							COPY
+							{t("common:copy")}
 						</Button>
 					</Tooltip>}
 					<TranslationHistory

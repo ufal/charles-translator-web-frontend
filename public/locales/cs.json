@@ -4,9 +4,35 @@
 		"agree": "souhlasím",
 		"close": "zavřít",
 		"disagree": "nesouhlasím",
+		"copy": "kopírovat",
+
+		"language": "Jazyk",
+		"saved": "Uloženo",
+		"remove": "Smazat",
+		"removeEverything": "Smazat vše",
+
+		"companyName": "Název organizace",
+
+		"settings": "Nastavení",
+		"aboutUs": "O nás",
+		"history": "Historie",
+
+		"markAsFavorite": "Označit jako oblíbené",
+		"markAsNotFavorite": "Zrušit označení jako oblíbené",
 
 		"collectDataConsentText": "Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu mohou být anonymizované texty využity pro další vývoj systému.",
 		"allowLocalHistoryText": "Ukládat nové texty a překlady do lokální historie (do vašeho zařízení)"
+	},
+
+	"form": {
+		"swapLanguages": "Prohodit jazyky",
+		"clearSourceText": "Smazat text",
+		"copyToClipboard": "Zkopírovat překlad do schránky"
+	},
+
+	"asr": {
+		"stopRecording": "zastavit nahrávání",
+		"translateByVoice": "překládat hlasem"
 	},
 
 	"dev": {

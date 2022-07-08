@@ -7,6 +7,7 @@ import {
 	Mic as MicIcon,
 	Stop as StopIcon,
 } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 import {
 	SpeechRecognition,
@@ -21,6 +22,7 @@ export default function ASR(props) {
 		active: false,
 		error: false,
 	});
+	const { t } = useTranslation();
 
 	let ASR = React.useRef(null);
 
@@ -73,7 +75,7 @@ export default function ASR(props) {
 		<div>
 			{ state.visible && <Tooltip 
 				className = { styles.removeButton }
-				title = { state.active ? "Stop recording" : "Translate by voice" }
+				title = { state.active ? t("asr:stopRecording") : t("asr:translateByVoice") }
 			>
 				<IconButton 
 					className = { state.active ? styles.activeAnimation : null }

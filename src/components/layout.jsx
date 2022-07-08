@@ -82,7 +82,7 @@ function Layout({ children }) {
 						<a href="https://lindat.cz/translation">
 							{t("dev:notPublic")}
 						</a>
-						<Tooltip title="Close">
+						<Tooltip title={t("common:close")}>
 							<IconButton
 								onClick={()=>setNotOfficialDeplo(false)}
 							>

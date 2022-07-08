@@ -4,9 +4,35 @@
 		"agree": "agree",
 		"close": "close",
 		"disagree": "disagree",
+		"copy": "copy",
+
+		"language": "Language",
+		"saved": "Saved",
+		"remove": "Remove",
+		"removeEverything": "Remove everything",
+
+		"companyName": "Organization name",
+
+		"settings": "Settings",
+		"aboutUs": "About us",
+		"history": "History",
+
+		"markAsFavorite": "Mark as favorite",
+		"markAsNotFavorite": "Mark as not favorite",
 
 		"collectDataConsentText": "I am giving the Institute of Formal and Applied Linguistics, Faculty of Mathematics and Physics, Charles Univeristy (UFAL MFF UK) consent to collect my inputs and translations. The texts will be anonymized and may be used for future development of the system.",
 		"allowLocalHistoryText": "Store new texts and translations into local history (on your device)"
+	},
+
+	"form": {
+		"swapLanguages": "Swap languages",
+		"clearSourceText": "Clear source text",
+		"copyToClipboard": "Copy translation to cliboard"
+	},
+
+	"asr": {
+		"stopRecording": "Stop recording",
+		"translateByVoice": "Translate by voice"
 	},
 
 	"dev": {

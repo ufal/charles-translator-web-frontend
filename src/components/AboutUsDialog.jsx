@@ -31,7 +31,7 @@ export default function AboutUsDialog() {
 
 	return (
 		<>
-		<Tooltip title="About us">
+		<Tooltip title={t("common:aboutUs")}>
 			<IconButton
 				size="small"
 				edge="start"
@@ -51,7 +51,7 @@ export default function AboutUsDialog() {
 			onClose={()=>setOpenAboutUs(false)}
 		>
 			<DialogTitle>
-				About us
+				{t("common:aboutUs")}
 				<IconButton
 					className={styles.closeFAQButton}
 					onClick={()=>setOpenAboutUs(false)}
