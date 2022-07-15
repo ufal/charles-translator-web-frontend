@@ -93,7 +93,7 @@ function Layout({ children }) {
 				</AppBar>
 				{tryAndroidApp && <div className={styles.tryAndroidApp}>
 						<a href="https://play.google.com/store/apps/details?id=cz.cuni.mff.ufal.translator">
-							<PhoneAndroidIcon/> Try our android app. 
+							<PhoneAndroidIcon/> {t("layout:tryOurAndroidApp")} 
 						</a>
 						<Tooltip title="Close">
 							<IconButton
