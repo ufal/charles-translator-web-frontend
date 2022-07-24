@@ -27,7 +27,10 @@
 	"form": {
 		"swapLanguages": "Swap languages",
 		"clearSourceText": "Clear source text",
-		"copyToClipboard": "Copy translation to cliboard"
+		"copyToClipboard": "Copy translation to cliboard",
+		"maybeRusian": "Russian is not supported",
+		"maybeUkrinian": "Alphabet and language do not match",
+		"maybeCzech": "Alphabet and language do not match"
 	},
 
 	"asr": {

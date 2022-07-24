@@ -27,7 +27,10 @@
 	"form": {
 		"swapLanguages": "Prohodit jazyky",
 		"clearSourceText": "Smazat text",
-		"copyToClipboard": "Zkopírovat překlad do schránky"
+		"copyToClipboard": "Zkopírovat překlad do schránky",
+		"maybeRusian": "Ruština není podporována",
+		"maybeUkrinian": "Nesouhlasí abeceda a jazyk",
+		"maybeCzech": "Nesouhlasí abeceda a jazyk"
 	},
 
 	"asr": {

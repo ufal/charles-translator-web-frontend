@@ -13,7 +13,8 @@ import {
 	Clear as ClearIcon,
 	ContentCopy as ContentCopyIcon,
 	ErrorOutline as ErrorOutlineIcon,
-	SwapVert,
+	SwapVert as SwapVertIcon,
+	FeedbackOutlined as FeedbackOutlinedIcon,
 } from "@mui/icons-material";
 import { useTranslation } from 'react-i18next';
 
@@ -99,7 +100,7 @@ const Form = () => {
 				text = prevState.source + text;
 			}
 
-			console.log("fromLanguage: ", fromLanguage, additive, state.sourceLanguage.id);
+			//console.log("fromLanguage: ", fromLanguage, additive, state.sourceLanguage.id);
 
 			return { ...prevState, source: text };
 		});
@@ -156,6 +157,56 @@ const Form = () => {
 		/**/
 	}
 
+	const RU_LETTERS = "эыё";
+	const UK_LETTERS = "бгґджзклмнпрстфхцчшщаеєиіїоуюяйвь";
+	const CS_LETTERS = "aábcčdďeéěfghchiíjklmnňoópqrřsštťuúůvwxyýzž";
+	const checkAlphabet = (text) => {
+		let RU_count = 0, UK_count = 0, CS_count = 0;
+
+		if(typeof text != "string") return "";
+
+		for (const letter of text.toLowerCase()) {
+			if(RU_LETTERS.includes(letter)) 
+				RU_count++;
+			if(UK_LETTERS.includes(letter)) 
+				UK_count++;
+			if(CS_LETTERS.includes(letter)) 
+				CS_count++;
+		}
+
+		if(RU_count > 4) // bias of 4 chars
+			return "ru"
+		if(UK_count > CS_count * 1.1) // bias of 10%
+			return "uk"
+		if(CS_count > UK_count * 1.1) // bias of 10%
+			return "cs"
+		return ""; // cant decide
+	}
+
+	const RenderLocalizationTooltip = () => {
+		switch(checkAlphabet(state.source)){
+			case "ru": return (
+				<Tooltip title={t("form:maybeRusian")}>
+					<FeedbackOutlinedIcon color="error"></FeedbackOutlinedIcon>
+				</Tooltip>
+			)
+			case "uk": 
+				if (state.sourceLanguage.id != "uk") return (
+					<Tooltip title={t("form:maybeUkrinian")}>
+						<FeedbackOutlinedIcon color="warning"></FeedbackOutlinedIcon>
+					</Tooltip>
+				)
+				break;
+			case "cs": 
+				if (state.sourceLanguage.id != "cs") return (
+					<Tooltip title={t("form:maybeCzech")}>
+						<FeedbackOutlinedIcon color="warning"></FeedbackOutlinedIcon>
+					</Tooltip>
+				)
+			break;
+		}
+	}
+
 	return (
 		<div className={styles.flex}>
 			<Paper elevation={2} className={styles.translationFieldContainer}>
@@ -171,6 +222,7 @@ const Form = () => {
 						<label className={styles.label} htmlFor="destination">
 							{ state.sourceLanguage.name }
 						</label>
+						{ RenderLocalizationTooltip() }
 					</div>
 					<div className={styles.asrTempOutput}>{state.asrTempOutput}</div>
 					<div className={styles.asrContainer}>
@@ -235,7 +287,7 @@ const Form = () => {
 						onClick={ () => { flipLanguages(); focusInput.current.focus(); } }
 						size="large"
 					>
-						<SwapVert fontSize="large" color="primary" />
+						<SwapVertIcon fontSize="large" color="primary" />
 					</IconButton>
 				</Tooltip>
 			</div>
