@@ -258,8 +258,8 @@ const Form = () => {
 					multiline
 					inputRef = { focusInput }
 					minRows = { 6 }
-					className = { styles.sourceInput }
 					InputProps = { {
+						className : styles.sourceInput,
 						endAdornment: (
 							<InputAdornment position='end'>
 								{ state.source.length !== 0 &&
