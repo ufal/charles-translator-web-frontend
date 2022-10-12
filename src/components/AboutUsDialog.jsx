@@ -81,6 +81,7 @@ export default function AboutUsDialog() {
 					<b> Data preparation: </b> <br/>
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/lucie-polakova" label="Lucie Poláková" />
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/jaroslava-hlavacova" label="Jaroslava Hlaváčová" />
+					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://ufal.mff.cuni.cz/mariia-anisimova" label="Mariia Anisimova" />
 					<Chip className={styles.chip} clickable component="a" variant="outlined" href="https://martin.majlis.cz" label="Martin Majliš" />
 					<Chip className={styles.chip} component="span" variant="outlined" label="Denys Bojko" />
 					<Chip className={styles.chip} component="span" variant="outlined" label="Tomáš Musil" />
