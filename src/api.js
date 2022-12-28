@@ -16,16 +16,16 @@ export function translate({ text, fromLanguage, toLanguage, loadingID, inputType
 
     if (text.length > 5000) return Promise.reject({ data: 'The translation is too long', loadingID })
 
-    const baseApiUrl = 'https://translator.cuni.cz/api/v2/languages'
-    const url = `${baseApiUrl}/?src=${encodeURIComponent(fromLanguage)}&tgt=${encodeURIComponent(
-        toLanguage
-    )}&frontend=u4u`
+    const baseApiUrl = 'https://lindat.mff.cuni.cz/services/translation/api/v2/languages/'
+    const url = `${baseApiUrl}?frontend=u4u`
 
     const formData = {
         input_text: text.normalize('NFC'),
         logInput: getConsent(),
         inputType,
         author: getAuthor(),
+        src: fromLanguage,
+        tgt: toLanguage,
     }
 
     const formBody = []

@@ -115,6 +115,14 @@ export default function AboutUsDialog() {
                             href="https://ufal.mff.cuni.cz/zdenek-kasner"
                             label="Zdeněk Kasner"
                         />
+                        <Chip
+                            className={styles.chip}
+                            clickable
+                            component="a"
+                            variant="outlined"
+                            label="Shantipriya Parida"
+                        />
+                        <Chip className={styles.chip} clickable component="a" variant="outlined" label="Dušan Variš" />
                     </p>
 
                     <p>

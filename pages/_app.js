@@ -17,8 +17,8 @@ export default function MyApp({ Component, pageProps }) {
             <Head>
                 <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
                 <meta name="theme-color" content="#2196F3" />
-                <meta name="description" content="Charles Translator for Ukraine" />
-                <title>Charles Translator for Ukraine</title>
+                <meta name="description" content="Charles Translator" />
+                <title>Charles Translator</title>
                 <link rel="shortcut icon" href={favicon.src} />
             </Head>
             <Layout>

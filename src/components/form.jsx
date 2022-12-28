@@ -1,6 +1,16 @@
 import React, { useState, useRef } from 'react'
 import debounce from 'debounce-promise'
-import { Button, IconButton, InputAdornment, LinearProgress, TextField, Tooltip, Paper } from '@mui/material'
+import {
+    Button,
+    IconButton,
+    InputAdornment,
+    LinearProgress,
+    TextField,
+    Tooltip,
+    Paper,
+    Select,
+    MenuItem,
+} from '@mui/material'
 import {
     Clear as ClearIcon,
     ContentCopy as ContentCopyIcon,
@@ -14,28 +24,44 @@ import ASR from './asr'
 import { TranslationHistory } from './TranslationHistory'
 import { transliterateCyrilToLatin, transliterateLatinToCyril } from '../transliterate'
 
-import ukraineFlag from '../../public/static/img/ukraine.png'
-import czechFlag from '../../public/static/img/czech-republic.png'
+import britainFlag from '../../public/static/img/britainFlag.png'
+import czechFlag from '../../public/static/img/czechFlag.png'
+import defaultFlag from '../../public/static/img/defaultFlag.png'
+import franceFlag from '../../public/static/img/franceFlag.png'
+import germanFlag from '../../public/static/img/germanFlag.png'
+import indiaFlag from '../../public/static/img/indiaFlag.png'
+import polandFlag from '../../public/static/img/polandFlag.png'
+import russiaFlag from '../../public/static/img/russiaFlag.png'
+import ukraineFlag from '../../public/static/img/ukraineFlag.png'
+import usaFlag from '../../public/static/img/usaFlag.png'
 
 import styles from './form.module.scss'
 
 const debouncedTranslate = debounce(translate, 500)
 const debouncedSave = debounce(saveHistory, 3000)
 
-const languageUk = {
-    id: 'uk',
-    name: 'Українською',
-    transliterate: transliterateCyrilToLatin,
-    flag: ukraineFlag,
-}
-
-const languageCs = {
-    id: 'cs',
-    name: 'Česky',
-    transliterate: transliterateLatinToCyril,
-    flag: czechFlag,
-}
-
+const defaultlanguages = [
+    {
+        id: 'uk',
+        name: 'Ukrainian',
+        targets: [
+            {
+                id: 'cs',
+                name: 'Czech',
+            },
+        ],
+    },
+    {
+        id: 'cs',
+        name: 'Czech',
+        targets: [
+            {
+                id: 'uk',
+                name: 'Ukrainian',
+            },
+        ],
+    },
+]
 let loadingID = 0 // id of most recent sent request
 let loadedID = 0 // id o most recent received request
 
@@ -44,8 +70,9 @@ const Form = () => {
         source: '',
         asrTempOutput: '',
         translation: '',
-        sourceLanguage: languageCs,
-        targetLanguage: languageUk,
+        languages: defaultlanguages,
+        sourceLanguage: defaultlanguages[1],
+        targetLanguage: defaultlanguages[0],
         loading: false,
         loadingError: null,
     })
@@ -55,27 +82,6 @@ const Form = () => {
     let inputTypeStatistics = 'keyboard'
 
     React.useEffect(() => {
-        const defaultSource = localStorage.getItem('lastTranslationSource')
-
-        if (defaultSource === null) return
-
-        if (defaultSource === languageCs.id)
-            setState((prevState) => {
-                return {
-                    ...prevState,
-                    sourceLanguage: languageCs,
-                    targetLanguage: languageUk,
-                }
-            })
-        else
-            setState((prevState) => {
-                return {
-                    ...prevState,
-                    sourceLanguage: languageUk,
-                    targetLanguage: languageCs,
-                }
-            })
-
         getSourceLanguages()
     }, [])
 
@@ -88,8 +94,8 @@ const Form = () => {
     function handleChangeSource(
         text,
         additive = false,
-        fromLanguage = state.sourceLanguage.id,
-        toLanguage = state.targetLanguage.id
+        fromLanguage = state.sourceLanguage,
+        toLanguage = state.targetLanguage
     ) {
         setState((prevState) => {
             if (additive) {
@@ -99,37 +105,24 @@ const Form = () => {
                 text = prevState.source + text
             }
 
-            console.log('fromLanguage: ', fromLanguage, additive, state.sourceLanguage.id)
-
             return { ...prevState, source: text }
         })
 
         setLoading(true)
 
-        if (fromLanguage === languageCs.id)
-            setState((prevState) => {
-                return {
-                    ...prevState,
-                    sourceLanguage: languageCs,
-                    targetLanguage: languageUk,
-                }
-            })
-        else
-            setState((prevState) => {
-                return {
-                    ...prevState,
-                    sourceLanguage: languageUk,
-                    targetLanguage: languageCs,
-                }
-            })
+        setState((prevState) => ({
+            ...prevState,
+            sourceLanguage: fromLanguage,
+            targetLanguage: toLanguage,
+        }))
 
-        if (typeof window !== 'undefined') window.localStorage.setItem('lastTranslationSource', fromLanguage)
+        if (typeof window !== 'undefined') window.localStorage.setItem('lastTranslationSource', fromLanguage.id)
 
-        debouncedSave(fromLanguage, toLanguage, text)
+        debouncedSave(fromLanguage.id, toLanguage.id, text)
         debouncedTranslate({
             text,
-            fromLanguage,
-            toLanguage,
+            fromLanguage: fromLanguage.id,
+            toLanguage: toLanguage.id,
             loadingID: ++loadingID,
             inputType: inputTypeStatistics,
         })
@@ -154,6 +147,29 @@ const Form = () => {
             })
     }
 
+    const getFlag = (languageId) => {
+        switch (languageId) {
+            case 'cs':
+                return czechFlag
+            case 'en':
+                return britainFlag
+            case 'fr':
+                return franceFlag
+            case 'de':
+                return germanFlag
+            case 'hi':
+                return indiaFlag
+            case 'pl':
+                return polandFlag
+            case 'ru':
+                return russiaFlag
+            case 'uk':
+                return ukraineFlag
+            default:
+                return defaultFlag
+        }
+    }
+
     const flipLanguages = () => {
         const oldSource = state.sourceLanguage
         const oldTarget = state.targetLanguage
@@ -163,11 +179,12 @@ const Form = () => {
 
         inputTypeStatistics = 'swap-languages'
         /**/ // switch - keep source text as source
-        handleChangeSource(state.source, false, oldTarget.id, oldSource.id)
+        handleChangeSource(state.source, false, oldTarget, oldSource)
         /*/ - insert translation as new source
-    handleChangeSource(state.translation, false, oldTarget.id, oldSource.id);
+    handleChangeSource(state.translation, false, oldTarget, oldSource);
     /**/
     }
+
     const getSourceLanguages = () => {
         const headersList = {
             Accept: '*/*',
@@ -181,19 +198,47 @@ const Form = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                setState((prevState) => ({
-                    ...prevState,
-                    languages: data._embedded.item.map((item) => ({
+                setState((prevState) => {
+                    const languages = data._embedded.item.map((item) => ({
                         id: item.name,
                         name: item.title,
                         targets: item._links.targets.map((target) => ({
                             id: target.name,
                             name: target.title,
                         })),
-                    })),
-                }))
+                    }))
+                    return {
+                        ...prevState,
+                        languages,
+                        sourceLanguage: languages.find((item) => item.id === prevState.sourceLanguage.id),
+                        targetLanguage: languages.find((item) => item.id === prevState.targetLanguage.id),
+                    }
+                })
             })
             .catch((err) => console.error(err))
+    }
+
+    const getTransliteration = (sourceLanguage, targetLanguage, translation) => {
+        if (targetLanguage.id === 'uk') {
+            return transliterateCyrilToLatin(translation)
+                .split('\n')
+                .map((item, i) => (
+                    <p key={i} style={{ margin: 0 }}>
+                        {item !== '' ? item : <br />}
+                    </p>
+                ))
+        }
+        if (sourceLanguage.id === 'uk') {
+            return transliterateLatinToCyril(translation)
+                .split('\n')
+                .map((item, i) => (
+                    <p key={i} style={{ margin: 0 }}>
+                        {item !== '' ? item : <br />}
+                    </p>
+                ))
+        }
+
+        return null
     }
 
     return (
@@ -204,13 +249,34 @@ const Form = () => {
                         <img
                             width={30}
                             height={30}
-                            alt="flag"
-                            src={state.sourceLanguage.flag.src}
+                            alt={state.targetLanguage.id}
+                            src={getFlag(state.sourceLanguage.id).src}
                             className={styles.flagIcon}
                         />
-                        <label className={styles.label} htmlFor="destination">
-                            {state.sourceLanguage.name}
-                        </label>
+                        <Select
+                            className={styles.languageName}
+                            variant="standard"
+                            disableUnderline
+                            value={state.sourceLanguage.id}
+                            onChange={(event) => {
+                                const sourceLanguage = state.languages.find((item) => item.id === event.target.value)
+                                let targetLanguage = state.targetLanguage
+                                if (sourceLanguage.targets.find((item) => item.id === targetLanguage.id) == null) {
+                                    const tryFindCzech = sourceLanguage.targets.find((item) => item.id === 'cs')
+                                    if (tryFindCzech == null) targetLanguage = sourceLanguage.targets[0]
+                                    else targetLanguage = tryFindCzech
+                                }
+                                handleChangeSource(state.source, false, sourceLanguage, targetLanguage)
+                            }}
+                        >
+                            {state.languages
+                                .filter((item) => item.targets.length > 0)
+                                .map((item) => (
+                                    <MenuItem key={item.id} value={item.id}>
+                                        {item.name}
+                                    </MenuItem>
+                                ))}
+                        </Select>
                     </div>
                     <div className={styles.asrTempOutput}>{state.asrTempOutput}</div>
                     <div className={styles.asrContainer}>
@@ -281,16 +347,24 @@ const Form = () => {
 
             <div className={styles.switchButtonWrapper}>
                 <Tooltip title="Swap languages">
-                    <IconButton
-                        aria-label="switch languages"
-                        onClick={() => {
-                            flipLanguages()
-                            focusInput.current.focus()
-                        }}
-                        size="large"
-                    >
-                        <SwapVert fontSize="large" color="primary" />
-                    </IconButton>
+                    <span>
+                        <IconButton
+                            aria-label="switch languages"
+                            onClick={() => {
+                                flipLanguages()
+                                focusInput.current.focus()
+                            }}
+                            size="large"
+                            disabled={
+                                !(
+                                    state.targetLanguage.targets?.find((item) => item.id === state.sourceLanguage.id) !=
+                                    null
+                                )
+                            }
+                        >
+                            <SwapVert fontSize="large" color="primary" />
+                        </IconButton>
+                    </span>
                 </Tooltip>
             </div>
 
@@ -300,13 +374,28 @@ const Form = () => {
                         <img
                             width={30}
                             height={30}
-                            alt="flag"
-                            src={state.targetLanguage.flag.src}
+                            alt={state.targetLanguage.id}
+                            src={getFlag(state.targetLanguage.id).src}
                             className={styles.flagIcon}
                         />
-                        <label className={styles.label} htmlFor="destination">
-                            {state.targetLanguage.name}
-                        </label>
+                        <Select
+                            className={styles.languageName}
+                            variant="standard"
+                            disableUnderline
+                            value={state.targetLanguage.id}
+                            onChange={(event) => {
+                                const targetLanguageId = state.languages.find((item) => item.id === event.target.value)
+                                handleChangeSource(state.source, false, state.sourceLanguage, targetLanguageId)
+                            }}
+                        >
+                            {state.languages
+                                .find((item) => item.id === state.sourceLanguage.id)
+                                ?.targets.map((item) => (
+                                    <MenuItem key={item.id} value={item.id}>
+                                        {item.name}
+                                    </MenuItem>
+                                )) ?? null}
+                        </Select>
                     </div>
 
                     {state.translation.length !== 0 && navigator.clipboard !== undefined && (
@@ -325,9 +414,11 @@ const Form = () => {
                     )}
                     <TranslationHistory
                         getHistory={() => getHistory()}
-                        onSelect={(...args) => {
+                        onSelect={(text, fromLanguageId, toLanguageId) => {
                             inputTypeStatistics = 'history'
-                            return handleChangeSource(...args)
+                            const fromLanguage = state.languages.find((item) => item.id === fromLanguageId)
+                            const toLanguage = state.languages.find((item) => item.id === toLanguageId)
+                            return handleChangeSource(text, false, fromLanguage, toLanguage)
                         }}
                     />
                 </div>
@@ -356,14 +447,7 @@ const Form = () => {
                             </div>
 
                             <div className={styles.transliteration}>
-                                {state.targetLanguage
-                                    .transliterate(state.translation)
-                                    .split('\n')
-                                    .map((item, i) => (
-                                        <p key={i} style={{ margin: 0 }}>
-                                            {item !== '' ? item : <br />}
-                                        </p>
-                                    ))}
+                                {getTransliteration(state.sourceLanguage, state.targetLanguage, state.translation)}
                             </div>
                         </div>
                     )}

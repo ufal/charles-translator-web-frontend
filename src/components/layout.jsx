@@ -54,13 +54,7 @@ function Layout({ children }) {
             <div className={styles.container}>
                 <AppBar position="static" className={styles.header} elevation={2}>
                     <Toolbar className={styles.toolbar}>
-                        <img
-                            width={230}
-                            height={70}
-                            alt="Charles Translator for Ukraine"
-                            src={logo.src}
-                            className={styles.logo}
-                        />
+                        <img width={230} height={70} alt="Charles Translator" src={logo.src} className={styles.logo} />
                         <div className={styles.spacer}></div>
                         <AboutUsDialog />
                         <SettingsDialog />

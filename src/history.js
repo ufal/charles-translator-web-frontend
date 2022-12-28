@@ -6,7 +6,6 @@ export function getHistory() {
     if (typeof window === 'undefined') return []
 
     const historyJson = localStorage.getItem('translationHistory')
-
     if (historyJson == null) return []
 
     try {
@@ -30,7 +29,11 @@ export function saveHistory(fromLanguageId, toLanguageId, text) {
 
     let originalHistory = getHistory()
     let foundDuplicate = originalHistory.findIndex(
-        (item) => text.length >= item.text.length && text.substr(0, item.text.length) === item.text
+        (item) =>
+            fromLanguageId === item.fromLanguageId &&
+            toLanguageId === item.toLanguageId &&
+            text.length >= item.text.length &&
+            text.substr(0, item.text.length) === item.text
     )
 
     if (foundDuplicate !== -1) {
