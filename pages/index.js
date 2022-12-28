@@ -1,5 +1,5 @@
-import Form from "../src/components/form";
+import Form from '../src/components/form'
 
-const Index = () => <Form />;
+const Index = () => <Form />
 
-export default Index;
+export default Index

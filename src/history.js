@@ -1,73 +1,66 @@
-import { RestaurantMenu } from "@mui/icons-material";
+import { RestaurantMenu } from '@mui/icons-material'
 
-const MAX_HISTORY_COUNT = 100;
+const MAX_HISTORY_COUNT = 100
 
 export function getHistory() {
-  if (typeof window === "undefined") return [];
+    if (typeof window === 'undefined') return []
 
-  const historyJson = localStorage.getItem("translationHistory");
+    const historyJson = localStorage.getItem('translationHistory')
 
-  if (historyJson == null) return [];
+    if (historyJson == null) return []
 
-  try {
-    return JSON.parse(historyJson);
-  } catch (e) {
-    return [];
-  }
+    try {
+        return JSON.parse(historyJson)
+    } catch (e) {
+        return []
+    }
 }
 
 export function saveHistory(fromLanguageId, toLanguageId, text) {
-  if (text === "") return;
+    if (text === '') return
 
-  if (localStorage.getItem("allowLocalHistory") === "false") return;
+    if (localStorage.getItem('allowLocalHistory') === 'false') return
 
-  const historyItem = {
-    fromLanguageId,
-    toLanguageId,
-    text,
-    star: false,
-  };
+    const historyItem = {
+        fromLanguageId,
+        toLanguageId,
+        text,
+        star: false,
+    }
 
-  let originalHistory = getHistory();
-  let foundDuplicate = originalHistory.findIndex(
-    (item) =>
-      text.length >= item.text.length &&
-      text.substr(0, item.text.length) === item.text
-  );
+    let originalHistory = getHistory()
+    let foundDuplicate = originalHistory.findIndex(
+        (item) => text.length >= item.text.length && text.substr(0, item.text.length) === item.text
+    )
 
-  if (foundDuplicate !== -1) {
-    originalHistory.sort((a, b) =>
-      a.text === text ? -1 : b.text === text ? 1 : 0
-    );
-    originalHistory[0].text = text;
-  } else {
-    originalHistory.unshift(historyItem);
-  }
+    if (foundDuplicate !== -1) {
+        originalHistory.sort((a, b) => (a.text === text ? -1 : b.text === text ? 1 : 0))
+        originalHistory[0].text = text
+    } else {
+        originalHistory.unshift(historyItem)
+    }
 
-  localStorage.setItem(
-    "translationHistory",
-    JSON.stringify(originalHistory.slice(0, MAX_HISTORY_COUNT))
-  );
+    localStorage.setItem('translationHistory', JSON.stringify(originalHistory.slice(0, MAX_HISTORY_COUNT)))
 }
 
 export function removeItemFromHistory(value) {
-  let originalHistory = getHistory();
-  originalHistory = originalHistory.filter(
-    (item) =>
-      item.text !== value.text ||
-      item.fromLanguageId !== value.fromLanguageId ||
-      item.toLanguageId !== value.toLanguageId
-  );
-  localStorage.setItem("translationHistory", JSON.stringify(originalHistory));
+    let originalHistory = getHistory()
+    originalHistory = originalHistory.filter(
+        (item) =>
+            item.text !== value.text ||
+            item.fromLanguageId !== value.fromLanguageId ||
+            item.toLanguageId !== value.toLanguageId
+    )
+    localStorage.setItem('translationHistory', JSON.stringify(originalHistory))
 }
 
 export function changeStarInHistory(value, star) {
-  let originalHistory = getHistory();
-  originalHistory.find(
-    (item) =>
-      item.text === value.text &&
-      item.fromLanguageId === value.fromLanguageId &&
-      item.toLanguageId === value.toLanguageId
-  ).star = star;
-  localStorage.setItem("translationHistory", JSON.stringify(originalHistory));
+    let originalHistory = getHistory()
+    originalHistory.find(
+        (item) =>
+            item.text === value.text &&
+            item.fromLanguageId === value.fromLanguageId &&
+            item.toLanguageId === value.toLanguageId
+    ).star = star
+    localStorage.setItem('translationHistory', JSON.stringify(originalHistory))
 }
