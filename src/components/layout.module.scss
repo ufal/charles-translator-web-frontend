@@ -1,104 +1,102 @@
 .flagIcon {
-	margin-right: 3px !important;
+  margin-right: 3px !important;
 }
 
-
 .container {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	min-height: 100%;
-	position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
 }
 
 .toolbar {
-    width: 100%;
-	padding: 0 10px 0 0 !important;
-	max-height: 100px;
-	@media (min-width: 768px) {
-	    width: min(calc(100% - 40px), 1400px);
-		padding: 0 !important;
-		margin-inline: auto;
-	}
+  width: 100%;
+  padding: 0 10px 0 0 !important;
+  max-height: 100px;
+  @media (min-width: 768px) {
+    width: min(calc(100% - 40px), 1400px);
+    padding: 0 !important;
+    margin-inline: auto;
+  }
 }
 
 .homeLink {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: auto;
   cursor: pointer;
 }
 
 .footer {
-	margin: auto 0 0;
-	padding: 8px;
-	font-size: 0.7rem;
-	text-align: center;
-	background-color: #bbdefb;
-	color: #0d47a1;
-	@media (max-width: 768px) {
-		font-size: 0.55rem;
-	}
+  margin: auto 0 0;
+  padding: 8px;
+  font-size: 0.7rem;
+  text-align: center;
+  background-color: #bbdefb;
+  color: #0d47a1;
+  @media (max-width: 768px) {
+    font-size: 0.55rem;
+  }
 }
 
 .header {
-	background-color: #2196f3;
-	width: 100%;
-	& .MuiToolbar-root {
-		padding: 4px 0 4px 12px;
-	}
+  background-color: #2196f3;
+  width: 100%;
+  & .MuiToolbar-root {
+    padding: 4px 0 4px 12px;
+  }
 }
 
 .closeAboutUsButton {
-	position: absolute;
-	right: 8px;
-	top: 8px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
 }
 
-.toolbar{
-	@media (min-width: 768px) {
-		height: 70px;
-	}
+.toolbar {
+  @media (min-width: 768px) {
+    height: 70px;
+  }
 }
 
-.notOfficialDeplo{
-	display: grid;
-	grid-template-columns: 1fr auto;
-	background: #d60000;
-	a{
-		color: white;
-		text-decoration: none;
-		padding: 10px;
-	}
-	svg{
-		vertical-align: bottom;
-		color: white;
-	}
+.notOfficialDeplo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  background: #d60000;
+  a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+  }
+  svg {
+    vertical-align: bottom;
+    color: white;
+  }
 }
 
-.logo{
-	max-height: 100%;
-	width: auto;
+.logo {
+  max-height: 100%;
+  width: auto;
 }
 
-.spacer{
-	flex-grow: 1;
+.spacer {
+  flex-grow: 1;
 }
 
-.tryAndroidApp{
-	display: grid;
-	grid-template-columns: 1fr auto;
-	background-color: #2196f3;
-	margin: 5px;
-	a{
-		color: white;
-		text-decoration: none;
-		padding: 10px;
-	}
-	svg{
-		vertical-align: bottom;
-		color: white;
-	}
-
+.tryAndroidApp {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  background-color: #2196f3;
+  margin: 5px;
+  a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+  }
+  svg {
+    vertical-align: bottom;
+    color: white;
+  }
 }

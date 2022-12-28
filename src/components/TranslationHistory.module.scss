@@ -1,33 +1,33 @@
-.header{
-	display: grid;
-	grid-template-columns: 1fr auto;
-	align-items: center;
-	justify-items: start;
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  justify-items: start;
 }
 
-.headerTitle{
-	font-weight: bold;
+.headerTitle {
+  font-weight: bold;
 }
 
-.historyItem{
-	display: grid;
-	grid-template-columns: 64px calc(100vw - 128px) 64px;
-	align-items: center;
-	justify-items: start;
+.historyItem {
+  display: grid;
+  grid-template-columns: 64px calc(100vw - 128px) 64px;
+  align-items: center;
+  justify-items: start;
 }
 
-.listItemText{
-	display: grid;
-	grid-template-columns: repeat(4, auto) 1fr;
-	align-items: center;
-	width: 100%;
-	grid-column-gap: 0;
-    padding: 0;
+.listItemText {
+  display: grid;
+  grid-template-columns: repeat(4, auto) 1fr;
+  align-items: center;
+  width: 100%;
+  grid-column-gap: 0;
+  padding: 0;
 }
 
-.valueText{
-	font-weight: bold;
-    overflow: hidden;
-    white-space: nowrap;
-	text-overflow: ellipsis;
+.valueText {
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

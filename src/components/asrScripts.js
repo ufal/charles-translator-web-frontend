@@ -1,212 +1,249 @@
 import { io } from "socket.io-client";
 
-const Recorder = function(cfg){
-	let config = cfg || {};
-	let bufferLen = config.bufferLen || 16384;
-	let numChannels = config.numChannels || 1;
-	let bufferCallback = config.bufferCallback || function(buffer) { /*console.info(buffer);*/ };
-	let errorCallback = config.errorCallback || function(error) { /*console.info(error);*/ };
-	let volumeCallback = config.volumeCallback || function(average) { /*console.info(average);*/ };
-	let sampleRate = 0;
-	let recording = false;
-	let source = null;
-	let analyser = null;
-	let sourceProcessor = null;
-	let audio_context;
-	let stream;
+const Recorder = function (cfg) {
+  let config = cfg || {};
+  let bufferLen = config.bufferLen || 16384;
+  let numChannels = config.numChannels || 1;
+  let bufferCallback =
+    config.bufferCallback ||
+    function (buffer) {
+      /*console.info(buffer);*/
+    };
+  let errorCallback =
+    config.errorCallback ||
+    function (error) {
+      /*console.info(error);*/
+    };
+  let volumeCallback =
+    config.volumeCallback ||
+    function (average) {
+      /*console.info(average);*/
+    };
+  let sampleRate = 0;
+  let recording = false;
+  let source = null;
+  let analyser = null;
+  let sourceProcessor = null;
+  let audio_context;
+  let stream;
 
-	this.init = function() {
-		audio_context = createAudioContext();
-		this.sampleRate = audio_context.sampleRate;
+  this.init = function () {
+    audio_context = createAudioContext();
+    this.sampleRate = audio_context.sampleRate;
 
-		if (typeof navigator.mediaDevices.getUserMedia === 'undefined') {
-			navigator.getUserMedia({
-				audio: true
-			}, startUserMedia, errorCallback);
-		} else {
-			navigator.mediaDevices.getUserMedia({
-				audio: true
-			}).then(startUserMedia).catch(errorCallback);
-		}
-	}
+    if (typeof navigator.mediaDevices.getUserMedia === "undefined") {
+      navigator.getUserMedia(
+        {
+          audio: true,
+        },
+        startUserMedia,
+        errorCallback
+      );
+    } else {
+      navigator.mediaDevices
+        .getUserMedia({
+          audio: true,
+        })
+        .then(startUserMedia)
+        .catch(errorCallback);
+    }
+  };
 
-	this.configure = function(cfg){
-		for (let prop in cfg){
-			if (cfg.hasOwnProperty(prop)){
-				config[prop] = cfg[prop];
-			}
-		}
-	}
+  this.configure = function (cfg) {
+    for (let prop in cfg) {
+      if (cfg.hasOwnProperty(prop)) {
+        config[prop] = cfg[prop];
+      }
+    }
+  };
 
-	this.record = function(){
-		recording = true;
-	}
+  this.record = function () {
+    recording = true;
+  };
 
-	this.stop = function(){
-		recording = false;
-		stream.getTracks().forEach(function(track) {
-			track.stop();
-		});
-		sourceProcessor.onaudioprocess = null;
-	}
+  this.stop = function () {
+    recording = false;
+    stream.getTracks().forEach(function (track) {
+      track.stop();
+    });
+    sourceProcessor.onaudioprocess = null;
+  };
 
-	function createAudioContext() {
-		try {
-			window.AudioContext = window.AudioContext || window.webkitAudioContext || navigator.mozAudioContext;
-			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+  function createAudioContext() {
+    try {
+      window.AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext ||
+        navigator.mozAudioContext;
+      navigator.getUserMedia =
+        navigator.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia;
 
-			audio_context = new AudioContext;
-			//console.info('Audio context set up.');
-			//console.info('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+      audio_context = new AudioContext();
+      //console.info('Audio context set up.');
+      //console.info('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
 
-			return audio_context;
-		} catch (e) {
-			errorCallback('No web audio support in this browser!');
-		}
-	}
+      return audio_context;
+    } catch (e) {
+      errorCallback("No web audio support in this browser!");
+    }
+  }
 
-	function startUserMedia(streamIn) {
-		stream = streamIn;
-		source = audio_context.createMediaStreamSource(stream);
-		//console.info('Media stream created.');
+  function startUserMedia(streamIn) {
+    stream = streamIn;
+    source = audio_context.createMediaStreamSource(stream);
+    //console.info('Media stream created.');
 
-		source.context.createScriptProcessor = source.context.createScriptProcessor || source.context.createJavaScriptNode;
-		sourceProcessor = source.context.createScriptProcessor(bufferLen, numChannels, numChannels);
+    source.context.createScriptProcessor =
+      source.context.createScriptProcessor ||
+      source.context.createJavaScriptNode;
+    sourceProcessor = source.context.createScriptProcessor(
+      bufferLen,
+      numChannels,
+      numChannels
+    );
 
-		analyser = source.context.createAnalyser();
-		analyser.smoothingTimeConstant = 0.3;
-		analyser.fftSize = 512;
+    analyser = source.context.createAnalyser();
+    analyser.smoothingTimeConstant = 0.3;
+    analyser.fftSize = 512;
 
-		sourceProcessor.onaudioprocess = function(e){
-			if (!recording)
-				return;
-	
-			let buffer = [];
-			for (let channel = 0; channel < numChannels; channel++){
-					buffer.push(e.inputBuffer.getChannelData(channel));
-			}
+    sourceProcessor.onaudioprocess = function (e) {
+      if (!recording) return;
 
-			bufferCallback(buffer);
+      let buffer = [];
+      for (let channel = 0; channel < numChannels; channel++) {
+        buffer.push(e.inputBuffer.getChannelData(channel));
+      }
 
-			let values =  new Uint8Array(analyser.frequencyBinCount);
-			analyser.getByteFrequencyData(values);
-			let average = getAverageVolume(values);
-			volumeCallback(average);
-		}
+      bufferCallback(buffer);
 
-		source.connect(analyser);
-		source.connect(sourceProcessor);
-		analyser.connect(sourceProcessor);
-		sourceProcessor.connect(source.context.destination);
-		//console.info('Input connected to audio context destination.');
-	}
+      let values = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(values);
+      let average = getAverageVolume(values);
+      volumeCallback(average);
+    };
 
-	function getAverageVolume(array) {
-		let sum = 0;
-		let length = array.length;
+    source.connect(analyser);
+    source.connect(sourceProcessor);
+    analyser.connect(sourceProcessor);
+    sourceProcessor.connect(source.context.destination);
+    //console.info('Input connected to audio context destination.');
+  }
 
-		for (let i = 0; i < length; i++) {
-			sum += array[i];
-		}
+  function getAverageVolume(array) {
+    let sum = 0;
+    let length = array.length;
 
-		return sum / length;
-	}
-}
+    for (let i = 0; i < length; i++) {
+      sum += array[i];
+    }
 
+    return sum / length;
+  }
+};
 
-export const SpeechRecognition = function() {
-	this.continuous = true;
-	this.interimResults = true;
-	this.onstart = function() {};
-	this.onresult = function(event) {};
-	this.onerror = function(event) {};
-	this.onchunk = function(chunk) {};
-	this.volumeCallback = function(volume) {};
-	this.isRecording = false;
-	this.quietForChunks = 0;
+export const SpeechRecognition = function () {
+  this.continuous = true;
+  this.interimResults = true;
+  this.onstart = function () {};
+  this.onresult = function (event) {};
+  this.onerror = function (event) {};
+  this.onchunk = function (chunk) {};
+  this.volumeCallback = function (volume) {};
+  this.isRecording = false;
+  this.quietForChunks = 0;
 
-	let recognizer = this;
-	let recorder = null;
-	let socket = createSocket();
+  let recognizer = this;
+  let recorder = null;
+  let socket = createSocket();
 
-	this.start = function(model) {
-		recorder = createRecorder();
-		socket.emit('begin', {'model': model, 'sample_rate': recorder.sampleRate});
-		recorder.record();
-		this.isRecording = true;
-		this.onstart();
-	};
+  this.start = function (model) {
+    recorder = createRecorder();
+    socket.emit("begin", { model: model, sample_rate: recorder.sampleRate });
+    recorder.record();
+    this.isRecording = true;
+    this.onstart();
+  };
 
-	this.stop = () => {
-		socket.emit('end', {});
+  this.stop = () => {
+    socket.emit("end", {});
 
-		if (recorder)
-			recorder.stop();
-		
-		this.isRecording = false;
-	}
+    if (recorder) recorder.stop();
 
-	let handleResult = (results) => { recognizer.onresult(results) };
+    this.isRecording = false;
+  };
 
-	let handleError = function(error) {
-		recognizer.onerror(error);
-		recognizer.isRecording = false;
-		recorder.stop();
-	};
+  let handleResult = (results) => {
+    recognizer.onresult(results);
+  };
 
-	function createSocket() {
-		let socket = io.connect('wss://lindat.cz/', {
-			path: '/services/ukrasr/socket.io',
-			transports : ['websocket'],
-		});
+  let handleError = function (error) {
+    recognizer.onerror(error);
+    recognizer.isRecording = false;
+    recorder.stop();
+  };
 
-		socket.on("connect", () => {});
-		socket.on("connect_failed", () => { handleError("Unable to connect to the server.") });
-		socket.on("result", (e) => { handleResult(e) });
-		socket.on("error", (e) => { handleError(e) });
-		socket.on("server_error", (e) => { handleError(e.message) });
+  function createSocket() {
+    let socket = io.connect("wss://lindat.cz/", {
+      path: "/services/ukrasr/socket.io",
+      transports: ["websocket"],
+    });
 
-		return socket;
-	}
+    socket.on("connect", () => {});
+    socket.on("connect_failed", () => {
+      handleError("Unable to connect to the server.");
+    });
+    socket.on("result", (e) => {
+      handleResult(e);
+    });
+    socket.on("error", (e) => {
+      handleError(e);
+    });
+    socket.on("server_error", (e) => {
+      handleError(e.message);
+    });
 
-	function createRecorder() {
-		recorder = new Recorder({
-			bufferCallback: handleChunk,
-			errorCallback: handleError,
-			volumeCallback: handleVolume,
-		});
+    return socket;
+  }
 
-		recorder.init();
-		return recorder;
-	}
+  function createRecorder() {
+    recorder = new Recorder({
+      bufferCallback: handleChunk,
+      errorCallback: handleError,
+      volumeCallback: handleVolume,
+    });
 
-	function handleChunk(chunk) {
-		socket.emit("chunk", floatTo16BitPcm(chunk[0]));
-		recognizer.onchunk(chunk);
-	}
+    recorder.init();
+    return recorder;
+  }
 
-	function floatTo16BitPcm(input) {
-		// convert float audio data to 16-bit PCM
-		let buffer = new ArrayBuffer(input.length * 2)
-		let output = new DataView(buffer);
-		for (let i = 0, offset = 0; i < input.length; i++, offset += 2) {
-			let s = Math.max(-1, Math.min(1, input[i]));
-			output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
-		}
+  function handleChunk(chunk) {
+    socket.emit("chunk", floatTo16BitPcm(chunk[0]));
+    recognizer.onchunk(chunk);
+  }
 
-		return buffer;
-	}
+  function floatTo16BitPcm(input) {
+    // convert float audio data to 16-bit PCM
+    let buffer = new ArrayBuffer(input.length * 2);
+    let output = new DataView(buffer);
+    for (let i = 0, offset = 0; i < input.length; i++, offset += 2) {
+      let s = Math.max(-1, Math.min(1, input[i]));
+      output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+    }
 
-	function handleVolume(volume) {
-		if(volume == 0) {
-			if(recognizer.quietForChunks >= 50)
-				this.stop();
+    return buffer;
+  }
 
-			recognizer.quietForChunks++;
-		} else {
-			recognizer.quietForChunks = 0;
-		}
+  function handleVolume(volume) {
+    if (volume == 0) {
+      if (recognizer.quietForChunks >= 50) this.stop();
 
-		recognizer.volumeCallback(volume);
-	};
-}
+      recognizer.quietForChunks++;
+    } else {
+      recognizer.quietForChunks = 0;
+    }
+
+    recognizer.volumeCallback(volume);
+  }
+};
