@@ -190,7 +190,7 @@ const Form = () => {
             Accept: '*/*',
             'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
         }
-        const url = 'https://lindat.mff.cuni.cz/services/translation/api/v2/languages/'
+        const url = 'https://translator.cuni.cz/languages'
 
         fetch(url, {
             method: 'GET',
