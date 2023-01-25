@@ -19,7 +19,9 @@ export default function AboutUsDialog() {
                     size="small"
                     edge="start"
                     aria-label="menu"
-                    sx={{ mr: 1, color: 'white' }}
+                    sx={{ mr: 1, 
+						/* color: 'black' */
+					 }}
                     onClick={() => setOpenAboutUs(true)}
                 >
                     <InfoIcon />

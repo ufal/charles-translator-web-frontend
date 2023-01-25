@@ -92,7 +92,9 @@ export default function SettingsDialog() {
                     size="small"
                     edge="start"
                     aria-label="menu"
-                    sx={{ mr: 1, color: 'white' }}
+                    sx={{ mr: 1, 
+					/*	color: 'black' */
+					}}
                     onClick={() => {
                         setState((prevState) => ({ ...prevState, openSettings: true }))
                         setDefaults()
