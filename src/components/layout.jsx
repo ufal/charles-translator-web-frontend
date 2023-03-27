@@ -10,7 +10,7 @@ import {
 
 import AboutUsDialog from './AboutUsDialog'
 import SettingsDialog from './SettingsDialog'
-import logo from '../../public/static/img/logo.svg'
+import logo from '../../public/static/img/red-with-text-oneline-no-bg.svg'
 
 import styles from './layout.module.scss'
 

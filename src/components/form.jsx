@@ -362,7 +362,7 @@ const Form = () => {
                                 )
                             }
                         >
-                            <SwapVert fontSize="large" color="primary" />
+                            <SwapVert fontSize="large" color="#000" />
                         </IconButton>
                     </span>
                 </Tooltip>
