@@ -29,6 +29,8 @@ import ukraineFlag from "../../public/static/img/ukraine.png";
 import czechFlag from "../../public/static/img/czech-republic.png";
 
 import styles from "./form.module.scss"
+import {VirtualKeyboard} from "virtualkeyboard";
+import {keyboardConfig} from "../virtualkeyboard/virtualkeyboardhelpers";
 
 
 const debouncedTranslate = debounce(translate, 500);
@@ -65,6 +67,18 @@ const Form = () => {
 	const [loading, setLoading] = useState(false);
 	const [loadingError, setLoadingError] = useState(null);
 
+	const [lastCaretPosition, setLastCaretPosition] = useState({
+		start: 0,
+		end: 0
+	});
+	const [curKeyboardConfig, setCurKeyboardConfig] = useState(keyboardConfig);
+
+	React.useEffect(() => {
+		document.getElementById('source').focus();
+		document.getElementById('source').selectionStart = Math.max(0, lastCaretPosition.start);
+		document.getElementById('source').selectionEnd = Math.max(0, lastCaretPosition.end);
+	}, [lastCaretPosition]);
+
 	let inputTypeStatistics = "keyboard";
 
 	React.useEffect(() => {
@@ -85,6 +99,10 @@ const Form = () => {
 		if(focusInput.current)
 			focusInput.current.focus();
 	}, [focusInput]);
+
+	React.useEffect(() => {
+		handleChangeSource(state.source ?? '');
+	}, [state.source]);
 
 	function handleChangeSource(text, additive = false, fromLanguage = state.sourceLanguage.id, toLanguage = state.targetLanguage.id) {
 		setState((prevState) => {
@@ -150,6 +168,23 @@ const Form = () => {
 		/*/ - insert translation as new source
 		handleChangeSource(state.translation, false, oldTarget.id, oldSource.id);
 		/**/
+
+
+		const from = oldTarget.id;
+		const to = oldSource.id;
+
+		const newLayoutOrder = from === 'cs' ?
+			['latin', 'cyrillicPhonetic', 'cyrillic']
+			:
+			['cyrillic', 'cyrillicPhonetic', 'latin'];
+
+		setCurKeyboardConfig({
+			...curKeyboardConfig,
+			sourceLanguage: from,
+			targetLanguage: to,
+			curLayoutIndex: 0,
+			curLayoutOrder: newLayoutOrder
+		});
 	}
 
 	return (
@@ -294,6 +329,27 @@ const Form = () => {
 					}
 				</div>
 			</Paper>
+
+			<VirtualKeyboard
+				text={state.source}
+				keyboardConfig={curKeyboardConfig}
+				targetId={'source'}
+				callerId={'source'}
+				callbacks={{
+					writer: (text) => {
+						setState({
+							...state,
+							source: text
+						});
+					},
+					returnFocus: (selectionStart, selectionEnd) => {
+						setLastCaretPosition({
+							start: selectionStart,
+							end: selectionEnd
+						});
+					}
+				}}
+			/>
 		</div>
 	);
 };
