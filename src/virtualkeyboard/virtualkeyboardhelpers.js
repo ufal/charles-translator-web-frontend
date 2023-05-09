@@ -267,5 +267,5 @@ export const keyboardConfig = {
         }
     },
     sourceLanguage: 'cs',
-    targetId: 'targetInput',
+    targetId: 'source',
 }

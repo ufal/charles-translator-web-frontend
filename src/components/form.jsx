@@ -333,8 +333,6 @@ const Form = () => {
 			<VirtualKeyboard
 				text={state.source}
 				keyboardConfig={curKeyboardConfig}
-				targetId={'source'}
-				callerId={'source'}
 				callbacks={{
 					writer: (text) => {
 						setState({
