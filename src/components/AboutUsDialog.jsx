@@ -49,7 +49,7 @@ export default function AboutUsDialog() {
                         <CloseIcon />
                     </IconButton>
                 </DialogTitle>
-                <Box component="span" sx={{ padding: 2 }}>
+                <Box component="span" sx={{ padding: 2 }} className={styles.content}>
                     <Image height={80} width={100} alt="ufal logo" src={ufalLogo.src} className={styles.logo} />
                     <Image height={80} width={139} alt="lindat logo" src={lindatLogo.src} className={styles.logo} />
                     <p>

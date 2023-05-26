@@ -6,16 +6,21 @@ import Layout from '../src/components/layout'
 
 import favicon from '../public/static/img/favicon.ico'
 
+/*
+    THEME COLORS
+    ------------
+
+    #f1f2f2 - Appbar Gray
+    #ff1c3f - Red logo text color (the primary color)
+    #d60000 - "This version is not public" bar red color (danger color)
+*/
+
 export default function MyApp({ Component, pageProps }) {
     const theme = createTheme({
         palette: {
-            primary: 
-			{ 
-				main: '#F1F2F2',
-				light: '#fff',
-				dark: '#D22D40',  
-			},
-			secondary: {main: '#000'},
+            primary: {
+                main: '#ff1c3f'
+            }
         },
     })
     return (

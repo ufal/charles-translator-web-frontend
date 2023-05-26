@@ -42,7 +42,7 @@
 }
 
 .header {
-    background-color: #FFEBEF;
+    background-color: #f1f2f2;
     width: 100%;
     & .MuiToolbar-root {
         padding: 4px 0 4px 12px;
@@ -56,7 +56,6 @@
 }
 
 .toolbar {
-    background-color: #F1F2F2;
     @media (min-width: 768px) {
         height: 70px;
     }

@@ -10,3 +10,9 @@
 .chip {
     margin: 3px;
 }
+
+.content {
+    a:not(.chip) {
+        color: #ff1c3f;
+    }
+}
