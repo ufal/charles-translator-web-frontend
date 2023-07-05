@@ -119,15 +119,8 @@ function Layout({ children }) {
                     open={state.collectionSnackbarInfo}
                     autoHideDuration={3000}
                     onClose={() => setState({ ...state, collectionSnackbarInfo: false })}
-                >
-                    <Alert
-                        severity="info"
-                        onClose={() => setState({ ...state, collectionSnackbarInfo: false })}
-                        sx={{ width: '100%' }}
-                    >
-                        Své rozhodnutí můžete kdykoli později změnit v Nastavení.
-                    </Alert>
-                </Snackbar>
+                    message="Své rozhodnutí můžete kdykoli později změnit v Nastavení."
+                />
 
                 <div className={styles.footer}>
                     THE LINDAT/CLARIAH-CZ PROJECT (LM2018101; formerly LM2010013, LM2015071) IS FULLY SUPPORTED BY THE
