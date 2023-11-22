@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Tooltip, IconButton } from '@mui/material'
 import { Mic as MicIcon, Stop as StopIcon } from '@mui/icons-material'
+import { useTranslation } from 'react-i18next'
 
 import { SpeechRecognition } from './asrScripts'
 
@@ -8,6 +9,8 @@ import styles from './asr.module.scss'
 
 export default function ASR(props) {
     return <></> // hiden until licence is valid
+
+    const { t } = useTranslation();
 
     const [state, setState] = React.useState({
         visible: false,
@@ -63,7 +66,7 @@ export default function ASR(props) {
     return (
         <div>
             {state.visible && (
-                <Tooltip className={styles.removeButton} title={state.active ? 'Stop recording' : 'Translate by voice'}>
+                <Tooltip className={styles.removeButton} title={state.active ? t("asr:stopRecording") : t("asr:translateByVoice")}>
                     <IconButton
                         className={state.active ? styles.activeAnimation : null}
                         size="large"

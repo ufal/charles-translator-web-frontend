@@ -18,6 +18,7 @@ import {
     InputLabel,
 } from '@mui/material'
 import { Check as CheckIcon, Close as CloseIcon, Settings as SettingsIcon } from '@mui/icons-material'
+import { useTranslation } from 'react-i18next'
 
 import { AboutUsConst } from '../constants/texts'
 
@@ -34,7 +35,12 @@ export default function SettingsDialog() {
         allowLocalHistory: true,
     })
 
+    const { t, i18n } = useTranslation()
+
     React.useEffect(() => setDefaults(), [])
+    React.useEffect(() => { i18n.changeLanguage(localStorage.getItem('language') || 'cs') }, [])
+
+
 
     const setDefaults = () => {
         setState((prevState) => ({
@@ -63,6 +69,8 @@ export default function SettingsDialog() {
         }))
 
         if (typeof window !== 'undefined') window.localStorage.setItem('language', event.target.value)
+
+        i18n.changeLanguage(event.target.value)
     }
 
     const changeConsent = (event) => {
@@ -87,7 +95,7 @@ export default function SettingsDialog() {
 
     return (
         <>
-            <Tooltip title="Settings">
+            <Tooltip title={t("common:settings")}>
                 <IconButton
                     size="small"
                     edge="start"
@@ -112,7 +120,7 @@ export default function SettingsDialog() {
                 onClose={() => setState((prevState) => ({ ...prevState, openSettings: false }))}
             >
                 <DialogTitle>
-                    Settings
+                    {t("common:settings")}
                     <IconButton
                         className={styles.closeFAQButton}
                         onClick={() => setState((prevState) => ({ ...prevState, openSettings: false }))}
@@ -129,7 +137,7 @@ export default function SettingsDialog() {
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={4}>
                             <FormControl fullWidth>
-                                <InputLabel id="languageLabel">Language</InputLabel>
+                                <InputLabel id="languageLabel">{t("common:language")}</InputLabel>
                                 <Select
                                     labelId="languageLabel"
                                     variant="outlined"
@@ -147,7 +155,7 @@ export default function SettingsDialog() {
                             <TextField
                                 fullWidth
                                 id="outlined-basic"
-                                label="Organization name (optional)"
+                                label={t("common:companyName")}
                                 variant="outlined"
                                 onChange={changeAuthor}
                                 value={state.author}
@@ -156,7 +164,7 @@ export default function SettingsDialog() {
                                         <InputAdornment position="end">
                                             {state.authorSaved && (
                                                 <div>
-                                                    Saved <CheckIcon color="success" />
+                                                    {t("common:saved")} <CheckIcon color="success" />
                                                 </div>
                                             )}
                                         </InputAdornment>
@@ -165,13 +173,11 @@ export default function SettingsDialog() {
                             />
                         </Grid>
                     </Grid>
-
                     <FormControlLabel
                         sx={{ marginBlock: '16px' }}
                         control={<Checkbox onChange={changeConsent} checked={state.collectDataConsent} />}
                         label={AboutUsConst.checkBoxLabel[state.language]}
                     />
-
                     <FormControlLabel
                         sx={{ marginBlock: '16px' }}
                         control={<Checkbox onChange={changeLocalHistory} checked={state.allowLocalHistory} />}
@@ -179,7 +185,7 @@ export default function SettingsDialog() {
                     />
                 </Box>
                 <DialogActions>
-                    <Button onClick={() => setState({ ...state, openSettings: false })}>Close</Button>
+                    <Button onClick={() => setState({ ...state, openSettings: false })}>{t("common:close")}</Button>
                 </DialogActions>
             </Dialog>
         </>

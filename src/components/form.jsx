@@ -17,6 +17,7 @@ import {
     ErrorOutline as ErrorOutlineIcon,
     SwapVert,
 } from '@mui/icons-material'
+import { useTranslation } from 'react-i18next'
 
 import { getHistory, saveHistory } from '../history'
 import { translate } from '../api'
@@ -78,6 +79,8 @@ const Form = () => {
     })
     const [loading, setLoading] = useState(false)
     const [loadingError, setLoadingError] = useState(null)
+
+    const { t } = useTranslation();
 
     let inputTypeStatistics = 'keyboard'
 
@@ -328,7 +331,7 @@ const Form = () => {
                         endAdornment: (
                             <InputAdornment position="end">
                                 {state.source.length !== 0 && (
-                                    <Tooltip className={styles.removeButton} title="Clear source text">
+                                    <Tooltip className={styles.removeButton} title={t("form:clearSourceText")}>
                                         <IconButton
                                             onClick={() => {
                                                 handleChangeSource('')
@@ -346,7 +349,7 @@ const Form = () => {
             </Paper>
 
             <div className={styles.switchButtonWrapper}>
-                <Tooltip title="Swap languages">
+                <Tooltip title={t("form:swapLanguages")}>
                     <span>
                         <IconButton
                             aria-label="switch languages"
@@ -399,7 +402,7 @@ const Form = () => {
                     </div>
 
                     {state.translation.length !== 0 && navigator.clipboard !== undefined && (
-                        <Tooltip title="Copy translation to cliboard">
+                        <Tooltip title={t("form:copyToClipboard")}>
                             <Button
                                 onClick={() => {
                                     navigator.clipboard.writeText(state.translation)
@@ -408,7 +411,7 @@ const Form = () => {
                                 size="small"
                                 startIcon={<ContentCopyIcon />}
                             >
-                                COPY
+                                {t("common:copy")}
                             </Button>
                         </Tooltip>
                     )}

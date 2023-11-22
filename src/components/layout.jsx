@@ -7,6 +7,7 @@ import {
     Info as InfoIcon,
     PhoneAndroid as PhoneAndroidIcon,
 } from '@mui/icons-material'
+import { useTranslation } from 'react-i18next'
 
 import AboutUsDialog from './AboutUsDialog'
 import SettingsDialog from './SettingsDialog'
@@ -21,6 +22,8 @@ function Layout({ children }) {
         collectionSnackbar: false,
         collectionSnackbarInfo: false,
     })
+
+    const { t } = useTranslation()
 
     useEffect(() => {
         setState((prevState) => {
@@ -62,9 +65,9 @@ function Layout({ children }) {
                     {notOfficialDeplo && (
                         <div className={styles.notOfficialDeplo}>
                             <a href="https://lindat.cz/translation">
-                                🚧🚧This version is not for public, please click here.🚧🚧
+                                {t("dev:notPublic")}
                             </a>
-                            <Tooltip title="Close">
+                            <Tooltip title={t("common:close")}>
                                 <IconButton onClick={() => setNotOfficialDeplo(false)}>
                                     <CloseIcon />
                                 </IconButton>
@@ -75,9 +78,9 @@ function Layout({ children }) {
                 {tryAndroidApp && (
                     <div className={styles.tryAndroidApp}>
                         <a href="https://play.google.com/store/apps/details?id=cz.cuni.mff.ufal.translator">
-                            <PhoneAndroidIcon /> Try our android app.
+                            <PhoneAndroidIcon /> {t("layout:tryOurAndroidApp")}
                         </a>
-                        <Tooltip title="Close">
+                        <Tooltip title={t("common:close")}>
                             <IconButton onClick={() => setTryAndroidApp(false)}>
                                 <CloseIcon />
                             </IconButton>
@@ -89,15 +92,13 @@ function Layout({ children }) {
 
                 <Snackbar
                     open={state.collectionSnackbar}
-                    message={`Souhlasím s tím, aby Ústav formální a aplikované lingvistiky
-						MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu
-						mohou být anonymizované texty využity pro další vývoj systému.`}
+                    message={t("common:collectDataConsentText")}
                     anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
                     action={
                         <React.Fragment>
                             <Button size="large" onClick={allowCollection}>
                                 <CheckIcon fontSize="small" />
-                                SOUHLASÍM
+                                {t("common:agree")}
                             </Button>
                             <Button
                                 size="large"
@@ -110,7 +111,7 @@ function Layout({ children }) {
                                 }}
                             >
                                 <CloseIcon fontSize="small" />
-                                NESOUHLASÍM
+                                {t("common:disagree")}
                             </Button>
                         </React.Fragment>
                     }
@@ -119,7 +120,7 @@ function Layout({ children }) {
                     open={state.collectionSnackbarInfo}
                     autoHideDuration={3000}
                     onClose={() => setState({ ...state, collectionSnackbarInfo: false })}
-                    message="Své rozhodnutí můžete kdykoli později změnit v Nastavení."
+                    message={t("layout:youCanChangeItInSettings")}
                 />
 
                 <div className={styles.footer}>

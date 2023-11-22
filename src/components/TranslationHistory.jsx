@@ -9,6 +9,7 @@ import {
     ArrowRightAlt as ArrowRightAltIcon,
     ArrowRight as ArrowRightIcon,
 } from '@mui/icons-material'
+import { useTranslation } from 'react-i18next';
 
 import { changeStarInHistory, removeItemFromHistory } from '../history'
 
@@ -17,6 +18,8 @@ import styles from './TranslationHistory.module.scss'
 export function TranslationHistory({ getHistory, onSelect }) {
     const [history, setHistory] = useState([])
     const [historyOpen, setHistoryOpen] = useState(false)
+
+    const { t } = useTranslation()
 
     React.useEffect(() => {
         if (history.length === 0) setHistory(getHistory())
@@ -34,7 +37,7 @@ export function TranslationHistory({ getHistory, onSelect }) {
 
     return (
         <div>
-            <Tooltip title="History">
+            <Tooltip title={t("common:history")}>
                 <IconButton aria-label="history" size="large" onClick={open} sx={{ padding: 0 }}>
                     <HistoryIcon fontSize="inherit" />
                 </IconButton>
@@ -54,7 +57,7 @@ export function TranslationHistory({ getHistory, onSelect }) {
                     subheader={
                         <div className={styles.header}>
                             <ListSubheader component="div" id="nested-list-subheader" className={styles.headerTitle}>
-                                History
+                                {t("common:history")}
                             </ListSubheader>
                             <Tooltip title="Wipe whole translation history">
                                 <Button
@@ -68,7 +71,7 @@ export function TranslationHistory({ getHistory, onSelect }) {
                                     }}
                                     color="error"
                                 >
-                                    <div>Remove everything</div>
+                                    <div>{t("common:removeEverything")}</div>
                                     <DeleteForeverIcon />
                                 </Button>
                             </Tooltip>
@@ -79,7 +82,7 @@ export function TranslationHistory({ getHistory, onSelect }) {
                         .sort((a, b) => (a.star ? -1 : b.star ? 1 : 0))
                         .map((value, index) => (
                             <div key={index} className={styles.historyItem}>
-                                <Tooltip title={value.star ? 'Mark as favorite' : 'Unmark as favorite'}>
+                                <Tooltip title={value.star ? t("common:markAsNotFavorite") : t("common:markAsFavorite")}>
                                     {value.star ? (
                                         <Button
                                             onClick={() => {
@@ -107,7 +110,7 @@ export function TranslationHistory({ getHistory, onSelect }) {
                                     <ArrowRightIcon />
                                     <div className={styles.valueText}>{value.text}</div>
                                 </ListItemButton>
-                                <Tooltip title="Remove this from history">
+                                <Tooltip title={t("common:remove")}>
                                     <Button
                                         onClick={() => {
                                             removeItemFromHistory(value)
