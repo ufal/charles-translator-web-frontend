@@ -13,7 +13,7 @@ import AboutUsDialog from './AboutUsDialog'
 import SettingsDialog from './SettingsDialog'
 import logo from '../../public/static/img/red-with-text-oneline-no-bg.svg'
 
-import styles from './layout.module.scss'
+import * as styles from './layout.module.scss'
 
 function Layout({ children }) {
     const [notOfficialDeplo, setNotOfficialDeplo] = useState(false)
@@ -57,7 +57,7 @@ function Layout({ children }) {
             <div className={styles.container}>
                 <AppBar position="static" className={styles.header} elevation={2}>
                     <Toolbar className={styles.toolbar}>
-                        <img width={230} height={70} alt="Charles Translator" src={logo.src} className={styles.logo} />
+                        <img width={230} height={70} alt="Charles Translator" src={logo} className={styles.logo} />
                         <div className={styles.spacer}></div>
                         <AboutUsDialog />
                         <SettingsDialog />

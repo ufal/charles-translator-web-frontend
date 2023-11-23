@@ -1,8 +1,17 @@
+# project
 node_modules
-.idea/
+.parcel-cache
+dist
+
+# editors
+.idea
+.code
+
+# operating system
+.DS_Store
+
+# legacy rules
 .next
 yarn-error.log
-package-lock.json
 yarn.lock
 next.config.js
-.DS_Store

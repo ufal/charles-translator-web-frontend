@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Box, Button, Dialog, DialogActions, DialogTitle, IconButton, Tooltip } from '@mui/material'
 import { Close as CloseIcon, Help as HelpIcon } from '@mui/icons-material'
 
-import styles from './FAQDialog.module.scss'
+import * as styles from './FAQDialog.module.scss'
 
 export default function FAQDialog() {
     const [openFAQ, setOpenFAQ] = React.useState(false)

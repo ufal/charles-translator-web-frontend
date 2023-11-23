@@ -22,7 +22,7 @@ import { useTranslation } from 'react-i18next'
 
 import { AboutUsConst } from '../constants/texts'
 
-import styles from './SettingsDialog.module.scss'
+import * as styles from './SettingsDialog.module.scss'
 
 export default function SettingsDialog() {
     const [state, setState] = React.useState({
@@ -122,7 +122,7 @@ export default function SettingsDialog() {
                 <DialogTitle>
                     {t("common:settings")}
                     <IconButton
-                        className={styles.closeFAQButton}
+                        // className={styles.closeFAQButton}
                         onClick={() => setState((prevState) => ({ ...prevState, openSettings: false }))}
                         sx={{
                             position: 'absolute',

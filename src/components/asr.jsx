@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { SpeechRecognition } from './asrScripts'
 
-import styles from './asr.module.scss'
+import * as styles from './asr.module.scss'
 
 export default function ASR(props) {
     return <></> // hiden until licence is valid

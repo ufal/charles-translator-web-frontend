@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Image from 'next/image'
 import { Box, Button, Dialog, DialogActions, DialogTitle, IconButton, Tooltip, Divider, Chip } from '@mui/material'
 import { Close as CloseIcon, Info as InfoIcon } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
@@ -8,7 +7,7 @@ import atChar from '../../public/static/img/at.svg'
 import lindatLogo from '../../public/static/img/lindat-logo-violet.svg'
 import ufalLogo from '../../public/static/img/ufal-logo.svg'
 
-import styles from './AboutUsDialog.module.scss'
+import * as styles from './AboutUsDialog.module.scss'
 
 export default function AboutUsDialog() {
     const [openAboutUs, setOpenAboutUs] = React.useState(false)
@@ -41,7 +40,7 @@ export default function AboutUsDialog() {
                 <DialogTitle>
                     {t("common:aboutUs")}
                     <IconButton
-                        className={styles.closeFAQButton}
+                        // className={styles.closeFAQButton}
                         onClick={() => setOpenAboutUs(false)}
                         sx={{
                             position: 'absolute',
@@ -53,8 +52,8 @@ export default function AboutUsDialog() {
                     </IconButton>
                 </DialogTitle>
                 <Box component="span" sx={{ padding: 2 }} className={styles.content}>
-                    <Image height={80} width={100} alt="ufal logo" src={ufalLogo.src} className={styles.logo} />
-                    <Image height={80} width={139} alt="lindat logo" src={lindatLogo.src} className={styles.logo} />
+                    <img height={80} width={100} alt="ufal logo" src={ufalLogo} className={styles.logo} />
+                    <img height={80} width={139} alt="lindat logo" src={lindatLogo} className={styles.logo} />
                     <p>
                         {t("aboutUs:developedBy")}{' '}
                         <b>
@@ -273,7 +272,7 @@ export default function AboutUsDialog() {
                         {t("aboutUs:forQuestionsContactUs")}{' '}
                         <strong>
                             u4u
-                            <Image src={atChar.src} alt="@" width={13} height={13} className={styles.atChar} />
+                            <img src={atChar} alt="@" width={13} height={13} className={styles.atChar} />
                             ufal.mff.cuni.cz
                         </strong>{' '}
                         .

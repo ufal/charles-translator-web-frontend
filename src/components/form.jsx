@@ -36,7 +36,7 @@ import russiaFlag from '../../public/static/img/russiaFlag.png'
 import ukraineFlag from '../../public/static/img/ukraineFlag.png'
 import usaFlag from '../../public/static/img/usaFlag.png'
 
-import styles from './form.module.scss'
+import * as styles from './form.module.scss'
 
 const debouncedTranslate = debounce(translate, 500)
 const debouncedSave = debounce(saveHistory, 3000)
@@ -253,8 +253,8 @@ const Form = () => {
                             width={30}
                             height={30}
                             alt={state.targetLanguage.id}
-                            src={getFlag(state.sourceLanguage.id).src}
-                            className={styles.flagIcon}
+                            src={getFlag(state.sourceLanguage.id)}
+                            // className={styles.flagIcon}
                         />
                         <Select
                             className={styles.languageName}
@@ -282,7 +282,7 @@ const Form = () => {
                         </Select>
                     </div>
                     <div className={styles.asrTempOutput}>{state.asrTempOutput}</div>
-                    <div className={styles.asrContainer}>
+                    <div /*className={styles.asrContainer}*/>
                         <ASR
                             onresult={(data) => {
                                 setState((prevState) => {
@@ -378,8 +378,8 @@ const Form = () => {
                             width={30}
                             height={30}
                             alt={state.targetLanguage.id}
-                            src={getFlag(state.targetLanguage.id).src}
-                            className={styles.flagIcon}
+                            src={getFlag(state.targetLanguage.id)}
+                            // className={styles.flagIcon}
                         />
                         <Select
                             className={styles.languageName}

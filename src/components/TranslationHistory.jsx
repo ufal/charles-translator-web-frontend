@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 
 import { changeStarInHistory, removeItemFromHistory } from '../history'
 
-import styles from './TranslationHistory.module.scss'
+import * as styles from './TranslationHistory.module.scss'
 
 export function TranslationHistory({ getHistory, onSelect }) {
     const [history, setHistory] = useState([])
