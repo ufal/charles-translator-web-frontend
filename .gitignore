@@ -5,7 +5,7 @@ dist
 
 # editors
 .idea
-.code
+# .vscode is not ignored - it has proper settings for tabsize
 
 # operating system
 .DS_Store

@@ -19,6 +19,41 @@ Start the Parcel development server and you are ready to go:
 npm run start
 ```
 
+
+## Before committing changes
+
+```bash
+# run linter and formatter
+npm run lint
+npm run prettier-write
+
+# also try building for production,
+# because parcel production is more strict and may fail
+# even if development compiled fine:
+npm run clean
+npm run build
+```
+
+
+## Using prettier to format code
+
+```bash
+# just see what files fail
+npm run prettier-check
+
+# format all files
+npm run prettier-write
+
+# or you can just format one file:
+npx prettier src/MyFile.jsx --write
+
+# or just see what the formatted file would look like
+npx prettier src/MyFile.jsx
+```
+
+Prettier is configured in `.prettierrc` and it's empty ON PURPOSE! See the [prettier philosophy](https://prettier.io/docs/en/option-philosophy). If you don't like it, don't change it. Go find medical help instead.
+
+
 ## Building for production
 
 After cloning the repository:
