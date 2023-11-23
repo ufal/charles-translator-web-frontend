@@ -1,10 +1,13 @@
 {
-  // I want my default to be 4, but JavaScript/JSON to be 2
+  // I want my default to be 4, but JavaScript/JSON/HTML to be 2
   "editor.tabSize": 4,
   "[javascript]": {
     "editor.tabSize": 2
   },
   "[json]": {
+    "editor.tabSize": 2
+  },
+  "[html]": {
     "editor.tabSize": 2
   },
 
