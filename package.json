@@ -7,8 +7,8 @@
     ],
     "browserslist": "> 0.5%, last 2 versions, not dead",
     "scripts": {
-        "start": "parcel --public-url /",
-        "build": "parcel build --public-url /",
+        "start": "parcel --public-url ./",
+        "build": "parcel build --public-url ./",
         "clean": "rm -rf .parcel-cache dist",
         "serve": "http-server dist",
         "lint": "eslint src",
