@@ -7,7 +7,7 @@
     ],
     "browserslist": "> 0.5%, last 2 versions, not dead",
     "scripts": {
-        "start": "parcel --public-url ./",
+        "start": "parcel",
         "build": "parcel build --public-url ./",
         "clean": "rm -rf .parcel-cache dist",
         "serve": "http-server dist",
@@ -25,22 +25,23 @@
         "@mui/icons-material": "^5.5.1",
         "@mui/lab": "^5.0.0-alpha.74",
         "@mui/material": "^5.5.2",
-        "@parcel/transformer-sass": "^2.8.3",
+        "@parcel/transformer-sass": "^2.11.0",
+        "buffer": "^6.0.3",
         "debounce-promise": "^3.1.2",
         "eslint": "^8.54.0",
         "i18next": "^23.2.3",
-        "parcel": "^2.8.3",
+        "parcel": "^2.11.0",
         "prettier": "3.1.0",
         "process": "^0.11.10",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-i18next": "^13.0.1",
         "sass": "^1.49.9",
-        "sharp": "^0.30.3",
         "socket.io-client": "^4.5.0",
         "styled-components": "^5.3.5"
     },
     "dependencies": {
+        "follow-redirects": ">=1.15.4",
         "http-server": "^14.1.1"
     }
 }
