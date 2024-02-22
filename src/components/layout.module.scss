@@ -77,8 +77,12 @@
 }
 
 .logo {
-    max-height: 60%;
-    width: auto;
+    // max-height: 60%;
+    width: 260px;
+
+    @media (max-width: 768px) {
+        margin-left: 24px;
+    }
 }
 
 .spacer {
