@@ -16,7 +16,7 @@ import logo from '../../public/static/img/red-with-text-oneline-no-bg.svg'
 import * as styles from './layout.module.scss'
 
 function Layout({ children }) {
-    const [notOfficialDeplo, setNotOfficialDeplo] = useState(false)
+    // const [notOfficialDeplo, setNotOfficialDeplo] = useState(false)
     const [tryAndroidApp, setTryAndroidApp] = useState(false)
     const [state, setState] = useState({
         collectionSnackbar: false,
@@ -32,10 +32,10 @@ function Layout({ children }) {
                 collectionSnackbar: localStorage.getItem('collectDataConsentValue') === null,
             }
         })
-        setNotOfficialDeplo(
-            window.location.href.indexOf('lindat.cz/translation') === -1 &&
-                window.location.href.indexOf('translator.cuni.cz') === -1
-        )
+        // setNotOfficialDeplo(
+        //     window.location.href.indexOf('lindat.cz/translation') === -1 &&
+        //         window.location.href.indexOf('translator.cuni.cz') === -1
+        // )
         // eslint-disable-next-line react-hooks/exhaustive-deps
         setTryAndroidApp(/(android)/i.test(navigator.userAgent))
     }, [])
@@ -62,7 +62,7 @@ function Layout({ children }) {
                         <AboutUsDialog />
                         <SettingsDialog />
                     </Toolbar>
-                    {notOfficialDeplo && (
+                    {/* {notOfficialDeplo && (
                         <div className={styles.notOfficialDeplo}>
                             <a href="https://lindat.cz/translation">
                                 {t("dev:notPublic")}
@@ -73,7 +73,7 @@ function Layout({ children }) {
                                 </IconButton>
                             </Tooltip>
                         </div>
-                    )}
+                    )} */}
                 </AppBar>
                 {tryAndroidApp && (
                     <div className={styles.tryAndroidApp}>
