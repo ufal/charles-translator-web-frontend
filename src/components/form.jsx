@@ -266,8 +266,11 @@ const Form = () => {
                                 let targetLanguage = state.targetLanguage
                                 if (sourceLanguage.targets.find((item) => item.id === targetLanguage.id) == null) {
                                     const tryFindCzech = sourceLanguage.targets.find((item) => item.id === 'cs')
-                                    if (tryFindCzech == null) targetLanguage = sourceLanguage.targets[0]
-                                    else targetLanguage = tryFindCzech
+                                    if (tryFindCzech == null) {
+                                        targetLanguage = state.languages.find(l => l.id == sourceLanguage.targets[0].id)
+                                    } else {
+                                        targetLanguage = state.languages.find(l => l.id == tryFindCzech.id)
+                                    }
                                 }
                                 handleChangeSource(state.source, false, sourceLanguage, targetLanguage)
                             }}
