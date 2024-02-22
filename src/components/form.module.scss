@@ -106,6 +106,8 @@
     align-items: center;
     column-gap: 8px;
     font-weight: bold;
+
+    filter: saturate(0.9); // flag color adjustment
 }
 
 .asrTempOutput {

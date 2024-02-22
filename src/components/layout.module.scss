@@ -34,15 +34,15 @@
     padding: 8px;
     font-size: 0.7rem;
     text-align: center;
-    background-color: #F1F2F2;
-    color: #D22D40;
+    background-color: #f9f9f9;
+    color: #d22d40;
     @media (max-width: 768px) {
         font-size: 0.55rem;
     }
 }
 
 :global(.MuiAppBar-root).header {
-    background-color: #f1f2f2;
+    background-color: #f9f9f9;
     width: 100%;
     & .MuiToolbar-root {
         padding: 4px 0 4px 12px;

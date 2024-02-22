@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 
 import AboutUsDialog from './AboutUsDialog'
 import SettingsDialog from './SettingsDialog'
-import logo from '../../public/static/img/red-with-text-oneline-no-bg.svg'
+import logo from '../img/logo.svg'
 
 import * as styles from './layout.module.scss'
 
