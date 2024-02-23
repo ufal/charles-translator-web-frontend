@@ -1,3 +1,21 @@
+// import { translationGraph } from "./translation"
+// import { Message } from "./translation/domain/Message";
+// import { MessageInputMethod } from "./translation/domain/MessageInputMethod";
+// import { User } from "./translation/domain/User";
+
+// const path = translationGraph.getPath("cs", "uk");
+// path.executeOn(new Message({
+//     language: "cs",
+//     text: "Ahoj světe!",
+//     author: new User(false, ""),
+//     isOriginal: true,
+//     originalInputMethod: MessageInputMethod.Keyboard
+// })).then(data => {
+//     console.log(data)
+// })
+
+////////////////////////////////////////////////////////////////////////////////
+
 const headers = {
     accept: 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded',

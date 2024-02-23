@@ -4,12 +4,18 @@
   "[javascript]": {
     "editor.tabSize": 2
   },
+  "[typescript]": {
+    "editor.tabSize": 2
+  },
   "[json]": {
     "editor.tabSize": 2
   },
   "[html]": {
     "editor.tabSize": 2
   },
+
+  // prettier.js wraps at 80 characters
+  "editor.rulers": [80],
 
   // This one forces the tab to be **space**
   "editor.insertSpaces": true
