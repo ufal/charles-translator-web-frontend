@@ -38,13 +38,8 @@
 		"translateByVoice": "překládat hlasem"
 	},
 
-	"dev": {
-		"notPublic": "🚧🚧Tato verze není určena pro veřejnost, klikněte prosím zde.🚧🚧"
-	},
-
 	"layout": {
-		"tryOurAndroidApp": "Vyzkoušejte naši Android aplikaci.",
-		"youCanChangeItInSettings" : "Své rozhodnutí můžete kdykoli později změnit v Nastavení."
+		"tryOurAndroidApp": "Vyzkoušejte naši Android aplikaci."
 	},
 
 	"aboutUs": {
@@ -76,7 +71,7 @@
 		"introduction": "Anonymizovaná data o používání nám pomáhají zlepšovat překladač a lépe pochopit jeho využití.",
 		"allowDataCollection": "Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače.",
 		"allowCookies": "Souhlasím s použitím cookies pro účely měření návštevnosti a zlepšování webové aplikace.",
-		"decisionCanBeChanged": "Svoje rozhodnutí můžete kdykoliv změnit v nastavení aplikace.",
+		"decisionCanBeChanged": "Své rozhodnutí můžete kdykoliv změnit v nastavení aplikace.",
 		"nonCommercialUseOnly": "Služby překladače jsou určené pouze pro nekomerční použití. V případě zájmu o komerční využití nebo využití přes API nás kontaktujte.",
 		"termsOfUse": "Podmínky používání",
 		"privacyPolicy": "Zásady ochrany soukromí",

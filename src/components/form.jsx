@@ -254,7 +254,6 @@ const Form = () => {
                             height={30}
                             alt={state.targetLanguage.id}
                             src={getFlag(state.sourceLanguage.id)}
-                            // className={styles.flagIcon}
                         />
                         <Select
                             className={styles.languageName}
@@ -382,7 +381,6 @@ const Form = () => {
                             height={30}
                             alt={state.targetLanguage.id}
                             src={getFlag(state.targetLanguage.id)}
-                            // className={styles.flagIcon}
                         />
                         <Select
                             className={styles.languageName}
