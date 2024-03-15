@@ -69,5 +69,9 @@
 		"FAQ": "FAQ",
 		"FAQLong": "Часті питання",
 		"forQuestionsContactUs": "З будь-якими питаннями щодо цього перекладача, будь ласка, зв'яжіться з нами за адресою"
+	},
+	
+	"cookiesAndTermsDialog": {
+		"//": "TODO: provide ukrainian translation"
 	}
 }

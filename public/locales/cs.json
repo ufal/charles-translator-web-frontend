@@ -69,5 +69,19 @@
 		"FAQ": "FAQ",
 		"FAQLong": "Často kladené otázky",
 		"forQuestionsContactUs": "V případě jakýchkoli dotazů ohledně tohoto překladače nás prosím kontaktujte na"
+	},
+
+	"cookiesAndTermsDialog": {
+		"title": "Než budete pokračovat",
+		"introduction": "Anonymizovaná data o používání nám pomáhají zlepšovat překladač a lépe pochopit jeho využití.",
+		"allowDataCollection": "Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače.",
+		"allowCookies": "Souhlasím s použitím cookies pro účely měření návštevnosti a zlepšování webové aplikace.",
+		"decisionCanBeChanged": "Svoje rozhodnutí můžete kdykoliv změnit v nastavení aplikace.",
+		"nonCommercialUseOnly": "Služby překladače jsou určené pouze pro nekomerční použití. V případě zájmu o komerční využití nebo využití přes API nás kontaktujte.",
+		"termsOfUse": "Podmínky používání",
+		"privacyPolicy": "Zásady ochrany soukromí",
+		"cookiePolicy": "Používání cookies",
+		"rejectAll": "Odmítnout vše",
+		"acceptSelected": "Přijmout vybrané"
 	}
 }

@@ -69,5 +69,21 @@
 		"FAQ": "FAQ",
 		"FAQLong": "Frequently Asked Questions (in Czech)",
 		"forQuestionsContactUs": "For any questions about this Translator, please contact"
+	},
+	
+	"cookiesAndTermsDialog": {
+		"title": "Before you continue",
+		"introduction": "Anonymized usage data helps us improve the translation and understand its usecases.",
+		"allowDataCollection": "I am giving the Institute of Formal and Applied Linguistics, Faculty of Mathematics and Physics, Charles Univeristy (UFAL MFF UK) consent to collect my inputs and translations.",
+		"allowCookies": "I agree with the use of cookies for the purposes of traffic analysis and improvements to the web application.",
+		"decisionCanBeChanged": "You can change your preferences at any time in the application settings.",
+
+		"nonCommercialUseOnly": "Our translation services are intended for non-commercial use only. If you would like to use them in a commercial setting or you would like to have access to the API, please contact us via the email below.",
+
+		"termsOfUse": "Terms of Use",
+		"privacyPolicy": "Privacy Policy",
+		"cookiePolicy": "Cookies Policy",
+		"rejectAll": "Reject all",
+		"acceptSelected": "Accept selected"
 	}
 }

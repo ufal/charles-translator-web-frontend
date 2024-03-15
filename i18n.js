@@ -16,9 +16,14 @@ i18n
 			en: enTranslation,
 		},
 		
-		fallbackLng: "cs",
+		// TODO: set default language via the i18next detector
+		// and persist the chosen language
+		// https://github.com/i18next/i18next-browser-languageDetector
+		fallbackLng: "en",
 		interpolation: {
-			escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+			// react already protects from xss
+			// https://www.i18next.com/translation-function/interpolation#unescape
+			escapeValue: false,
 		},
 		react: {
 			bindI18n: 'languageChanged',

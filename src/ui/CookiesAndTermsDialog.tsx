@@ -58,7 +58,7 @@ export default function CookiesAndTermsDialog() {
             pr: (24 + 80 + 16) + "px"
           }}
         >
-          Než budete pokračovat
+          { t("title") }
           <UiLanguageSwitcher
             sx={{
               position: "absolute",
@@ -70,7 +70,7 @@ export default function CookiesAndTermsDialog() {
         <DialogContent dividers>
 
           <Typography variant="body1" color="text.primary" gutterBottom>
-            Anonymizovaná data o používání nám pomáhají zlepšovat překladač a lépe pochopit jeho využití.
+            { t("introduction") }
           </Typography>
 
           <FormGroup>
@@ -85,7 +85,7 @@ export default function CookiesAndTermsDialog() {
                 />
               }
               slotProps={{ typography: { variant: "body2", color: "text.primary", gutterBottom: true } }}
-              label="Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače."
+              label={t("allowDataCollection")}
             />
             <FormControlLabel
               sx={{ alignItems: 'flex-start' }}
@@ -98,18 +98,16 @@ export default function CookiesAndTermsDialog() {
                 />
               }
               slotProps={{ typography: { variant: "body2", color: "text.primary", gutterBottom: true } }}
-              label="Souhlasím s použitím cookies pro účely měření návštevnosti a zlepšování webové aplikace."
+              label={t("allowCookies")}
             />
           </FormGroup>
 
           <Typography variant="body1" color="text.primary" gutterBottom>
-            Svoje rozhodnutí můžete kdykoliv změnit v nastavení aplikace.
+            { t("decisionCanBeChanged") }
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
-            Služby překladače jsou určené pouze pro nekomerční použití.
-            V případě zájmu o komerční využití nebo využití přes API nás
-            kontaktujte.
+            { t("nonCommercialUseOnly") }
           </Typography>
 
           <Typography
@@ -122,7 +120,7 @@ export default function CookiesAndTermsDialog() {
               href="https://lindat.mff.cuni.cz/en/terms-of-use"
               color="inherit"
               underline="hover"
-            >Podmínky používání</Link>
+            >{ t("termsOfUse") }</Link>
             <span style={{padding: "0 8px"}}>•</span>
             <Link
               href="mailto:lindat-help@ufal.mff.cuni.cz"
@@ -134,10 +132,10 @@ export default function CookiesAndTermsDialog() {
         </DialogContent>
         <DialogActions>
           <Button variant="outlined" onClick={rejectAllClicked}>
-            Odmítnout vše
+            { t("rejectAll") }
           </Button>
           <Button variant="contained" onClick={acceptSelectedClicked}>
-            Přijmout vybrané
+            { t("acceptSelected") }
           </Button>
         </DialogActions>
       </Dialog>
