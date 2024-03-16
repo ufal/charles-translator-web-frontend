@@ -24,6 +24,17 @@
 		"allowLocalHistoryText": "Ukládat nové texty a překlady do lokální historie (do vašeho zařízení)"
 	},
 
+	"language": {
+		"cs": "Čeština",
+		"de": "Němčina",
+		"en": "Angličtina",
+		"fr": "Francouzština",
+		"hi": "Hindština",
+		"pl": "Polština",
+		"ru": "Ruština",
+		"uk": "Ukrajinština"
+	},
+
 	"form": {
 		"swapLanguages": "Prohodit jazyky",
 		"clearSourceText": "Smazat text",

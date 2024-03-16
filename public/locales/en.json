@@ -24,6 +24,17 @@
 		"allowLocalHistoryText": "Store new texts and translations into local history (on your device)"
 	},
 
+	"language": {
+		"cs": "Czech",
+		"de": "German",
+		"en": "English",
+		"fr": "French",
+		"hi": "Hindi",
+		"pl": "Polish",
+		"ru": "Russian",
+		"uk": "Ukrainian"
+	},
+
 	"form": {
 		"swapLanguages": "Swap languages",
 		"clearSourceText": "Clear source text",

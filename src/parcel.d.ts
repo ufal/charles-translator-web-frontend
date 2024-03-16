@@ -8,3 +8,9 @@ declare module '*.module.scss' {
   const value: Record<string, string>;
   export default value;
 }
+
+// fix PNG images
+declare module '*.png' {
+  const value: string;
+  export default value;
+}

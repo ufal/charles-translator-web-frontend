@@ -24,17 +24,7 @@ import { translate } from '../api'
 import ASR from './asr'
 import { TranslationHistory } from './TranslationHistory'
 import { transliterateCyrilToLatin, transliterateLatinToCyril } from '../transliterate'
-
-import britainFlag from '../../public/static/img/britainFlag.png'
-import czechFlag from '../../public/static/img/czechFlag.png'
-import defaultFlag from '../../public/static/img/defaultFlag.png'
-import franceFlag from '../../public/static/img/franceFlag.png'
-import germanFlag from '../../public/static/img/germanFlag.png'
-import indiaFlag from '../../public/static/img/indiaFlag.png'
-import polandFlag from '../../public/static/img/polandFlag.png'
-import russiaFlag from '../../public/static/img/russiaFlag.png'
-import ukraineFlag from '../../public/static/img/ukraineFlag.png'
-import usaFlag from '../../public/static/img/usaFlag.png'
+import LanguageDropdown from "../ui/LanguageDropdown";
 
 import * as styles from './form.module.scss'
 
@@ -150,29 +140,6 @@ const Form = () => {
             })
     }
 
-    const getFlag = (languageId) => {
-        switch (languageId) {
-            case 'cs':
-                return czechFlag
-            case 'en':
-                return britainFlag
-            case 'fr':
-                return franceFlag
-            case 'de':
-                return germanFlag
-            case 'hi':
-                return indiaFlag
-            case 'pl':
-                return polandFlag
-            case 'ru':
-                return russiaFlag
-            case 'uk':
-                return ukraineFlag
-            default:
-                return defaultFlag
-        }
-    }
-
     const flipLanguages = () => {
         const oldSource = state.sourceLanguage
         const oldTarget = state.targetLanguage
@@ -244,45 +211,34 @@ const Form = () => {
         return null
     }
 
+    const changeSourceLanguage = (id) => {
+        const sourceLanguage = state.languages.find((item) => item.id === id)
+        let targetLanguage = state.targetLanguage
+        if (sourceLanguage.targets.find((item) => item.id === targetLanguage.id) == null) {
+            const tryFindCzech = sourceLanguage.targets.find((item) => item.id === 'cs')
+            if (tryFindCzech == null) {
+                targetLanguage = state.languages.find(l => l.id == sourceLanguage.targets[0].id)
+            } else {
+                targetLanguage = state.languages.find(l => l.id == tryFindCzech.id)
+            }
+        }
+        handleChangeSource(state.source, false, sourceLanguage, targetLanguage)
+    };
+
+    const changeTargetLanguage = (id) => {
+        const targetLanguageId = state.languages.find((item) => item.id === id)
+        handleChangeSource(state.source, false, state.sourceLanguage, targetLanguageId)
+    };
+
     return (
         <div className={styles.flex}>
             <Paper elevation={2} className={styles.translationFieldContainer}>
                 <div className={styles.translationHeaderContainer}>
-                    <div className={styles.languageContainer}>
-                        <img
-                            width={30}
-                            height={30}
-                            alt={state.targetLanguage.id}
-                            src={getFlag(state.sourceLanguage.id)}
-                        />
-                        <Select
-                            className={styles.languageName}
-                            variant="standard"
-                            disableUnderline
-                            value={state.sourceLanguage.id}
-                            onChange={(event) => {
-                                const sourceLanguage = state.languages.find((item) => item.id === event.target.value)
-                                let targetLanguage = state.targetLanguage
-                                if (sourceLanguage.targets.find((item) => item.id === targetLanguage.id) == null) {
-                                    const tryFindCzech = sourceLanguage.targets.find((item) => item.id === 'cs')
-                                    if (tryFindCzech == null) {
-                                        targetLanguage = state.languages.find(l => l.id == sourceLanguage.targets[0].id)
-                                    } else {
-                                        targetLanguage = state.languages.find(l => l.id == tryFindCzech.id)
-                                    }
-                                }
-                                handleChangeSource(state.source, false, sourceLanguage, targetLanguage)
-                            }}
-                        >
-                            {state.languages
-                                .filter((item) => item.targets.length > 0)
-                                .map((item) => (
-                                    <MenuItem key={item.id} value={item.id}>
-                                        {item.name}
-                                    </MenuItem>
-                                ))}
-                        </Select>
-                    </div>
+                    <LanguageDropdown
+                        value={state.sourceLanguage.id}
+                        languages={state.languages.map(l => l.id)}
+                        onChange={changeSourceLanguage}
+                    />
                     <div className={styles.asrTempOutput}>{state.asrTempOutput}</div>
                     <div /*className={styles.asrContainer}*/>
                         <ASR
@@ -375,33 +331,11 @@ const Form = () => {
 
             <Paper elevation={2} className={styles.translationFieldContainer}>
                 <div className={styles.translationHeader}>
-                    <div className={styles.languageContainer}>
-                        <img
-                            width={30}
-                            height={30}
-                            alt={state.targetLanguage.id}
-                            src={getFlag(state.targetLanguage.id)}
-                        />
-                        <Select
-                            className={styles.languageName}
-                            variant="standard"
-                            disableUnderline
-                            value={state.targetLanguage.id}
-                            onChange={(event) => {
-                                const targetLanguageId = state.languages.find((item) => item.id === event.target.value)
-                                handleChangeSource(state.source, false, state.sourceLanguage, targetLanguageId)
-                            }}
-                        >
-                            {state.languages
-                                .find((item) => item.id === state.sourceLanguage.id)
-                                ?.targets.map((item) => (
-                                    <MenuItem key={item.id} value={item.id}>
-                                        {item.name}
-                                    </MenuItem>
-                                )) ?? null}
-                        </Select>
-                    </div>
-
+                    <LanguageDropdown
+                        value={state.targetLanguage.id}
+                        languages={state.sourceLanguage.targets.map(l => l.id)}
+                        onChange={changeTargetLanguage}
+                    />
                     {state.translation.length !== 0 && navigator.clipboard !== undefined && (
                         <Tooltip title={t("form:copyToClipboard")}>
                             <Button
