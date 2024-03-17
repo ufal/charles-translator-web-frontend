@@ -381,6 +381,7 @@ const Form = () => {
         }
 
         setSourceText(targetText);
+        setTargetText(sourceText); // to make an approx. translation immediately
         setSourceLanguage(targetLanguage);
         setTargetLanguage(sourceLanguage);
 
