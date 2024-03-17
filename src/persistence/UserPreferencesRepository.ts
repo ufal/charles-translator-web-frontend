@@ -9,7 +9,8 @@ export class UserPreferencesRepository {
 
   private static readonly DEFAULTS: UserPreferences = {
     organizationName: "",
-    developerMode: false
+    isDeveloperMode: false,
+    allowsLocalHistory: true
   };
 
   /**
@@ -28,8 +29,9 @@ export class UserPreferencesRepository {
     try {
       const data = JSON.parse(json);
       return {
-        organizationName: data.organizationName,
-        developerMode: data.developerMode
+        organizationName: String(data.organizationName),
+        isDeveloperMode: Boolean(data.isDeveloperMode),
+        allowsLocalHistory: Boolean(data.allowsLocalHistory),
       };
     } catch (e) {
       console.error(e);

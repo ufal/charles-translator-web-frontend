@@ -11,5 +11,10 @@
   /**
    * In developer mode, more advanced options are available
    */
-  readonly developerMode: boolean;
+  readonly isDeveloperMode: boolean;
+
+  /**
+   * Store translation history in browser's local storage
+   */
+  readonly allowsLocalHistory: boolean;
 }

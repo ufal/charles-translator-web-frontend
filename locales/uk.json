@@ -80,5 +80,9 @@
   "cookiesAndTermsDialog": {
     "//": "TODO: provide ukrainian translation",
     "decisionCanBeChanged" : "Ви можете будь-коли пізніше змінити своє рішення в Настройках."
+  },
+
+  "settingsDialog": {
+    "//": "TODO: provide ukrainian translation"
   }
 }

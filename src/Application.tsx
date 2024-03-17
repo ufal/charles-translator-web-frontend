@@ -1,21 +1,23 @@
+import { useState } from "react";
 import CssBaseline from '@mui/material/CssBaseline'
 import Form from "./components/form";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme";
 import { CookiesAndTermsDialog } from "./ui/CookiesAndTermsDialog";
+import { SettingsDialog, SettingsDialogButton } from "./ui/SettingsDialog";
 import { TryAndroidAppBanner } from "./ui/TryAndroidAppBanner";
 import { AppBar, Toolbar } from '@mui/material'
 import AboutUsDialog from './components/AboutUsDialog'
-import SettingsDialog from './components/SettingsDialog'
 import logo from './img/logo.svg'
 
 import styles from "./Application.module.scss";
 
 export function Application() {
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <CookiesAndTermsDialog/>
       
       <div className={styles.container}>
 
@@ -24,10 +26,10 @@ export function Application() {
             <img width={230} height={70} alt="Charles Translator" src={logo} className={styles.logo} />
             <div style={{ flexGrow: 1 }}></div>
             <AboutUsDialog />
-            <SettingsDialog />
+            <SettingsDialogButton onClick={() => setIsSettingsOpen(true)} />
           </Toolbar>
         </AppBar>
-        <TryAndroidAppBanner/>
+        <TryAndroidAppBanner />
 
         <Form />
 
@@ -38,6 +40,13 @@ export function Application() {
         </div>
 
       </div>
+      
+      <CookiesAndTermsDialog />
+      <SettingsDialog
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
+
     </ThemeProvider>
   );
 }

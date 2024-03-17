@@ -15,6 +15,12 @@ declare module '*.png' {
   export default value;
 }
 
+// fix SVG images
+declare module '*.svg' {
+  const value: string;
+  export default value;
+}
+
 // fix JSON files
 declare module '*.json' {
   const value: Record<string, any>;

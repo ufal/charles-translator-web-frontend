@@ -23,8 +23,8 @@ export class PrivacyPreferencesRepository {
     try {
       const data = JSON.parse(json);
       return {
-        allowsDataCollection: data.allowsDataCollection,
-        allowsCookies: data.allowsCookies,
+        allowsDataCollection: Boolean(data.allowsDataCollection),
+        allowsCookies: Boolean(data.allowsCookies),
       };
     } catch (e) {
       console.error(e);

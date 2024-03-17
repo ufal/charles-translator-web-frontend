@@ -1,4 +1,4 @@
-import { RestaurantMenu } from '@mui/icons-material'
+import { userPreferencesRepository } from "./persistence/UserPreferencesRepository"
 
 const MAX_HISTORY_COUNT = 100
 
@@ -18,7 +18,10 @@ export function getHistory() {
 export function saveHistory(fromLanguageId, toLanguageId, text) {
     if (text === '') return
 
-    if (localStorage.getItem('allowLocalHistory') === 'false') return
+    const userPreferences = userPreferencesRepository.load();
+    if (!userPreferences.allowsLocalHistory) {
+        return;
+    }
 
     const historyItem = {
         fromLanguageId,

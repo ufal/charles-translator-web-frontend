@@ -19,14 +19,14 @@ export function CookiesAndTermsDialog() {
   const { t } = useTranslation("cookiesAndTermsDialog");
   const privacyPreferences = privacyPreferencesRepository.load();
 
-  const [isOpen, setOpen] = useState(
+  const [isOpen, setOpen] = useState<boolean>(
     // open automatically if preferences do not exist yet
     privacyPreferences === null,
   );
-  const [isDataChecked, setDataChecked] = useState(
+  const [allowsDataCollection, setAllowsDataCollection] = useState<boolean>(
     privacyPreferences?.allowsDataCollection ?? true,
   );
-  const [isCookiesChecked, setCookiesChecked] = useState(
+  const [allowsCookies, setAllowsCookies] = useState<boolean>(
     privacyPreferences?.allowsCookies ?? true,
   );
 
@@ -40,8 +40,8 @@ export function CookiesAndTermsDialog() {
 
   const acceptSelectedClicked = () => {
     privacyPreferencesRepository.store({
-      allowsDataCollection: isDataChecked,
-      allowsCookies: isCookiesChecked,
+      allowsDataCollection: allowsDataCollection,
+      allowsCookies: allowsCookies,
     });
     setOpen(false);
   };
@@ -85,8 +85,8 @@ export function CookiesAndTermsDialog() {
               <Checkbox
                 size="small"
                 sx={{ marginTop: -1 }}
-                checked={isDataChecked}
-                onChange={(e) => setDataChecked(!isDataChecked)}
+                checked={allowsDataCollection}
+                onChange={() => setAllowsDataCollection(!allowsDataCollection)}
               />
             }
             slotProps={{
@@ -96,7 +96,7 @@ export function CookiesAndTermsDialog() {
                 gutterBottom: true,
               },
             }}
-            label={t("allowDataCollection")}
+            label={t("allowsDataCollection")}
           />
           <FormControlLabel
             sx={{ alignItems: "flex-start" }}
@@ -104,8 +104,8 @@ export function CookiesAndTermsDialog() {
               <Checkbox
                 size="small"
                 sx={{ marginTop: -1 }}
-                checked={isCookiesChecked}
-                onChange={(e) => setCookiesChecked(!isCookiesChecked)}
+                checked={allowsCookies}
+                onChange={() => setAllowsCookies(!allowsCookies)}
               />
             }
             slotProps={{
@@ -115,7 +115,7 @@ export function CookiesAndTermsDialog() {
                 gutterBottom: true,
               },
             }}
-            label={t("allowCookies")}
+            label={t("allowsCookies")}
           />
         </FormGroup>
 
