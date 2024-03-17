@@ -1,0 +1,93 @@
+{
+  "common": {
+    "save": "uložit",
+    "agree": "souhlasím",
+    "close": "zavřít",
+    "disagree": "nesouhlasím",
+    "copy": "kopírovat",
+
+    "language": "Jazyk",
+    "saved": "Uloženo",
+    "remove": "Smazat",
+    "removeEverything": "Smazat vše",
+
+    "companyName": "Název organizace",
+
+    "settings": "Nastavení",
+    "aboutUs": "O nás",
+    "history": "Historie",
+
+    "markAsFavorite": "Označit jako oblíbené",
+    "markAsNotFavorite": "Zrušit označení jako oblíbené",
+
+    "collectDataConsentText": "Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu mohou být anonymizované texty využity pro další vývoj systému.",
+    "allowLocalHistoryText": "Ukládat nové texty a překlady do lokální historie (do vašeho zařízení)"
+  },
+
+  "language": {
+    "cs": "Čeština",
+    "de": "Němčina",
+    "en": "Angličtina",
+    "fr": "Francouzština",
+    "hi": "Hindština",
+    "pl": "Polština",
+    "ru": "Ruština",
+    "uk": "Ukrajinština"
+  },
+
+  "form": {
+    "swapLanguages": "Prohodit jazyky",
+    "clearSourceText": "Smazat text",
+    "copyToClipboard": "Zkopírovat překlad do schránky",
+    "maybeRusian": "Ruština není podporována",
+    "maybeUkrinian": "Nesouhlasí abeceda a jazyk",
+    "maybeCzech": "Nesouhlasí abeceda a jazyk"
+  },
+
+  "asr": {
+    "stopRecording": "zastavit nahrávání",
+    "translateByVoice": "překládat hlasem"
+  },
+
+  "layout": {
+    "tryOurAndroidApp": "Vyzkoušejte naši Android aplikaci."
+  },
+
+  "aboutUs": {
+    "developedBy": "Překladač byl vyvinut na",
+    "UFAL": "Institutu formální a aplikované lingvistiky",
+    "MFF": "Matematicko-fyzikální fakulty",
+    "UK": "Univerzity Karlovy",
+    "supportedBy": "a byl podporován projektem",
+
+    "developersTranslation": "Vývojáři překladatelského systému",
+    "dataPreparation": "Příprava dat",
+    "thanksTo": "Moc děkujeme",
+    "providingInterCorp": "za poskytnutí InterCorp v14, součásti projektu Český národní korpus",
+    "weThank": "Děkujeme",
+    "forCooperation": "za spolupráci na projektu",
+
+    "developersBackEnd": "Back-end vývojáři",
+    "andTheLindatTeam": "a tým Lindat",
+
+    "developersFrontEnd": "Front-end vývojáři",
+
+    "FAQ": "FAQ",
+    "FAQLong": "Často kladené otázky",
+    "forQuestionsContactUs": "V případě jakýchkoli dotazů ohledně tohoto překladače nás prosím kontaktujte na"
+  },
+
+  "cookiesAndTermsDialog": {
+    "title": "Než budete pokračovat",
+    "introduction": "Anonymizovaná data o používání nám pomáhají zlepšovat překladač a lépe pochopit jeho využití.",
+    "allowDataCollection": "Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače.",
+    "allowCookies": "Souhlasím s použitím cookies pro účely měření návštevnosti a zlepšování webové aplikace.",
+    "decisionCanBeChanged": "Své rozhodnutí můžete kdykoliv změnit v nastavení aplikace.",
+    "nonCommercialUseOnly": "Služby překladače jsou určené pouze pro nekomerční použití. V případě zájmu o komerční využití nebo využití přes API nás kontaktujte.",
+    "termsOfUse": "Podmínky používání",
+    "privacyPolicy": "Zásady ochrany soukromí",
+    "cookiePolicy": "Používání cookies",
+    "rejectAll": "Odmítnout vše",
+    "acceptSelected": "Přijmout vybrané"
+  }
+}
