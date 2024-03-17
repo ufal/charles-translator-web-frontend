@@ -52,6 +52,15 @@ export class TranslationGraph {
   }
 
   /**
+   * Returns all the languages from which we can translate
+   * to some other language
+   */
+  public getSourceLanguages(): IsoLanguage[] {
+    // NOTE: Do not use this.languages, since a language can be target-only
+    return [...this.stepsByOrigin.keys()].sort();
+  }
+
+  /**
    * Returns the set of all languages reachable from the given language
    * as a sorted javascript array
    */

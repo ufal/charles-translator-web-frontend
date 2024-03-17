@@ -23,6 +23,16 @@ export enum MessageInputMethod {
   History = "history",
 
   /**
+   * Languages have been swapped
+   */
+  LanguageSwap = "swap-languages",
+
+  /**
+   * Language has been changed (source or target)
+   */
+  LanguageChanged = "language-changed",
+
+  /**
    * The message in its current form was produced by another translation step
    * during pivoted translation
    */

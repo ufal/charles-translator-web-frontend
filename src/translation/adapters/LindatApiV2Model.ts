@@ -28,6 +28,11 @@ export class LindatApiV2Model implements TranslationStep {
       );
     }
 
+    // skip the API request for empty messages
+    if (message.text.trim() === "") {
+      return message.makeTranslation(this.target, "");
+    }
+
     const normalizedMessageText = message.text.normalize("NFC");
     const encodedLoggingConsent = message.author.acceptsDataCollection
       ? "true"
