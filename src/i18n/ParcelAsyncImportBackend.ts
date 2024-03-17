@@ -6,7 +6,7 @@ import localeImporters from "../../locales";
  * kind of like this HTTP backend:
  * https://github.com/i18next/i18next-http-backend/blob/master/lib/index.js
  */
-export default class ParcelAsyncImportBackend implements BackendModule<object> {
+export class ParcelAsyncImportBackend implements BackendModule<object> {
   readonly type = "backend";
 
   private resources: Map<string, object> = new Map<string, object>();

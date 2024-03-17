@@ -21,7 +21,8 @@ import ASR from './asr'
 import { TranslationHistory } from './TranslationHistory'
 import { transliterateCyrilToLatin, transliterateLatinToCyril } from '../transliterate'
 import LanguageDropdown from "../ui/LanguageDropdown";
-import { PrivacyPreferencesRepository } from "../persistence/PrivacyPreferencesRepository";
+import { privacyPreferencesRepository } from "../persistence/PrivacyPreferencesRepository";
+import { userPreferencesRepository } from "../persistence/UserPreferencesRepository";
 
 import { translationGraph } from "../translation";
 import { Message } from "../translation/domain/Message";
@@ -34,9 +35,6 @@ import styles from "./form.module.scss";
 
 const TRANSLATION_DEBOUNCE_MS = 500;
 const WRITE_HISTORY_DEBOUNCE_MS = 3_000;
-
-// can be reused as a singleton, no need to be present inside the component
-const privacyRepository = new PrivacyPreferencesRepository();
 
 const Form = () => {
     const { t, i18n } = useTranslation();
@@ -94,9 +92,11 @@ const Form = () => {
         }
 
         // prepare message author metadata
+        const privacyPreferences = privacyPreferencesRepository.load();
+        const userPreferences = userPreferencesRepository.load();
         const author = new User(
-            privacyRepository.loadPreferences()?.allowsDataCollection ?? false,
-            "" // TODO: repository for organization name
+            privacyPreferences?.allowsDataCollection ?? false,
+            userPreferences.organizationName
         );
         
         // track the request in the context of other requests

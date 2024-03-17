@@ -2,8 +2,8 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Form from "./components/form";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme";
-import CookiesAndTermsDialog from "./ui/CookiesAndTermsDialog";
-import TryAndroidAppBanner from "./ui/TryAndroidAppBanner";
+import { CookiesAndTermsDialog } from "./ui/CookiesAndTermsDialog";
+import { TryAndroidAppBanner } from "./ui/TryAndroidAppBanner";
 import { AppBar, Toolbar } from '@mui/material'
 import AboutUsDialog from './components/AboutUsDialog'
 import SettingsDialog from './components/SettingsDialog'

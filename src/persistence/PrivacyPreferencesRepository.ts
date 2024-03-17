@@ -11,7 +11,7 @@ export class PrivacyPreferencesRepository {
    * Loads user preferences from the local storage,
    * returns null if the used has not set them yet
    */
-  public loadPreferences(): PrivacyPreferences | null {
+  public load(): PrivacyPreferences | null {
     const json = window.localStorage.getItem(
       PrivacyPreferencesRepository.STORAGE_KEY,
     );
@@ -35,8 +35,13 @@ export class PrivacyPreferencesRepository {
   /**
    * Stores user preferences to the local storage
    */
-  public storePreferences(preferences: PrivacyPreferences): void {
+  public store(preferences: PrivacyPreferences): void {
     const json = JSON.stringify(preferences);
     window.localStorage.setItem(PrivacyPreferencesRepository.STORAGE_KEY, json);
   }
 }
+
+/**
+ * The default singleton to use in the app
+ */
+export const privacyPreferencesRepository = new PrivacyPreferencesRepository();

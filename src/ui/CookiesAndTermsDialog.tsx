@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { PrivacyPreferencesRepository } from "../persistence/PrivacyPreferencesRepository";
+import { privacyPreferencesRepository } from "../persistence/PrivacyPreferencesRepository";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -15,12 +15,9 @@ import Checkbox from "@mui/material/Checkbox";
 
 // TODO: add privacy policy link
 
-// can be reused as a singleton, no need to be present inside the component
-const preferencesRepository = new PrivacyPreferencesRepository();
-
-export default function CookiesAndTermsDialog() {
+export function CookiesAndTermsDialog() {
   const { t } = useTranslation("cookiesAndTermsDialog");
-  const privacyPreferences = preferencesRepository.loadPreferences();
+  const privacyPreferences = privacyPreferencesRepository.load();
 
   const [isOpen, setOpen] = useState(
     // open automatically if preferences do not exist yet
@@ -34,7 +31,7 @@ export default function CookiesAndTermsDialog() {
   );
 
   const rejectAllClicked = () => {
-    preferencesRepository.storePreferences({
+    privacyPreferencesRepository.store({
       allowsDataCollection: false,
       allowsCookies: false,
     });
@@ -42,7 +39,7 @@ export default function CookiesAndTermsDialog() {
   };
 
   const acceptSelectedClicked = () => {
-    preferencesRepository.storePreferences({
+    privacyPreferencesRepository.store({
       allowsDataCollection: isDataChecked,
       allowsCookies: isCookiesChecked,
     });

@@ -14,7 +14,7 @@ import styles from './TryAndroidAppBanner.module.scss'
 const androidPhoneSuspected = /(android)/i.test(navigator.userAgent);
 // const androidPhoneSuspected = true; // so far the best way how to test
 
-export default function TryAndroidAppBanner() {
+export function TryAndroidAppBanner() {
   const { t } = useTranslation()
 
   const [tryAndroidApp, setTryAndroidApp] = useState(androidPhoneSuspected)
