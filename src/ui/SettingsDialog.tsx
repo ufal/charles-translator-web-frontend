@@ -195,17 +195,6 @@ export function SettingsDialog(props: SettingsDialogProps) {
           {t("commercialUseSection")}
         </Typography>
 
-        <FormGroup sx={{ mb: 1 }}>
-          <TextField
-            fullWidth
-            label={t("organizationName")}
-            size="small"
-            variant="outlined"
-            value={organizationName}
-            onChange={(e) => setOrganizationName(e.target.value)}
-          />
-        </FormGroup>
-
         <Typography variant="body1" color="text.primary" gutterBottom>
           {t("nonCommercialUseOnly")}
         </Typography>
@@ -231,6 +220,25 @@ export function SettingsDialog(props: SettingsDialogProps) {
             lindat-help@ufal.mff.cuni.cz
           </Link>
         </Typography>
+
+        <Typography variant="h5" color="text.primary" gutterBottom sx={{ mt: 2 }}>
+          {t("identificationSection")}
+        </Typography>
+
+        <Typography variant="body1" color="text.primary" gutterBottom>
+          {t("identificationDescription")}
+        </Typography>
+
+        <FormGroup sx={{ mb: 1 }}>
+          <TextField
+            fullWidth
+            label={t("organizationName")}
+            size="small"
+            variant="outlined"
+            value={organizationName}
+            onChange={(e) => setOrganizationName(e.target.value)}
+          />
+        </FormGroup>
 
         <Typography variant="h5" color="text.primary" gutterBottom sx={{ mt: 2 }}>
           {t("advancedSection")}
