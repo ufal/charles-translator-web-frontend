@@ -98,6 +98,7 @@
     "allowsDataCollection": "Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače.",
     "allowsCookies": "Souhlasím s použitím cookies pro účely měření návštevnosti a zlepšování webové aplikace.",
     "allowsLocalHistory": "Ukládat nové texty a překlady do lokální historie (do vašeho zařízení).",
+    "privacyPolicy": "Zásady ochrany soukromí",
     "commercialUseSection": "Komerční použití",
     "nonCommercialUseOnly": "Služby překladače jsou určené pouze pro nekomerční použití. V případě zájmu o komerční využití nebo využití přes API nás kontaktujte.",
     "termsOfUse": "Podmínky používání",

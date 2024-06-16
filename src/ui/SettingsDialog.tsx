@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import {
   Button,
   Checkbox,
@@ -20,23 +21,18 @@ import { Settings as SettingsIcon } from "@mui/icons-material";
 import UiLanguageSwitcher from "../ui/UiLanguageSwitcher";
 import { privacyPreferencesRepository } from "../persistence/PrivacyPreferencesRepository";
 import { userPreferencesRepository } from "../persistence/UserPreferencesRepository";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export function SettingsDialogButton({ onClick }) {
   const { t } = useTranslation("settingsDialog");
 
   return (
     <Tooltip title={t("iconButtonTooltip")}>
-      <IconButton
-        size="small"
-        edge="start"
-        sx={{ mr: 1 }}
-        onClick={onClick}
-      >
+      <IconButton size="small" edge="start" sx={{ mr: 1 }} onClick={onClick}>
         <SettingsIcon />
       </IconButton>
     </Tooltip>
-  )
+  );
 }
 
 export interface SettingsDialogProps {
@@ -46,11 +42,12 @@ export interface SettingsDialogProps {
 
 export function SettingsDialog(props: SettingsDialogProps) {
   const { t } = useTranslation("settingsDialog");
-  
+
   const [organizationName, setOrganizationName] = useState<string>("");
   const [allowsLocalHistory, setAllowsLocalHistory] = useState<boolean>(false);
   const [isDeveloperMode, setIsDeveloperMode] = useState<boolean>(false);
-  const [allowsDataCollection, setAllowsDataCollection] = useState<boolean>(false);
+  const [allowsDataCollection, setAllowsDataCollection] =
+    useState<boolean>(false);
   const [allowsCookies, setAllowsCookies] = useState<boolean>(false);
 
   function loadValues() {
@@ -101,7 +98,7 @@ export function SettingsDialog(props: SettingsDialogProps) {
       loadValues();
     }
   }, [props.isOpen]);
-  
+
   return (
     <Dialog
       open={props.isOpen}
@@ -124,7 +121,6 @@ export function SettingsDialog(props: SettingsDialogProps) {
         />
       </DialogTitle>
       <DialogContent dividers>
-
         <Typography variant="h5" color="text.primary" gutterBottom>
           {t("privacySection")}
         </Typography>
@@ -189,9 +185,23 @@ export function SettingsDialog(props: SettingsDialogProps) {
           />
         </FormGroup>
 
-        {/* TODO: add privacy policy (and cookie) here */}
+        <Typography variant="body2" color="text.secondary" align="center">
+          <Link
+            component={RouterLink}
+            to="privacy-policy"
+            color="inherit"
+            underline="hover"
+          >
+            {t("privacyPolicy")}
+          </Link>
+        </Typography>
 
-        <Typography variant="h5" color="text.primary" gutterBottom sx={{ mt: 2 }}>
+        <Typography
+          variant="h5"
+          color="text.primary"
+          gutterBottom
+          sx={{ mt: 2 }}
+        >
           {t("commercialUseSection")}
         </Typography>
 
@@ -199,11 +209,7 @@ export function SettingsDialog(props: SettingsDialogProps) {
           {t("nonCommercialUseOnly")}
         </Typography>
 
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          align="center"
-        >
+        <Typography variant="body2" color="text.secondary" align="center">
           <Link
             href="https://lindat.mff.cuni.cz/en/terms-of-use"
             color="inherit"
@@ -221,7 +227,12 @@ export function SettingsDialog(props: SettingsDialogProps) {
           </Link>
         </Typography>
 
-        <Typography variant="h5" color="text.primary" gutterBottom sx={{ mt: 2 }}>
+        <Typography
+          variant="h5"
+          color="text.primary"
+          gutterBottom
+          sx={{ mt: 2 }}
+        >
           {t("identificationSection")}
         </Typography>
 
@@ -240,7 +251,12 @@ export function SettingsDialog(props: SettingsDialogProps) {
           />
         </FormGroup>
 
-        <Typography variant="h5" color="text.primary" gutterBottom sx={{ mt: 2 }}>
+        <Typography
+          variant="h5"
+          color="text.primary"
+          gutterBottom
+          sx={{ mt: 2 }}
+        >
           {t("advancedSection")}
         </Typography>
 
@@ -275,7 +291,6 @@ export function SettingsDialog(props: SettingsDialogProps) {
         <Typography variant="body2" color="text.secondary" gutterBottom>
           {t("eraseAppDataNotice")}
         </Typography>
-
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" onClick={handleClose}>
@@ -286,5 +301,5 @@ export function SettingsDialog(props: SettingsDialogProps) {
         </Button>
       </DialogActions>
     </Dialog>
-  )
+  );
 }

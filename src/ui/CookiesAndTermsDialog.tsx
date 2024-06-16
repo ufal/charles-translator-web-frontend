@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { privacyPreferencesRepository } from "../persistence/PrivacyPreferencesRepository";
+import { Link as RouterLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -12,8 +13,6 @@ import Link from "@mui/material/Link";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-
-// TODO: add privacy policy link
 
 export function CookiesAndTermsDialog() {
   const { t } = useTranslation("cookiesAndTermsDialog");
@@ -139,6 +138,15 @@ export function CookiesAndTermsDialog() {
             underline="hover"
           >
             {t("termsOfUse")}
+          </Link>
+          <span style={{ padding: "0 8px" }}>•</span>
+          <Link
+            component={RouterLink}
+            to="privacy-policy"
+            color="inherit"
+            underline="hover"
+          >
+            {t("privacyPolicy")}
           </Link>
           <span style={{ padding: "0 8px" }}>•</span>
           <Link
