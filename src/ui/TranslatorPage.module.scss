@@ -1,0 +1,60 @@
+/////////////////
+// Application //
+/////////////////
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+}
+
+////////////
+// AppBar //
+////////////
+
+:global(.MuiAppBar-root).header {
+  background-color: #f9f9f9;
+  width: 100%;
+  & .MuiToolbar-root {
+    padding: 4px 0 4px 12px;
+  }
+}
+
+.toolbar {
+  width: 100%;
+  padding: 0 10px 0 0 !important;
+  max-height: 100px;
+  @media (min-width: 768px) {
+    width: min(calc(100% - 40px), 1400px);
+    height: 70px;
+    padding: 0 !important;
+    margin-inline: auto;
+  }
+}
+
+.logo {
+  // max-height: 60%;
+  width: 260px;
+
+  @media (max-width: 768px) {
+    margin-left: 24px;
+  }
+}
+
+////////////
+// Footer //
+////////////
+
+.footer {
+  margin: auto 0 0;
+  padding: 8px;
+  font-size: 0.7rem;
+  text-align: center;
+  background-color: #f9f9f9;
+  color: #d22d40;
+  @media (max-width: 768px) {
+    font-size: 0.55rem;
+  }
+}
