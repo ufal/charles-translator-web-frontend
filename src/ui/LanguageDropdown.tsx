@@ -38,12 +38,12 @@ export default function LanguageDropdown(props: LanguageDropdownProps) {
 
   return (
     <div className={styles.languageContainer}>
-      <img
+      {/* <img
         width={30}
         height={30}
         alt={props.value}
         src={getFlag(props.value)}
-      />
+      /> */}
       <Select
         className={styles.languageName}
         variant="standard"
