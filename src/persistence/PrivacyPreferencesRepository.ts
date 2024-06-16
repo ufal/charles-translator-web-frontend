@@ -9,7 +9,7 @@ export class PrivacyPreferencesRepository {
 
   /**
    * Loads user preferences from the local storage,
-   * returns null if the used has not set them yet
+   * returns null if the user has not set them yet
    */
   public load(): PrivacyPreferences | null {
     const json = window.localStorage.getItem(
