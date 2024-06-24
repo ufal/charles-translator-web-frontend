@@ -1,14 +1,27 @@
 import { useState } from "react";
 import { Box, Input, Button, Stack } from "@mui/joy";
-import { SourceField } from "./SourceField";
+import { SourceField } from "./mobile/SourceField";
 import { DEFAULT_SOURCE_INFO, SourceInfo } from "./SourceInfo";
 import DvrIcon from "@mui/icons-material/Dvr";
 import KeyboardIcon from "@mui/icons-material/Keyboard";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import { UiInputMode } from "./UiInputMode";
+import { TargetInfo, DEFAULT_TARGET_INFO } from "./TargetInfo";
+import { useTranslationController } from "./TranslationController";
+import { useIsMobileSize } from "./useIsMobileSize";
+import { MobileTranslatorPage } from "./mobile/MobileTranslatorPage";
+import { DesktopTranslatorPage } from "./desktop/DesktopTranslatorPage";
 
 export function NewTranslatorPage() {
+  const isMobileSize = useIsMobileSize();
+
   const [sourceInfo, setSourceInfo] = useState<SourceInfo>(DEFAULT_SOURCE_INFO);
+  const [targetInfo, setTargetInfo] = useState<TargetInfo>(DEFAULT_TARGET_INFO);
+
+  const translationController = useTranslationController({
+    targetInfo,
+    setTargetInfo,
+  });
 
   function setInputMode(mode: UiInputMode) {
     setSourceInfo({
@@ -24,15 +37,29 @@ export function NewTranslatorPage() {
     });
   }
 
+  return isMobileSize ? (
+    <MobileTranslatorPage />
+  ) : (
+    <DesktopTranslatorPage />
+  )
+
   return (
     <Box sx={{ minHeight: "100dvh" }}>
       <h3>Display section</h3>
 
-      <SourceField sourceInfo={sourceInfo} setSourceInfo={setSourceInfo} />
+      <SourceField
+        sourceInfo={sourceInfo}
+        setSourceInfo={(s) => {
+          setSourceInfo(s);
+          translationController.requestTranslation(
+            s.text, s.language, targetInfo.language, s.messageInputMethod
+          );
+        }}
+      />
 
-      <p>TODO: target field, loading and error, and retry</p>
-
-      <p>TODO: conversation history thread</p>
+      <Input value={targetInfo.text} readOnly />
+      <pre>Is Loading: {targetInfo.isLoading ? "true" : "false"}</pre>
+      <pre>Error: {targetInfo.loadingError || "null"}</pre>
 
       <p>TODO: transliteration</p>
 

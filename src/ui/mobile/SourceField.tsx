@@ -1,7 +1,7 @@
 import { useRef, useEffect, ChangeEvent } from "react";
-import { MessageInputMethod } from "../translation/domain/MessageInputMethod";
-import { SourceInfo } from "./SourceInfo";
-import { UiInputMode } from "./UiInputMode";
+import { MessageInputMethod } from "../../translation/domain/MessageInputMethod";
+import { SourceInfo } from "../SourceInfo";
+import { UiInputMode } from "../UiInputMode";
 
 export interface SourceFieldProps {
   sourceInfo: SourceInfo;
@@ -84,12 +84,21 @@ export function SourceField(props: SourceFieldProps) {
     <textarea
       ref={textareaRef}
       value={props.sourceInfo.text}
+      placeholder="Enter text"
       onChange={handleChange}
       onFocus={handleFocus}
       onBlur={handleBlur}
       style={{
+        fontSize: "30px",
         resize: "none",
+        width: "100%",
         overflow: "hidden",
+        background: "none",
+        border: "none",
+        borderRadius: "0",
+        outline: "none",
+        padding: "0",
+        margin: "0",
       }}
     />
   );
