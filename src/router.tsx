@@ -7,7 +7,7 @@ import { PrivacyPolicyPage } from "./ui/PrivacyPolicyPage";
 export const router = createHashRouter([
   {
     index: true,
-    element: <TranslatorPage />,
+    element: <NewTranslatorPage />,
   },
   {
     element: <LegalRoot />,

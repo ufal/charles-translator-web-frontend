@@ -5,16 +5,18 @@ import { SourceField } from "./SourceField";
 import { useTranslationController } from "../TranslationController";
 import { DEFAULT_SOURCE_INFO, SourceInfo } from "../SourceInfo";
 import { DEFAULT_TARGET_INFO, TargetInfo } from "../TargetInfo";
-import MicIcon from '@mui/icons-material/Mic';
 import { useVisualHeight } from "../useVisualHeight";
 import { UiInputMode } from "../UiInputMode";
 import { DisplayArea } from "./DisplayArea";
-import iconImage from "../../favicon/android-chrome-256x256.png"; // TODO: dedicated svg logo instead
+import { MobileAppBar } from "./MobileAppBar";
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 
 export function MobileTranslatorPage() {
   const [sourceInfo, setSourceInfo] = useState<SourceInfo>(DEFAULT_SOURCE_INFO);
   const [targetInfo, setTargetInfo] = useState<TargetInfo>(DEFAULT_TARGET_INFO);
-  
+
+  const [isSubmittedView, setIsSubmittedView] = useState<boolean>(false);
+
   const translationController = useTranslationController({
     targetInfo,
     setTargetInfo,
@@ -32,33 +34,21 @@ export function MobileTranslatorPage() {
   });
 
   return (
-    <Stack direction="column" sx={{
-      height: visualHeight,
-      // boxSizing: "border-box",
-      // border: "5px solid navy",
-    }}>
+    <Stack
+      direction="column"
+      sx={{
+        height: visualHeight,
+        // boxSizing: "border-box",
+        // border: "5px solid navy",
+      }}
+    >
       {/* Mobile App Bar */}
-      <Sheet sx={{ padding: "10px" }}>
-        <Stack direction="row" spacing={1}>
-          <img
-            height={40}
-            alt="Charles Translator"
-            src={iconImage}
-          />
-          <div style={{ flexGrow: "1" }}></div>
-          <IconButton>
-            <MicIcon />
-          </IconButton>
-          <IconButton>
-            <MicIcon />
-          </IconButton>
-          <IconButton>
-            <MicIcon />
-          </IconButton>
-        </Stack>
-      </Sheet>
-
-      {/* {visualHeight} */}
+      <MobileAppBar
+        sourceInfo={sourceInfo}
+        setSourceInfo={setSourceInfo}
+        isSourceFieldEmpty={sourceInfo.text === ""}
+        isSubmittedView={isSubmittedView}
+      />
 
       {/* Display area */}
       <DisplayArea
@@ -66,25 +56,48 @@ export function MobileTranslatorPage() {
         setSourceInfo={setSourceInfo}
         targetInfo={targetInfo}
         translationController={translationController}
+        isSubmittedView={isSubmittedView}
+        setIsSubmittedView={setIsSubmittedView}
       />
 
       {/* Language switcher */}
-      <MobileLanguageSwitcher />
+      <MobileLanguageSwitcher
+        source={sourceInfo.language}
+        target={targetInfo.language}
+        onChangeSource={(newSource) =>
+          setSourceInfo({
+            ...sourceInfo,
+            language: newSource,
+          })
+        }
+        onChangeTarget={(newTarget) =>
+          setTargetInfo({
+            ...targetInfo,
+            language: newTarget,
+          })
+        }
+      />
 
       {/* Input area */}
-      {/* <Stack direction="row" justifyContent="center" spacing={1} sx={{
-        padding: "30px",
-        display: sourceInfo.uiInputMode === UiInputMode.None ? undefined : "none",
-      }}>
+      <Stack
+        direction="row"
+        justifyContent="center"
+        spacing={1}
+        sx={{
+          padding: "30px",
+          display:
+            sourceInfo.uiInputMode === UiInputMode.None ? undefined : "none",
+        }}
+      >
         <IconButton
           variant="solid"
           color="primary"
           size="lg"
           sx={{ borderRadius: "50%" }}
         >
-          <MicIcon />
+          <KeyboardVoiceIcon />
         </IconButton>
-      </Stack> */}
+      </Stack>
     </Stack>
   );
 }
