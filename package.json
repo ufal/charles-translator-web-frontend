@@ -7,8 +7,9 @@
     ],
     "browserslist": "> 0.5%, last 2 versions, not dead",
     "scripts": {
-        "start": "parcel",
-        "build": "parcel build --public-url ./",
+        "start": "npm run clean && parcel",
+        "start-public": "npm run clean && parcel --host 0.0.0.0",
+        "build": "npm run clean && parcel build --public-url ./",
         "clean": "rm -rf .parcel-cache dist",
         "serve": "http-server dist",
         "lint": "eslint src",
