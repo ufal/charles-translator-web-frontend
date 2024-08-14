@@ -1,19 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Sheet, Typography, Box, IconButton, Input, Stack } from "@mui/joy";
 import { MobileLanguageSwitcher } from "./MobileLanguageSwitcher";
-import { SourceField } from "./SourceField";
 import { useTranslationController } from "../TranslationController";
 import { DEFAULT_SOURCE_INFO, SourceInfo } from "../SourceInfo";
 import { DEFAULT_TARGET_INFO, TargetInfo } from "../TargetInfo";
 import { useVisualHeight } from "../useVisualHeight";
-import { UiInputMode } from "../UiInputMode";
+import { UiInputMode } from "./UiInputMode";
 import { DisplayArea } from "./DisplayArea";
 import { MobileAppBar } from "./MobileAppBar";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
+import { MobileVirtualKeyboard } from "./MobileVirtualKeyboard/MobileVirtualKeyboard";
+import KeyboardIcon from "@mui/icons-material/Keyboard";
+import KeyboardAltIcon from "@mui/icons-material/KeyboardAlt";
+import { useUiInputModeController } from "./UiInputModeController";
 
 export function MobileTranslatorPage() {
+  const sourceFieldRef = useRef<HTMLTextAreaElement | null>(null);
+
   const [sourceInfo, setSourceInfo] = useState<SourceInfo>(DEFAULT_SOURCE_INFO);
   const [targetInfo, setTargetInfo] = useState<TargetInfo>(DEFAULT_TARGET_INFO);
+
+  const uiInputModeController = useUiInputModeController({ sourceFieldRef });
+  const { uiInputMode, setUiInputMode } = uiInputModeController;
 
   const [isSubmittedView, setIsSubmittedView] = useState<boolean>(false);
 
@@ -29,7 +37,7 @@ export function MobileTranslatorPage() {
   useEffect(() => {
     window.document.body.style.overflow = "hidden";
     return () => {
-      window.document.body.style.overflow = "auto";
+      window.document.body.style.removeProperty("overflow");
     };
   });
 
@@ -52,6 +60,8 @@ export function MobileTranslatorPage() {
 
       {/* Display area */}
       <DisplayArea
+        sourceFieldRef={sourceFieldRef}
+        uiInputModeController={uiInputModeController}
         sourceInfo={sourceInfo}
         setSourceInfo={setSourceInfo}
         targetInfo={targetInfo}
@@ -85,19 +95,48 @@ export function MobileTranslatorPage() {
         spacing={1}
         sx={{
           padding: "30px",
-          display:
-            sourceInfo.uiInputMode === UiInputMode.None ? undefined : "none",
+          display: uiInputMode === UiInputMode.None ? undefined : "none",
         }}
       >
         <IconButton
           variant="solid"
           color="primary"
+          sx={{ borderRadius: "50%" }}
+          onClick={() => setUiInputMode(UiInputMode.VirtualKeyboard)}
+        >
+          <KeyboardAltIcon />
+        </IconButton>
+        <IconButton
+          variant="solid"
+          color="primary"
           size="lg"
           sx={{ borderRadius: "50%" }}
+          onClick={() => setUiInputMode(UiInputMode.ASR)}
         >
           <KeyboardVoiceIcon />
         </IconButton>
+        <IconButton
+          variant="solid"
+          color="primary"
+          sx={{ borderRadius: "50%" }}
+          onClick={() => setUiInputMode(UiInputMode.UserAgentNative)}
+        >
+          <KeyboardIcon />
+        </IconButton>
       </Stack>
+
+      {uiInputMode === UiInputMode.VirtualKeyboard && (
+        <MobileVirtualKeyboard
+          sourceFieldRef={sourceFieldRef}
+          sourceText={sourceInfo.text}
+          setSourceText={(t) =>
+            setSourceInfo({
+              ...sourceInfo,
+              text: t,
+            })
+          }
+        />
+      )}
     </Stack>
   );
 }

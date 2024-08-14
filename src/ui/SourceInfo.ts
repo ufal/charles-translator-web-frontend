@@ -1,6 +1,5 @@
 import { IsoLanguage } from "../translation/domain/IsoLanguage";
 import { MessageInputMethod } from "../translation/domain/MessageInputMethod";
-import { UiInputMode } from "./UiInputMode";
 
 /**
  * Represents the translation source information (the text, language,
@@ -22,16 +21,10 @@ export interface SourceInfo {
    * (or most recently updated)
    */
   readonly messageInputMethod: MessageInputMethod;
-
-  /**
-   * What UI input method is currently active
-   */
-  readonly uiInputMode: UiInputMode;
 }
 
 export const DEFAULT_SOURCE_INFO: SourceInfo = {
   text: "",
   language: "cs",
   messageInputMethod: MessageInputMethod.Keyboard,
-  uiInputMode: UiInputMode.None,
 };

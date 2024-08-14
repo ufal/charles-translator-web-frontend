@@ -4,12 +4,16 @@ import { SourceInfo } from "../SourceInfo";
 import { TargetInfo } from "../TargetInfo";
 import { TranslationController } from "../TranslationController";
 import { DisplayAreaSeparator } from "./DisplayAreaSeparator";
-import { UiInputMode } from "../UiInputMode";
+import { UiInputMode } from "./UiInputMode";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { MobileTranslationError } from "./MobileTranslationError";
+import { MutableRefObject } from "react";
+import { UiInputModeController } from "./UiInputModeController";
 
 export interface DisplayAreaProps {
+  readonly sourceFieldRef: MutableRefObject<HTMLTextAreaElement | null>;
+  readonly uiInputModeController: UiInputModeController;
   readonly sourceInfo: SourceInfo;
   readonly setSourceInfo: (s: SourceInfo) => void;
   readonly targetInfo: TargetInfo;
@@ -30,6 +34,8 @@ export function DisplayArea(props: DisplayAreaProps) {
       }}
     >
       <SourceField
+        sourceFieldRef={props.sourceFieldRef}
+        uiInputModeController={props.uiInputModeController}
         sourceInfo={sourceInfo}
         setSourceInfo={(s) => {
           setSourceInfo(s);

@@ -1,11 +1,13 @@
-import { useRef, useEffect, ChangeEvent } from "react";
+import { useRef, useEffect, ChangeEvent, MutableRefObject } from "react";
 import { MessageInputMethod } from "../../translation/domain/MessageInputMethod";
 import { SourceInfo } from "../SourceInfo";
-import { UiInputMode } from "../UiInputMode";
+import { UiInputModeController } from "./UiInputModeController";
 
 export interface SourceFieldProps {
-  sourceInfo: SourceInfo;
-  setSourceInfo: (i: SourceInfo) => void;
+  readonly sourceFieldRef: MutableRefObject<HTMLTextAreaElement | null>;
+  readonly uiInputModeController: UiInputModeController;
+  readonly sourceInfo: SourceInfo;
+  readonly setSourceInfo: (i: SourceInfo) => void;
 }
 
 /**
@@ -13,14 +15,11 @@ export interface SourceFieldProps {
  * interacts with input methods and supports desktop and mobile workflows
  */
 export function SourceField(props: SourceFieldProps) {
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-
   function adjustTextareaHeight() {
-    if (textareaRef.current === null) {
-      return;
-    }
-    textareaRef.current.style.height = "1px";
-    textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+    const element = props.sourceFieldRef.current;
+    if (element === null) return;
+    element.style.height = "1px";
+    element.style.height = element.scrollHeight + "px";
   }
 
   useEffect(() => {
@@ -62,32 +61,19 @@ export function SourceField(props: SourceFieldProps) {
     adjustTextareaHeight();
   }
 
-  function handleFocus() {
-    props.setSourceInfo({
-      ...props.sourceInfo,
-      uiInputMode: UiInputMode.UserAgentNative,
-    });
-  }
-
-  function handleBlur() {
-    props.setSourceInfo({
-      ...props.sourceInfo,
-      uiInputMode: UiInputMode.None,
-    });
-  }
-
   ///////////////
   // Rendering //
   ///////////////
 
   return (
     <textarea
-      ref={textareaRef}
+      ref={props.sourceFieldRef}
       value={props.sourceInfo.text}
       placeholder="Enter text"
       onChange={handleChange}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
+      onFocus={props.uiInputModeController.onSourceFieldFocus}
+      onBlur={props.uiInputModeController.onSourceFieldBlur}
+      inputMode={props.uiInputModeController.sourceFieldInputMode}
       style={{
         fontSize: "30px",
         resize: "none",
