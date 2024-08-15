@@ -13,6 +13,7 @@ import { MobileVirtualKeyboard } from "./MobileVirtualKeyboard/MobileVirtualKeyb
 import KeyboardIcon from "@mui/icons-material/Keyboard";
 import KeyboardAltIcon from "@mui/icons-material/KeyboardAlt";
 import { useUiInputModeController } from "./UiInputModeController";
+import { MobileAsr } from "./MobileAsr/MobileAsr";
 
 export function MobileTranslatorPage() {
   const sourceFieldRef = useRef<HTMLTextAreaElement | null>(null);
@@ -135,7 +136,12 @@ export function MobileTranslatorPage() {
               text: t,
             })
           }
+          sourceLanguage={sourceInfo.language}
         />
+      )}
+
+      {uiInputMode === UiInputMode.ASR && (
+        <MobileAsr />
       )}
     </Stack>
   );

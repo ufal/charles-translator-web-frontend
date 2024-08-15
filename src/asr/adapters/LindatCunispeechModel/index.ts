@@ -1,0 +1,1 @@
+export { LindatCunispeechModel } from "./LindatCunispeechModel";
