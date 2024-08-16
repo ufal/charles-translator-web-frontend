@@ -1,7 +1,7 @@
 import { LindatCunispeechModel } from "./adapters/LindatCunispeechModel";
 import { AsrService } from "./domain/AsrService";
 
-export function bootstrap(): any {
+export function bootstrap(): AsrService {
   const asrService = new AsrService();
 
   asrService.useModel("cs", new LindatCunispeechModel());

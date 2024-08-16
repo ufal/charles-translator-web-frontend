@@ -3,7 +3,6 @@ import { CUNISPEECH_URL } from "./LindatCunispeechModel";
 import { Segment } from "./Segment";
 import { CzechSpeechInterpreter } from "./CzechSpeechInterpreter";
 import { segmentsToSpokenText } from "./segmentsToSpokenText";
-import { float32toInt16Samples } from "../../audio/float32toInt16Samples";
 import { downsampleBuffer } from "../../audio/downsampleBuffer";
 
 /**
@@ -65,10 +64,8 @@ export class CunispeechAsrStreamProcessor {
       Math.min(this.desiredSampleRateHz, buffer.sampleRate), // target rate
     );
 
-    const compressedSamples = float32toInt16Samples(downsampledSamples);
-
     // send samples via the web socket connection to server
-    this.socket.send(compressedSamples);
+    this.socket.send(downsampledSamples);
   }
 
   /**

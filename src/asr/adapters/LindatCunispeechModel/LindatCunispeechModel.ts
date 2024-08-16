@@ -17,11 +17,11 @@ export class LindatCunispeechModel implements AsrModel {
   }
 
   public get desiredSampleRateHz(): number {
-    return 12; // TODO
+    return 16_000; // 16 KHz
   }
 
   public get desiredChunkDurationSeconds(): number {
-    return 12; // TODO
+    return 0.05; // 50 ms
   }
 
   public processAsrStream(stream: AsrStream): void {

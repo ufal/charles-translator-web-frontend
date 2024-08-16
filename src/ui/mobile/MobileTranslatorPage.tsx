@@ -141,7 +141,7 @@ export function MobileTranslatorPage() {
       )}
 
       {uiInputMode === UiInputMode.ASR && (
-        <MobileAsr />
+        <MobileAsr language={sourceInfo.language} />
       )}
     </Stack>
   );
